@@ -11,28 +11,49 @@ import java.util.ArrayList;
  * @author mithilesh
  */
 public class box {
-    private ArrayList<item> list;
+    private ArrayList<item> items;
     private int x;
     private int y;
     
     box(){
         x = y = 0;
-        list = null;
+        items = null;
     }
     
     box(int x, int y){
         this.x = x;
         this.y = y;
-        list = new <item>ArrayList();
+        items = new ArrayList<item>();
+    }
+    
+    /*
+    create an arraylist of items that have the str in
+    their name and desc
+    */
+    public ArrayList<item> getItemsWithStrType(String str, item.Type type){
+        ArrayList<item> re = new ArrayList<item>();
+        for (item object : items) {
+            if((object.isStrInDesc(str) || object.isStrInName(str)) 
+            && (object.getType() == type || type == null))
+                re.add(object);
+        }
+        
+        if(!re.isEmpty())
+            return re;
+        else
+            return null;
     }
     
     /*
     true - added w/o error
-    false - item already exists
+    false - item already exists or items is null
     */
     public boolean addItem(item add){
-        if(!itemInList(add)){
-            list.add(add);
+        if(items == null)
+            return false;
+        
+        if(!isItemInBox(add)){
+            items.add(add);
             return true;
         }
         return false;
@@ -40,12 +61,15 @@ public class box {
     
     /*
     true - item removed
-    false - item was not found
+    false - item was not found or items is null
     */
     public boolean removeItem(item remove){
-        for (int i = 0; i < list.size(); i++) {
-            if(remove.equals(list.get(i))){
-                list.remove(i);
+        if(items == null)
+            return false;
+        
+        for (int i = 0; i < items.size(); i++) {
+            if(remove.equals(items.get(i))){
+                items.remove(i);
                 return true;
             }
         }
@@ -53,12 +77,41 @@ public class box {
         return false;
     }
     
-    public boolean itemInList(item check){
-        for (item object : list) {
+    /*
+    true - item in items
+    false - item not found
+    */
+    public boolean isItemInBox(item check){
+        for (item object : items) {
             if(check.equals(object))
                 return true;
         }
         
         return false;
+    }
+    
+    //GETTERS and SETTERS
+    public int getX(){
+        return x;
+    }
+    public int getY(){
+        return y;
+    }
+    public ArrayList<item> getItems(){
+        return items;
+    }
+    
+    public void setX(int x){
+        this.x = x;
+    }
+    public void setY(int y){
+        this.y = y;
+    }
+    public void setItems(ArrayList<item> items){
+        this.items = items;
+    }
+    
+    public boolean equals(box compare){
+        return this.x == compare.getX() && this.y == compare.getY();
     }
 }
