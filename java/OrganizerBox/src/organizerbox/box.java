@@ -30,11 +30,11 @@ public class box {
     create an arraylist of items that have the str in
     their name and desc
     */
-    public ArrayList<item> getItemsWithStrType(String str, item.Type type){
+    public ArrayList<item> getItemsWithStrType(String str, int type){
         ArrayList<item> re = new ArrayList<item>();
         for (item object : items) {
-            if((object.isStrInDesc(str) || object.isStrInName(str)) 
-            && (object.getType() == type || type == null))
+            if((object.isStrInDesc(str) || object.isStrInName(str) || str.compareTo("") == 0) 
+            && (object.getType() == type || type == item.ALL))
                 re.add(object);
         }
         
@@ -52,7 +52,7 @@ public class box {
         if(items == null)
             return false;
         
-        if(!isItemInBox(add)){
+        if(isItemInBox(add) == null){
             items.add(add);
             return true;
         }
@@ -81,13 +81,13 @@ public class box {
     true - item in items
     false - item not found
     */
-    public boolean isItemInBox(item check){
+    public item isItemInBox(item check){
         for (item object : items) {
             if(check.equals(object))
-                return true;
+                return object;
         }
         
-        return false;
+        return null;
     }
     
     //GETTERS and SETTERS
@@ -113,5 +113,10 @@ public class box {
     
     public boolean equals(box compare){
         return this.x == compare.getX() && this.y == compare.getY();
+    }
+    
+    @Override
+    public String toString(){
+        return "Box: " + y + ", " + x;
     }
 }

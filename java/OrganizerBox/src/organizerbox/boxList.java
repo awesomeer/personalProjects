@@ -17,10 +17,12 @@ public class boxList {
     }
     
     
-    public ArrayList<item> getItemsWithStrType(String str, item.Type type){
+    public ArrayList<item> getItemsWithStrType(String str, int type){
         ArrayList<item> re = new ArrayList<item>();
         for (box test : list) {
             ArrayList<item> append = test.getItemsWithStrType(str, type);
+            if(append == null)
+                continue;
             for (item object : append) {
                 re.add(object);
             }
@@ -28,12 +30,13 @@ public class boxList {
         
         return re;
     }
+    
     /*
     true - box added
     false - box wasn't added
     */
     public boolean addBox(box add){
-        if(!isBoxInList(add)){
+        if(isBoxInList(add) == null){
             list.add(add);
             return true;
         }
@@ -58,20 +61,21 @@ public class boxList {
     true - box is in the list
     false - box was not found
     */
-    public boolean isBoxInList(box compare){
+    public box isBoxInList(box compare){
         for (box object : list) {
             if(object.equals(compare))
-                return true;
+                return object;
         }
-        return false;
+        
+        return null;
     }
     
-    public boolean isItemInList(item compare){
+    public item isItemInList(item compare){
         for (box object : list) {
-            if(object.isItemInBox(compare))
-                return true;
+            if(object.isItemInBox(compare) != null)
+                return object.isItemInBox(compare);
         }
-        return false;
+        return null;
     }
     
     

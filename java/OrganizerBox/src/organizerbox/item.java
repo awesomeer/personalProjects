@@ -11,24 +11,29 @@ package organizerbox;
  */
 public class item {
     
-    public enum Type{
-        CABLE, MICROCONTROLLER, LOGIC, MATERIAL, COMPONENT, MISC
-    }
+    final static int ALL = -1;
+    final static int CABLE = 0;
+    final static int MICROCONTROLLER = 1;
+    final static int LOGIC = 2;
+    final static int MATERIAL = 3;
+    final static int COMPONENT = 4;
+    final static int POWER = 5;
+    final static int MISC = 6;
     
     private String name;
     private String desc;
     private int quantity;
     private box location;
-    private Type type;
+    private int type;
     
     item(){
         name = desc = "INVALID";
-        quantity = -1;
+        quantity = 0;
         location = null;
-        type = null;
+        type = 5;
     }
     
-    item(String name, String desc, int quan, box location, Type type){
+    item(String name, String desc, int quan, box location, int type){
         this.name = name;
         this.desc = desc;
         this.quantity = quan;
@@ -38,11 +43,11 @@ public class item {
     
     
     public boolean isStrInName(String in){
-        return name.contains(in);
+        return name.toLowerCase().contains(in.toLowerCase());
     }
     
     public boolean isStrInDesc(String in){
-        return name.contains(in);
+        return desc.toLowerCase().contains(in.toLowerCase());
     }
     
     //GETTERS SETTERS
@@ -58,7 +63,7 @@ public class item {
     public box getLocation(){
         return location;
     }
-    public Type getType(){
+    public int getType(){
         return type;
     }
     
@@ -74,7 +79,7 @@ public class item {
     public void setLocation(box set){
         location = set;
     }
-    public void setType(Type set){
+    public void setType(int set){
         type = set;
     }
     

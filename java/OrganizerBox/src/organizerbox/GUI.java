@@ -8,6 +8,7 @@ package organizerbox;
 import java.awt.Point;
 import javax.swing.UIManager;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 /**
  *
  * @author mithilesh
@@ -17,8 +18,14 @@ public class GUI extends javax.swing.JFrame {
     /**
      * Creates new form GUI
      */
+    private boxList list;
+    private ArrayList<item> onScreen;
     public GUI() {
         initComponents();
+        list = new boxList();
+        onScreen = new ArrayList<item>();
+        addDialog.setSize(310, 300);
+        
     }
 
     /**
@@ -42,7 +49,9 @@ public class GUI extends javax.swing.JFrame {
         yTextField = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         quantityTextField = new javax.swing.JTextField();
+        addComboBox = new javax.swing.JComboBox<>();
         addItemBtn = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         itemList = new javax.swing.JList<>();
         locationLabel = new javax.swing.JLabel();
@@ -78,12 +87,16 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel7.setText("Quantity:");
 
+        addComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cable", "Microcontroller", "Logic", "Material", "Component", "Power", "Misc." }));
+
         addItemBtn.setText("Add");
         addItemBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 addItemBtnMouseReleased(evt);
             }
         });
+
+        jLabel8.setText("Type:");
 
         javax.swing.GroupLayout addPanelLayout = new javax.swing.GroupLayout(addPanel);
         addPanel.setLayout(addPanelLayout);
@@ -92,26 +105,34 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(addPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3)
                     .addGroup(addPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(itemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel5)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(addItemBtn)
-                        .addGroup(addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, addPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
+                        .addGroup(addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(addPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(quantityTextField))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, addPanelLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
+                                .addComponent(itemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(xTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(yTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(addComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5)
+                            .addGroup(addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, addPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(quantityTextField))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, addPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(addItemBtn)
+                                        .addGroup(addPanelLayout.createSequentialGroup()
+                                            .addComponent(xTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(yTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         addPanelLayout.setVerticalGroup(
             addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,7 +140,9 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(itemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(itemTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(addComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -134,7 +157,7 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(addPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(xTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(yTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addItemBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -143,25 +166,26 @@ public class GUI extends javax.swing.JFrame {
         addDialog.getContentPane().setLayout(addDialogLayout);
         addDialogLayout.setHorizontalGroup(
             addDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 186, Short.MAX_VALUE)
-            .addGroup(addDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(addDialogLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(addPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addDialogLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         addDialogLayout.setVerticalGroup(
             addDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 247, Short.MAX_VALUE)
-            .addGroup(addDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(addDialogLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(addPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addDialogLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        itemList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                itemListValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(itemList);
 
         locationLabel.setText("Location: ");
@@ -191,9 +215,14 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel3.setText("Filter");
 
-        filterComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Cable", "Microcontroller", "Logic", "Material", "Component", "Misc." }));
+        filterComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Cable", "Microcontroller", "Logic", "Material", "Component", "Power", "Misc." }));
 
         filterBtn.setText("Filter");
+        filterBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                filterBtnMouseReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -260,19 +289,114 @@ public class GUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void updateList(){
+        String filter = filterTextField.getText().trim();
+        int type = filterComboBox.getSelectedIndex();
+        onScreen = list.getItemsWithStrType(filter, type-1);
+        
+        itemList.removeAll();
+        String putOn[] = new String[onScreen.size()];
+        for (int i = 0; i < onScreen.size(); i++) {
+            putOn[i] = onScreen.get(i).getName();
+        }
+        itemList.setListData(putOn);
+        
+        if(!onScreen.isEmpty()){
+            itemList.setSelectedIndex(0);
+        }
+        else
+            descTextArea.setText("");
+    }
+    
     //Open add Item Panel
     private void addBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addBtnMouseReleased
         Point loc = jLabel3.getLocationOnScreen();
         addDialog.setLocation(loc.x+50, loc.y);
-        addDialog.setSize(200, 280);
+        
         addDialog.setVisible(true);
     }//GEN-LAST:event_addBtnMouseReleased
-
+    //Checks add parameters for errors
+    private boolean checkAddErrors(){
+        if(itemTextField.getText().trim().length() == 0){
+            JOptionPane.showMessageDialog(null, "Item name empty", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        if(addDescTextArea.getText().trim().length() == 0){
+            JOptionPane.showMessageDialog(null, "Description empty", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        if(!(quantityTextField.getText().trim().matches("[0-9]+")) 
+          || quantityTextField.getText().trim().equals("") ){
+            JOptionPane.showMessageDialog(null, "Quantity is not a number", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        if((!(xTextField.getText() + yTextField.getText()).matches("[0-9]+"))
+          || (xTextField.getText().trim().equals("") || yTextField.getText().trim().equals("")) ){
+            JOptionPane.showMessageDialog(null, "Invalid Box location", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
     //Add item to List
     private void addItemBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addItemBtnMouseReleased
-        // TODO add your handling code here:
+        if(!checkAddErrors())
+            return;
+        
+        int quantity = Integer.parseInt(quantityTextField.getText().trim());
+        int x = Integer.parseInt(xTextField.getText().trim());
+        int y = Integer.parseInt(yTextField.getText().trim());
+        int selected = addComboBox.getSelectedIndex();
+        box put = new box(x,y);
+        item add = new item(itemTextField.getText(), addDescTextArea.getText(), quantity, put, selected);
+        
+        
+        box check = list.isBoxInList(put);
+        if(check != null){
+            put = check;
+        }
+        else{
+            list.addBox(put);
+        }
+        
+        
+        item in = list.isItemInList(add);
+        if(in != null){
+            if(in.getLocation().equals(add.getLocation())){
+                JOptionPane.showMessageDialog(null, "Item already exists in this box", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                String out = in.getLocation().toString();
+                JOptionPane.showMessageDialog(null, "Item already exists in " + out, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            return;
+        }
+        
+        put.addItem(add);
+        addDialog.setVisible(false);
+        updateList();
     }//GEN-LAST:event_addItemBtnMouseReleased
+
+    private void itemListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_itemListValueChanged
+        int index = itemList.getSelectedIndex();
+        if(index == -1)
+            return;
+        try{
+            descTextArea.setText(onScreen.get(index).getDesc());
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_itemListValueChanged
+    
+    //Filter function
+    private void filterBtnMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_filterBtnMouseReleased
+        updateList();
+    }//GEN-LAST:event_filterBtnMouseReleased
 
     /**
      * @param args the command line arguments
@@ -312,6 +436,7 @@ public class GUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
+    private javax.swing.JComboBox<String> addComboBox;
     private javax.swing.JTextArea addDescTextArea;
     private javax.swing.JDialog addDialog;
     private javax.swing.JButton addItemBtn;
@@ -331,6 +456,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
