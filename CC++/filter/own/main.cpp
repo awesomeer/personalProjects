@@ -1,7 +1,8 @@
 #include <iostream>
 #include <math.h>
-#include <cstdlib>
-#define w0 2500
+#include <fstream>
+
+#define w0 3000
 #define n 100
 #define dt .000008
 
@@ -45,19 +46,31 @@ int main(){
     cout << "main: loop" << endl;
     for(int i = 0; i < n; i++){
         double one = 2.0 * M_PI * dt * w0;
-        input[i] = 4095.0 * sin((double) i * one) + 23;
+        input[i] = 4095.0 * sin((double) i * one);
         cout << input[i] << endl;
                  //+ (1.7 * abs(sin(4.0 * w0 * ((float) i * dt))))
                  //+ (1.7 * abs(cos(3.0 * w0 * ((float) i * dt))));
     }
     
-    while(1){
+    /*while(1){
         double ft;
         cout << "Enter frequency to test: ";
         cin >> ft;
         double mag = DFT(input, 1/dt, n, ft);
 
-        cout << "Magnitude\n" << mag << endl;
+        cout << "Magnitude\n" << mag/100 << endl;
+    }*/
+
+
+    ofstream out("data.txt", ofstream::out);
+    for(int i = 1; i <= 20000; i++){
+        double mag = DFT(input, 1/dt, n, i)/n;
+        out << mag << endl;
     }
+    out << endl << endl;
+    for(int i = 1; i <= 20000; i++){
+        out << i << endl;
+    }
+    out.close();
     return 0;
 }
