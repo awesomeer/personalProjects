@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <iostream>
+#include <string>
 
 #define SIZE 1024
 using namespace std;
@@ -9,7 +10,7 @@ DWORD bytesRead;
 DWORD commStatus;
 HANDLE port;
 
-bool openPort(char * com,int rate){
+bool openPort(const char * com,int rate){
 	port = CreateFile(com, GENERIC_READ, 0, NULL, OPEN_EXISTING, 0, NULL);
 	if(!GetCommState(port, &dcb))
 		return false;
@@ -34,11 +35,20 @@ bool readChar(unsigned char * pt){
 }
 
 int main(int argc, char * argv[]){
-	if(argc != 3){
+	/* if(argc != 3){
 		cout << "Incorrect number of arguments" << endl;
 		exit(2);
-	}
-	if(!openPort(argv[1], atoi(argv[2]))){
+	} */
+	cout << "Enter COM Port: ";
+	string cport;
+	cin >> cport;
+	
+	cout << "Enter Baud Rate: ";
+	int rate;
+	cin >> rate;
+	
+	
+	if(!openPort(cport.c_str(), rate)){
 		cout << argv[1] << " failed to open" << endl;
 		exit(1);
 	}
