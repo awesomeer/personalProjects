@@ -1,0 +1,4 @@
+load STM32L432KCUx 
+project name STCubeGenerated 
+project toolchain "MDK-ARM V5" 
+project path "C:\Keil_v5\STM32\hal\RTE\Device\STM32L432KCUx\" 
