@@ -4,7 +4,7 @@
 
 
 int main(){
-	int x = fork();
+	int x = 3;
 	if(fork() != 0)
 		printf("x = %d\n", ++x);
 	
