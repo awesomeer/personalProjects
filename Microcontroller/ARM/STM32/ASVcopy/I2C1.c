@@ -1,0 +1,39 @@
+#include "I2C1.h"
+#include "stm32l432xx.h"
+
+void I2C1Init(void){
+//	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN; //Enable Port A clock
+//	GPIOA->MODER &= ~(GPIO_MODER_MODE9 | GPIO_MODER_MODE10); //Clear 9 and 10 functions
+//	GPIOA->MODER |= (0x02 << GPIO_MODER_MODE9_Pos) | (0x02 << GPIO_MODER_MODE10_Pos); //set alternate function
+//	GPIOA->AFR[1] |= (0x04 << GPIO_AFRH_AFSEL9_Pos) | (0x04 << GPIO_AFRH_AFSEL10_Pos); //Set alternate to I2C
+//	
+//	GPIOA->OTYPER |= (1 << 9) | (1 << 10);
+//	//GPIOA->PUPDR |= (0x01 << GPIO_PUPDR_PUPD9_Pos) | (0x01 << GPIO_PUPDR_PUPD10_Pos);
+	
+	
+	RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
+	GPIOB->MODER &= ~(GPIO_MODER_MODE6 | GPIO_MODER_MODE7);
+	GPIOB->MODER |= (0x02 << GPIO_MODER_MODE6_Pos) | (0x02 << GPIO_MODER_MODE7_Pos);
+	GPIOB->AFR[0] |= (0x04 << GPIO_AFRL_AFSEL6_Pos) | (0x04 << GPIO_AFRL_AFSEL7_Pos);
+	
+	GPIOB->OTYPER |= (1 << 6) | (1 << 7);
+	//GPIOB->PUPDR |= (0x01 << GPIO_PUPDR_PUPD6_Pos) | (0x01 << GPIO_PUPDR_PUPD7_Pos);
+	
+	RCC->CCIPR |= 0x01 << RCC_CCIPR_I2C1SEL_Pos; //Select Sysclock
+	RCC->APB1ENR1 |= RCC_APB1ENR1_I2C1EN; //Enable clock
+	
+	I2C1->TIMINGR = 0x00707DBD;//0x30108EFF
+	I2C1->CR1 |= I2C_CR1_ANFOFF;
+	I2C1->CR1 |= I2C_CR1_PE;
+	I2C1->CR2 |= 0x69 << I2C_CR2_SADD_Pos;
+	I2C1->CR2 |= I2C_CR2_START;
+	//I2C1->TXDR = 0x04;
+	while(1);
+	
+	I2C1->TXDR = 0x01;
+	
+	I2C1->CR2 |= I2C_CR2_STOP;
+	I2C1->CR2 |= I2C_CR2_RD_WRN;
+	I2C1->CR2 |= I2C_CR2_START;
+	uint8_t data = I2C1->RXDR;
+}
