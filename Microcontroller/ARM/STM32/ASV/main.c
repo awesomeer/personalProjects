@@ -69,7 +69,7 @@ int DFT(uint16_t * in, int fs, int points, int ft){
 	double ff = fs/points;
 	double m = ft/ff;
   double real = 0, imag = 0;
-
+	
 	for(int i = 0; i < points; i++){
 		double argu = (2.0 * M_PI * (float) i * m) / points;
 		double w = 0.5 - (0.5 * cos(2 * 3.1415926 * i / points));
