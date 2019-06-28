@@ -71,10 +71,10 @@ int DFT(uint16_t * in, int fs, int points, int ft){
   double real = 0, imag = 0;
 
 	for(int i = 0; i < points; i++){
-			double argu = (2.0 * 3.1415926 * (float) i * m) / points;
-			double w = 0.5 - (0.5 * cos(2 * 3.1415926 * i / points));
-			real += in[i] * cos(argu) * w;
-			imag -= in[i] * sin(argu) * w;
+		double argu = (2.0 * M_PI * (float) i * m) / points;
+		double w = 0.5 - (0.5 * cos(2 * 3.1415926 * i / points));
+		real += in[i] * cos(argu) * w;
+		imag -= in[i] * sin(argu) * w;
 	}
 
 	return sqrt(pow(real,2) + pow(imag,2));
