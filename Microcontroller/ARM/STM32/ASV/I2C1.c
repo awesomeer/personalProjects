@@ -25,8 +25,9 @@ void sendData(uint8_t * data, int len){
 	I2C1->CR2 |= len << I2C_CR2_NBYTES_Pos;
 	I2C1->CR2 |= I2C_CR2_AUTOEND;
 	
+	I2C1->ICR |= I2C_ICR_STOPCF;
 	I2C1->CR2 |= I2C_CR2_START;
-	while(!(I2C1->ISR & I2C_ISR_TC)){
+	while(!(I2C1->ISR & I2C_ISR_STOPF)){
 		while(I2C1->ISR & I2C_ISR_TXIS){
 			I2C1->TXDR = *data;
 			data++;

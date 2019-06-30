@@ -6,6 +6,7 @@
 
 #include "stm32l432xx.h"
 #include "I2C1.h"
+#include "SH1106.h"
 
 #define M_PI 3.14159265f;
 #define SIZE 512
@@ -71,7 +72,7 @@ int DFT(uint16_t * in, int fs, int points, int ft){
   double real = 0, imag = 0;
 	
 	for(int i = 0; i < points; i++){
-		double argu = (2.0 * M_PI * (float) i * m) / points;
+		double argu = (2.0 * 3.1415926 * (float) i * m) / points;
 		double w = 0.5 - (0.5 * cos(2 * 3.1415926 * i / points));
 		real += in[i] * cos(argu) * w;
 		imag -= in[i] * sin(argu) * w;
@@ -85,7 +86,7 @@ int main(){
 	
 	clock32MHz();
 	SystemCoreClockUpdate();
-	I2C1Init();
+	SH1106Init();
 	ADCInit();
 	SysTickInit();
 	__enable_irq();
@@ -94,8 +95,7 @@ int main(){
 	
 	while(1){
 		while(dIndex < SIZE);
-		int mag = DFT(ADCData, 40000, SIZE, 440);
-		
+		int mag = DFT(ADCData, 40000, SIZE, 440)/512;
 		dIndex = 0;
 		SysTick->VAL = 0;
 		SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk | SysTick_CTRL_TICKINT_Msk;
