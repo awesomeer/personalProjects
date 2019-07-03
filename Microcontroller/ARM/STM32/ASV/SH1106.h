@@ -17,6 +17,7 @@ void writeCommand(uint8_t * data);
 
 void refresh(void);
 void clearScreen(void);
+void clearBuffer(void);
 void drawVLine(int x, int y, int height);
 
 #endif

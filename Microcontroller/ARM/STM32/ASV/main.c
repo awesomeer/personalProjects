@@ -4,18 +4,24 @@
 #include <string.h>
 #include <math.h>
 
+#include "arm_math.h"
+#include "arm_const_structs.h"
 #include "stm32l432xx.h"
-#include "I2C1.h"
+//#include "I2C1.h"
 #include "SH1106.h"
+#include "UART2.h"
+
 
 #define M_PI 3.14159265f;
-#define SIZE 512
+#define SIZE 128*2
 
-const int freTestp[] = {440, 1000, 2000, 10000, 18000};
+const int freTestp[] = {4400, 1000, 2000, 5000, 7000, 10000, 12000, 18000};
 
 uint16_t dIndex;
-uint16_t ADCData[SIZE];
+float32_t ADCData[SIZE * 2];
+float32_t output[SIZE];
 
+int8_t prevBar[128] = {0};
 
 
 void SysTickInit(){
@@ -26,7 +32,7 @@ void SysTickInit(){
 	GPIOB->PUPDR |= 0b10 << GPIO_MODER_MODE3_Pos;
 	
 	SysTick->CTRL = 0;
-	SysTick->LOAD = (SystemCoreClock/40000)-1;
+	SysTick->LOAD = (SystemCoreClock/30000)-1;
 	SysTick->VAL = 0;
 	SysTick->CTRL |= SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_TICKINT_Msk | SysTick_CTRL_ENABLE_Msk;
 }
@@ -66,36 +72,50 @@ void clock32MHz(){
 	RCC->CR = (RCC->CR & ~(0xF << 4)) | RCC_CR_MSIRANGE_10;
 }
 
-int DFT(uint16_t * in, int fs, int points, int ft){
-	double ff = fs/points;
-	double m = ft/ff;
-  double real = 0, imag = 0;
-	
-	for(int i = 0; i < points; i++){
-		double argu = (2.0 * 3.1415926 * (float) i * m) / points;
-		double w = 0.5 - (0.5 * cos(2 * 3.1415926 * i / points));
-		real += in[i] * cos(argu) * w;
-		imag -= in[i] * sin(argu) * w;
-	}
 
-	return sqrt(pow(real,2) + pow(imag,2));
-}
 
 int main(){
 	dIndex = 0;
 	
 	clock32MHz();
 	SystemCoreClockUpdate();
+	//Uart2Init();
 	SH1106Init();
 	ADCInit();
 	SysTickInit();
 	__enable_irq();
 	
 	
-	
 	while(1){
 		while(dIndex < SIZE);
-		int mag = DFT(ADCData, 40000, SIZE, 440)/512;
+		clearBuffer();
+		float32_t max = 0;
+		uint32_t index = 0;
+		
+		arm_cfft_f32(&arm_cfft_sR_f32_len256, ADCData, 1, 1);
+		arm_cmplx_mag_f32(ADCData, output, SIZE);
+		output[0] = 0;
+		arm_max_f32(output, SIZE, &max, &index);
+		
+		
+		for(int i = 0; i < 128; i++){
+			int bar = (output[i] * 64) / max;
+			
+			if(bar > prevBar[i]){
+				prevBar[i] += bar >> 1;
+			}
+			else if(bar < prevBar[i]){
+				prevBar[i] -= (prevBar[i] - bar) >> 1;
+			}
+			
+			bar = prevBar[i];
+			for(int j = 0; j < 128/8; j++){
+				drawVLine(i, 64-bar, bar); 
+			}
+		}
+
+		refresh();
+		
 		dIndex = 0;
 		SysTick->VAL = 0;
 		SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk | SysTick_CTRL_TICKINT_Msk;
@@ -107,7 +127,8 @@ int main(){
 void SysTick_Handler(){
 	GPIOB->ODR ^= 0x08;
 	if(dIndex < SIZE){
-		ADCData[dIndex] = ADC1->DR;
+		ADCData[2 * dIndex] = ADC1->DR;
+		ADCData[2 * dIndex + 1] = 0;
 		dIndex++;
 	}
 	else{

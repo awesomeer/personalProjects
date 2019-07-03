@@ -3,6 +3,7 @@
 ".\objects\fifo.o"
 ".\objects\i2c1.o"
 ".\objects\sh1106.o"
+".\objects\uart2.o"
 "..\..\..\..\..\..\..\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\DSP\Lib\ARM\arm_cortexM4lf_math.lib"
 ".\objects\startup_stm32l432xx.o"
 ".\objects\system_stm32l4xx.o"

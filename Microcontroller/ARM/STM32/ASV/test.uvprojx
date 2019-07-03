@@ -417,6 +417,16 @@
               <FileType>1</FileType>
               <FilePath>.\SH1106.c</FilePath>
             </File>
+            <File>
+              <FileName>UART2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\UART2.c</FilePath>
+            </File>
+            <File>
+              <FileName>UART2.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\UART2.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

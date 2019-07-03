@@ -62,3 +62,9 @@ void clearScreen(void){
 		sendData(sendBuffer, 129);
 	}
 }
+
+void clearBuffer(void){
+	for(int i = 0; i < 8; i++)
+		for(int j = 0; j < 128; j++)
+			screenBuffer[i][j] = 0;
+}
