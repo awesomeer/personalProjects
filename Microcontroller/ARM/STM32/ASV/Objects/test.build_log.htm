@@ -30,18 +30,19 @@ Rebuild target 'Target 1'
 assembling startup_stm32l432xx.s...
 compiling SH1106.c...
 compiling FIFO.c...
+compiling system_stm32l4xx.c...
 compiling UART2.c...
 compiling I2C1.c...
-compiling system_stm32l4xx.c...
 compiling main.c...
-main.c(136): warning:  #111-D: statement is unreachable
+main.c(138): warning:  #111-D: statement is unreachable
   	return 0;
 main.c: 1 warning, 0 errors
 linking...
-.\Objects\test.axf: Warning: L6989W: Could not apply patch sdcomp-29491-629360 to instruction VPOP     {d8-d12} at offset 0x24, instruction is within an IT block and is not the last instruction for sin_i_x.o(i.____kernel_sin$lsc).
-Program Size: Code=6406 RO-data=3498 RW-data=8 ZI-data=10088  
-Finished: 0 information, 1 warning and 0 error messages.
-".\Objects\test.axf" - 0 Error(s), 2 Warning(s).
+.\Objects\test.axf: Warning: L6989W: Could not apply patch sdcomp-29491-629360 to instruction VPOP     {d8-d15} at offset 0xf4, instruction is within an IT block and is not the last instruction for log.o(i.__hardfp_log).
+.\Objects\test.axf: Warning: L6989W: Could not apply patch sdcomp-29491-629360 to instruction VPOP     {d8-d15} at offset 0xf0, instruction is within an IT block and is not the last instruction for log_x.o(i.____hardfp_log$lsc).
+Program Size: Code=10656 RO-data=5632 RW-data=8 ZI-data=13672  
+Finished: 0 information, 2 warning and 0 error messages.
+".\Objects\test.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -77,7 +78,7 @@ Package Vendor: Keil
       Include file:  Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h
       Source file:   Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\system_stm32l4xx.c
       Source file:   Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\arm\startup_stm32l432xx.s
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
