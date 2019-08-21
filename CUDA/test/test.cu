@@ -11,22 +11,25 @@ void inc(int * array){
 
 
 int main(){
-	int input[20];
-	for(int i = 0; i < 20; i++){
-		input[i] = i*2;
-	}
 
 	int * cudaInput;
-	cudaMalloc(&cudaInput, sizeof(int) * 20);
-	cudaMemcpy(cudaInput, input, sizeof(int) * 20, cudaMemcpyHostToDevice);
+	cudaMallocManaged(&cudaInput, sizeof(int) * 20);
+	for(int i = 0; i < 20; i++){
+		cudaInput[i] = i * 2;
+	}
+
+	for(int i = 0; i < 20; i++){
+		printf("%d: %d\n", i, cudaInput[i]);
+	}
+
 	inc<<<1, 20>>>(cudaInput);
-	cudaDeviceSynchronize();
+	inc<<<1, 20>>>(cudaInput);
+
 	cudaError_t error = cudaGetLastError();
 	printf("%s\n", cudaGetErrorString(error));
-	cudaMemcpy(input, cudaInput, sizeof(int) * 20, cudaMemcpyDeviceToHost);
 	
 	for(int i = 0; i < 20; i++){
-		printf("%d: %d\n", i, input[i]);
+		printf("%d: %d\n", i, cudaInput[i]);
 	}
 	
 	cudaFree(cudaInput);
