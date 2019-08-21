@@ -3,6 +3,8 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
 
+#define SIZE 10
+
 __global__
 void inc(int * array){
 	int index = threadIdx.x + (blockDim.x * blockIdx.x);
@@ -12,27 +14,22 @@ void inc(int * array){
 
 int main(){
 
+	int input[SIZE];
+	for(int i = 0; i < SIZE; i++)
+		input[i] = i * 3;
+	
 	int * cudaInput;
-	cudaMallocManaged(&cudaInput, sizeof(int) * 20);
-	for(int i = 0; i < 20; i++){
-		cudaInput[i] = i * 2;
-	}
-
-	for(int i = 0; i < 20; i++){
-		printf("%d: %d\n", i, cudaInput[i]);
-	}
+	cudaMalloc(&cudaInput, SIZE * sizeof(int));
+	cudaMemcpy(cudaInput, input, SIZE * sizeof(int), cudaMemcpyHostToDevice);
 
 	inc<<<1, 20>>>(cudaInput);
-	inc<<<1, 20>>>(cudaInput);
 
-	cudaError_t error = cudaGetLastError();
-	printf("%s\n", cudaGetErrorString(error));
-	
-	for(int i = 0; i < 20; i++){
-		printf("%d: %d\n", i, cudaInput[i]);
+	cudaError_t err = cudaGetLastError();
+	printf("%s\n", cudaGetErrorString(err));
+	cudaMemcpy(input, cudaInput, SIZE * sizeof(int), cudaMemcpyDeviceToHost);
+	for(int i = 0 ; i < SIZE; i++){
+		printf("%d: %d\n", i, input[i]);
 	}
-	
-	cudaFree(cudaInput);
 
 }
 
