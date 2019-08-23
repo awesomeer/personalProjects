@@ -22,7 +22,7 @@ int main(){
 	cudaMalloc(&cudaInput, SIZE * sizeof(int));
 	cudaMemcpy(cudaInput, input, SIZE * sizeof(int), cudaMemcpyHostToDevice);
 
-	inc<<<1, 20>>>(cudaInput);
+	inc<<<1, 10>>>(cudaInput);
 
 	cudaError_t err = cudaGetLastError();
 	printf("%s\n", cudaGetErrorString(err));
