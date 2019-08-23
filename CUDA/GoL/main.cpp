@@ -1,5 +1,4 @@
 #include <iostream>
-#include <X11/Xlib.h>
 #include "../../include/CImg.h"
 #include <chrono>
 #include <thread>
@@ -39,26 +38,18 @@ int main(){
 	display.display(image);
 	iteration(image.data(), WIDTH, HEIGHT);
 	display.set_fullscreen(true, true);
-	
-	
 
 	while(!display.is_closed()){
-		auto start = chrono::system_clock::now();
-
 		iteration(image.data(), WIDTH, HEIGHT);
 		display.render(image);
 		display.paint();
+
 		if(display.is_keyESC())
 			break;
-
-		auto end = chrono::system_clock::now();
-		chrono::duration<double> time = end-start;
-		cout << 1/time.count() << " fps" << endl;
 	}
 	
 	if(!display.is_closed())
 		display.close();
 	exitCUDA();
-	cout << "Freed mem" << endl;
-
+	cout << "mem freed" << endl;
 }

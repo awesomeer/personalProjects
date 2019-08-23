@@ -5,7 +5,7 @@
 #include <cuda_runtime_api.h>
 #include <cuda_runtime.h>
 
-static unsigned char turn;
+//static unsigned char turn;
 static unsigned char * cudaPtA;
 static unsigned char * cudaPtB;
 
@@ -21,15 +21,40 @@ void kernal(unsigned char * current, unsigned char * next, int width, int height
         return;
     
 
+
     int neighbors = 0;
 
-    for(int i = -1; i < 2; i++)
-        if((row+i >= 0) && (row+i < height))
-            for(int j = -1; j < 2; j++)
-                if((col+j >= 0) && (col+j < width))
-                    if(!(i == 0 && j == 0))
-                        if(current[((row+i)*width)+(col+j)] == 255)
-                            neighbors++;
+    for(int i = -1; i < 2; i++){
+        int tempRow = 0;
+        if(row+i < 0){
+            tempRow = height-1;
+        }
+        else if(row+i >= height){
+            tempRow = 0;
+        }
+        else{
+            tempRow = row + i;
+        }
+
+        for(int j = -1; j < 2; j++){
+            int tempCol = 0;
+            if(col+i < 0){
+                tempCol = width-1;
+            }
+            else if(col+i >= width){
+                tempCol = 0;
+            }
+            else{
+                tempCol = col + j;
+            }
+
+            if(!(i == 0 && j == 0)){
+                if(current[tempRow*width + tempCol] == 255){
+                    neighbors++;
+                }
+            }
+        }
+    }
 
     int cell = current[row*width+col];
 
@@ -45,41 +70,16 @@ void kernal(unsigned char * current, unsigned char * next, int width, int height
 }
 
 extern void initCUDA(int size, unsigned char * data){
-    turn = 0;
+    //turn = 0;
     cudaMalloc(&cudaPtA, size * sizeof(unsigned char));
     cudaMalloc(&cudaPtB, size * sizeof(unsigned char));
     cudaMemcpy(cudaPtA, data, size * sizeof(unsigned char), cudaMemcpyHostToDevice);
 }
 
-/*
-extern void iteration(unsigned char * data, int width, int height){
-    int size = width * height;
-    dim3 block(32,32);
-    dim3 grid((width/32)+1, (height/32)+1);
-
-    switch(turn){
-        case 0:{
-            kernal<<<grid,block>>>(cudaPtA, cudaPtB, width, height);
-            cudaMemcpy(data, cudaPtB, size * sizeof(unsigned char), cudaMemcpyDeviceToHost);
-            turn = 1;
-            break;
-        }
-        case 1:{
-            kernal<<<grid,block>>>(cudaPtB, cudaPtA, width, height);
-            cudaMemcpy(data, cudaPtA, size * sizeof(unsigned char), cudaMemcpyDeviceToHost);
-            turn = 0;
-            break;
-        }
-    }
-
-}
-*/
-
 extern void iteration(unsigned char * data, int width, int height){
     int size = width*height;
     dim3 block(32,32);
     dim3 grid((width/32)+1, (height/32)+1);
-
 
     cudaMemcpy(cudaPtA, data, size * sizeof(unsigned char), cudaMemcpyHostToDevice);
     kernal<<<grid, block>>>(cudaPtA, cudaPtB, width, height);
