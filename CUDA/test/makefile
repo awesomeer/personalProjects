@@ -1,2 +1,2 @@
 test: test.cu
-	nvcc test.cu -o test
+	nvcc -g test.cu -o test
