@@ -3,5 +3,5 @@ CUDA/GoL/kernal.o
 CUDA/GoL/main.o
 CUDA/GoL/run
 CUDA/openGL/run
-CUDA/test/test
 CUDA/GoL/.vscode/launch.json
+CUDA/test/run
