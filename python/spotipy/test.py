@@ -11,8 +11,6 @@ username = 'mithilesh1'
 
 token = util.prompt_for_user_token(username ,scope, client_id=client_id, client_secret=client_secret, redirect_uri=redirect_url)
 
-clienta = spotipy.Spotify(auth=token);
+client = spotipy.Spotify(auth=token)
 
-print(json.dumps(clienta.currently_playing(), indent=4))
-
-
+print(json.dumps(client.current_user_saved_tracks(limit=50), indent=4))
