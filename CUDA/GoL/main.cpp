@@ -31,7 +31,9 @@ int main(){
 	srand(time(NULL));
 	CImg<unsigned char> image = CImg<unsigned char>(WIDTH, HEIGHT,1,1,0);
 	CImgDisplay display(image, "Game of Life");
-	
+	chrono::system_clock::time_point start,end;
+	chrono::duration<double> time;
+
 	initGoL(image);
 	initCUDA(image.size(), image.data());
 
@@ -39,15 +41,25 @@ int main(){
 	iteration(image.data(), WIDTH, HEIGHT);
 	display.set_fullscreen(true, true);
 
+	
 	while(!display.is_closed()){
+		start = chrono::system_clock::now();
+
+		if(display.is_keyESC())
+			break;
+
 		iteration(image.data(), WIDTH, HEIGHT);
 		display.render(image);
 		display.paint();
 
-		if(display.is_keyESC())
-			break;
+		do{
+			end = chrono::system_clock::now();
+			time = end-start;
+		}while(time.count() < 1.0/60.0);
+
+		cout << 1/time.count() << endl;
 	}
-	
+
 	if(!display.is_closed())
 		display.close();
 	exitCUDA();
