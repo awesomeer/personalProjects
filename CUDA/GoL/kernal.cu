@@ -73,8 +73,28 @@ extern void initCUDA(int size, unsigned char * data){
     //turn = 0;
     cudaMalloc(&cudaPtA, size * sizeof(unsigned char));
     cudaMalloc(&cudaPtB, size * sizeof(unsigned char));
-    cudaMemcpy(cudaPtA, data, size * sizeof(unsigned char), cudaMemcpyHostToDevice);
 }
+
+// extern void iteration(unsigned char * data, int width, int height){
+//     int size = width*height;
+//     dim3 block(32,32);
+//     dim3 grid((width/32)+1, (height/32)+1);
+
+//     switch(turn){
+//         case 0:{
+//             kernal<<<grid, block>>>(cudaPtA, cudaPtB, width, height);
+//             cudaMemcpy(data, cudaPtB, size * sizeof(unsigned char), cudaMemcpyDeviceToHost);
+//             turn = 1;
+//             break;
+//         }
+//         case 1:{
+//             kernal<<<grid, block>>>(cudaPtB, cudaPtA, width, height);
+//             cudaMemcpy(data, cudaPtA, size * sizeof(unsigned char), cudaMemcpyDeviceToHost);
+//             turn = 0;
+//             break;
+//         }
+//     }
+// }
 
 extern void iteration(unsigned char * data, int width, int height){
     int size = width*height;
