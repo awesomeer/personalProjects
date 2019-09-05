@@ -48,6 +48,9 @@ int main(){
 		if(display.is_keyESC())
 			break;
 
+		if(display.is_keyR())
+			initGoL(image);
+
 		iteration(image.data(), WIDTH, HEIGHT);
 		display.render(image);
 		display.paint();

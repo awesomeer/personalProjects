@@ -1,27 +1,54 @@
 #include <GL/glut.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <cuda_gl_interop.h>
 #include <iostream>
 using namespace std;
 
-void displayMe(void)
-{
-    glClear(GL_COLOR_BUFFER_BIT);
-    glBegin(GL_POLYGON);
-        glVertex3f(0.5, 0.0, 0.5);
-        glVertex3f(0.5, 0.0, 0.0);
-        glVertex3f(0.0, 0.5, 0.0);
-        glVertex3f(0.0, 0.0, 0.5);
+
+int fov;
+void render(void){
+    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+    glBegin(GL_TRIANGLES);
+        glVertex3f(1, 0, 0);
+        glVertex3f(0, 1, 0);
+        glVertex3f(-1, 0, 0);
     glEnd();
-    glFlush();
+
+    glutSwapBuffers();
+
+    cout << "render" << endl;
 }
- 
-int main(int argc, char** argv)
-{
+
+void view(int w, int h){
+    (h == 0) ? h = 1 : h=h;
+    
+    float ratio = (1.0 * (float) w) / (float) h;
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glViewport(0,0,w,h);
+    gluPerspective(fov, ratio, 45, 100);
+    glMatrixMode(GL_MODELVIEW);
+}
+
+void idle(void){
+    cout << "idle" << endl;
+}
+int main(int argc, char ** argv){
+    fov = 0;
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE);
-    glutInitWindowSize(400, 300);
-    glutInitWindowPosition(100, 100);
-    glutCreateWindow("Hello world!");
-    glutDisplayFunc(displayMe);
+    glutInitWindowPosition(100,100);
+    glutInitWindowSize(800,640);
+    glutInitDisplayMode(GLUT_DEPTH | GLUT_RGBA | GLUT_DOUBLE);
+    glutCreateWindow("awd");
+    
+    glutDisplayFunc(render);
+    glutReshapeFunc(view);
+    //glutIdleFunc(render);
     glutMainLoop();
-    return 0;
+
+    cout << glGetString(GL_VERSION) << endl;
 }
