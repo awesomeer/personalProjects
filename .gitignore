@@ -6,3 +6,5 @@ CUDA/openGL/run
 CUDA/GoL/.vscode/launch.json
 CUDA/test/run
 CC++/jeep/
+CC++/filter/own/a.out
+CC++/filter/own/test
