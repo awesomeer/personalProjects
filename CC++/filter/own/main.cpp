@@ -53,7 +53,7 @@ int main(){
     ofstream out("data.txt", ofstream::out);
     cout << "Magnitudes" << endl;
     for(int i = 1; i <= 20000; i++){
-        double mag = DFT(input, dt, n, i)/n;
+        double mag = DFT(input, 1/dt, n, i)/n;
         out << mag << endl;
         switch(i){
             case 1:
