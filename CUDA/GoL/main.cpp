@@ -1,7 +1,6 @@
 #include <iostream>
 #include "../../include/CImg.h"
 #include <chrono>
-#include <thread>
 
 using namespace std;
 using namespace cimg_library;
@@ -50,6 +49,9 @@ int main(){
 
 		if(display.is_keyR())
 			initGoL(image);
+		
+		if(display.is_keyT())
+			display.toggle_fullscreen();
 
 		iteration(image.data(), WIDTH, HEIGHT);
 		display.render(image);
