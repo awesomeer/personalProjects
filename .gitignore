@@ -8,3 +8,8 @@ CUDA/test/run
 CC++/jeep/
 CC++/filter/own/a.out
 CC++/filter/own/test
+CC++/flipNote/a.out
+CC++/flipNote/FlipNote.o
+CC++/flipNote/main.o
+CC++/flipNote/run
+CC++/flipNote/.vscode/settings.json
