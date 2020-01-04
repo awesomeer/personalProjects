@@ -154,7 +154,7 @@ void changeColor(uint16_t code){ //Color y,x
 #define one 2.0*3.14159265/3
 #define two 4.0*3.14159265/3
 
-ISR(TIMER1_OVF_vect){
+ISR(TIMER1_OVF_vect, ISR_NOBLOCK){
     static unsigned char count = 0;
     for(int i = 0; i < SIZE; i++){
         if(indi)

@@ -41,6 +41,13 @@ uint16_t getData(){
 #define OFF !(PINB & _BV(PIN))
 #define ON PINB & _BV(PIN)
 
+extern void delay();
+//extern void inter();
+//
+//ISR(PCINT0_vect){
+//    inter();
+//}
+
 unsigned char ticks = 0;
 ISR(PCINT0_vect){
     PORTB |= _BV(PIN3);
@@ -64,7 +71,7 @@ ISR(PCINT0_vect){
         data >>= 1;
         
         while(OFF);
-        _delay_us(563);
+        delay();//_delay_us(563);
         if(ON){
             data |= 0x80000000;
         }
@@ -75,7 +82,7 @@ ISR(PCINT0_vect){
                 goto exit;
         }
     }
-    _delay_us(563);
+   delay();// _delay_us(563);
     prev = data;
     buffer = true;
     exit:

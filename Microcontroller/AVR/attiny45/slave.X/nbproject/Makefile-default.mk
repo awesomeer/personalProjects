@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c ir.c spi.c slave.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c ir.c spi.c slave.c interrupt.s
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/ir.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/slave.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/ir.o.d ${OBJECTDIR}/spi.o.d ${OBJECTDIR}/slave.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/ir.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/slave.o ${OBJECTDIR}/interrupt.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/ir.o.d ${OBJECTDIR}/spi.o.d ${OBJECTDIR}/slave.o.d ${OBJECTDIR}/interrupt.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/ir.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/slave.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/ir.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/slave.o ${OBJECTDIR}/interrupt.o
 
 # Source Files
-SOURCEFILES=main.c ir.c spi.c slave.c
+SOURCEFILES=main.c ir.c spi.c slave.c interrupt.s
 
 # Pack Options 
 PACK_COMPILER_OPTIONS=-I ${DFP_DIR}\include
@@ -98,7 +98,21 @@ MP_PROCESSOR_OPTION=ATtiny45
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/interrupt.o: interrupt.s  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/interrupt.o.d 
+	@${RM} ${OBJECTDIR}/interrupt.o 
+	@${RM} ${OBJECTDIR}/interrupt.o.ok ${OBJECTDIR}/interrupt.o.err 
+	 ${MP_CC} $(MP_EXTRA_AS_PRE) -mmcu=attiny45 ${PACK_COMPILER_OPTIONS} ${PACK_COMMON_OPTIONS}  -DDEBUG   -x assembler-with-cpp -c -D__$(MP_PROCESSOR_OPTION)__  -MD -MP -MF "${OBJECTDIR}/interrupt.o.d" -MT "${OBJECTDIR}/interrupt.o.d" -MT ${OBJECTDIR}/interrupt.o  -o ${OBJECTDIR}/interrupt.o interrupt.s  -DXPRJ_default=$(CND_CONF)  -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/interrupt.o.asm.d",--defsym=__ICD2RAM=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--gdwarf-2
+	
 else
+${OBJECTDIR}/interrupt.o: interrupt.s  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/interrupt.o.d 
+	@${RM} ${OBJECTDIR}/interrupt.o 
+	@${RM} ${OBJECTDIR}/interrupt.o.ok ${OBJECTDIR}/interrupt.o.err 
+	 ${MP_CC} $(MP_EXTRA_AS_PRE) -mmcu=attiny45 ${PACK_COMPILER_OPTIONS} ${PACK_COMMON_OPTIONS}  -x assembler-with-cpp -c -D__$(MP_PROCESSOR_OPTION)__  -MD -MP -MF "${OBJECTDIR}/interrupt.o.d" -MT "${OBJECTDIR}/interrupt.o.d" -MT ${OBJECTDIR}/interrupt.o  -o ${OBJECTDIR}/interrupt.o interrupt.s  -DXPRJ_default=$(CND_CONF)  -Wa,--defsym=__MPLAB_BUILD=1$(MP_EXTRA_AS_POST),-MD="${OBJECTDIR}/interrupt.o.asm.d"
+	
 endif
 
 # ------------------------------------------------------------------------------------

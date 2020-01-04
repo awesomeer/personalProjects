@@ -5,8 +5,6 @@
 
 #define F_CPU 1000000/8UL
 
-#include <util/delay.h>
-
 void enableIR(){
     DDRB |= _BV(PIN3);
     PCMSK |= _BV(PIN);
@@ -42,6 +40,7 @@ uint16_t getData(){
 #define ON PINB & _BV(PIN)
 
 unsigned char ticks = 0;
+extern void delay();
 ISR(PCINT0_vect){
     PORTB |= _BV(PIN3);
     
@@ -64,7 +63,7 @@ ISR(PCINT0_vect){
         data >>= 1;
         
         while(OFF);
-        _delay_us(563);
+        delay();
         if(ON){
             data |= 0x80000000;
         }
@@ -75,7 +74,7 @@ ISR(PCINT0_vect){
                 goto exit;
         }
     }
-    _delay_us(563);
+    delay();
     prev = data;
     buffer = true;
     exit:
