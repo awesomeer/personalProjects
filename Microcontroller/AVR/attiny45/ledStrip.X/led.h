@@ -22,7 +22,7 @@ extern "C" {
     led leds[SIZE];
     
     void ledInit();
-    void changeColor(uint16_t code);
+    void changeColor();
     
 
 

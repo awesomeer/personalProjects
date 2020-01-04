@@ -3,8 +3,8 @@
 #include <avr/interrupt.h>
 
 
-#define F_CPU 1000000/8UL
-
+#define F_CPU 8000000UL
+#include <util/delay.h>
 void enableIR(){
     DDRB |= _BV(PIN3);
     PCMSK |= _BV(PIN);
@@ -24,22 +24,19 @@ bool newData(){
 }
 
 uint32_t getBoth(){
-    buffer = false;
     return prev;
 }
 uint16_t getAddress(){
-    buffer = false;
     return prev & 0xFFFF;
 }
 uint16_t getData(){
-    buffer = false;
     return prev >> 16;
 }
 
 #define OFF !(PINB & _BV(PIN))
 #define ON PINB & _BV(PIN)
 
-unsigned char ticks = 0;
+unsigned int ticks = 0;
 extern void delay();
 ISR(PCINT0_vect){
     PORTB |= _BV(PIN3);
@@ -55,7 +52,7 @@ ISR(PCINT0_vect){
     ticks = 0;
     while(ON){
         ticks++;
-        if(!ticks)
+        if(ticks == 256*8)
             goto exit;
     }
     
@@ -63,20 +60,22 @@ ISR(PCINT0_vect){
         data >>= 1;
         
         while(OFF);
-        delay();
+        _delay_ms(0.570);//delay();
         if(ON){
             data |= 0x80000000;
         }
         ticks = 0;
         while(ON){
             ticks++;
-            if(!ticks)
+            if(ticks == 256*8)
                 goto exit;
         }
     }
-    delay();
-    prev = data;
-    buffer = true;
+    _delay_ms(0.563);//delay();
+    if(((unsigned int) (data & 0xFFFF)) == 0xFF00){
+        prev = data;
+        buffer = true;
+    }
     exit:
     asm("nop");
     GIFR |= _BV(PCIF);

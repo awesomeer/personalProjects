@@ -21,9 +21,7 @@ int main() {
     enableIR();
     ledInit();
     while(1){
-        if(newData()){
-            changeColor(getData());
-        }
+        changeColor();
     }
     return (EXIT_SUCCESS);
 }
