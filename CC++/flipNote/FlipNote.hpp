@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../include/CImg.h"
+#include "..\..\include\CImg.h"
 #include <iostream>
 #include <fstream>
 #include <string>

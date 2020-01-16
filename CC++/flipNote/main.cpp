@@ -9,6 +9,7 @@ int main(int argc, char ** argv){
     CImg<unsigned char> frame = FlipNote::getPrevew(*(new string(argv[1])));
     CImgDisplay dis(frame, "test");
 
-    dis.display(frame);
-    while(!dis.is_closed());
+    //dis.display(frame);
+	frame.save("C:\\Users\\mithilesh\\Desktop\\test.bmp");
+    //while(!dis.is_closed());
 }
