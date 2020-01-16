@@ -13,3 +13,5 @@ CC++/flipNote/FlipNote.o
 CC++/flipNote/main.o
 CC++/flipNote/run
 CC++/flipNote/.vscode/settings.json
+CC++/flipNote/a.exe
+CC++/flipNote/make.bat
