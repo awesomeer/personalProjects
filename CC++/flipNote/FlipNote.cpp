@@ -31,8 +31,7 @@ CImg<unsigned char> FlipNote::getPrevew(string fileName){
 		for(int x = 0; x < 8; x++){
 			for(int iy = 0; iy < 8; iy++){
 				for(int ix = 0; ix < 4; ix++){
-					dis.display(frame);
-					system("PAUSE");
+
 					unsigned char pixel;
 					file >> pixel;
 					 
@@ -159,6 +158,8 @@ CImg<unsigned char> FlipNote::getPrevew(string fileName){
 					}
 				}
 			}
+			dis.display(frame);
+			system("PAUSE");
 		}
 	}
 	
