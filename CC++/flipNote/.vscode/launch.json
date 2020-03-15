@@ -7,14 +7,14 @@
         
         {
             "name": "(Windows) Launch",
-            "type": "cppvsdbg",
+            //"type": "gdb",
             "request": "launch",
             "program": "${workspaceFolder}/a.exe",
             "args": ["C:\\Users\\mithilesh\\Desktop\\folders\\private\\ds\\app\\4B475545\\001\\0F92C5_099557445B5B5_000.ppm"],
-            "stopAtEntry": true,
+            //"stopAtEntry": true,
             "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": true
+            //"environment": [],
+            "console": "externalTerminal"
         }
     ]
 }
