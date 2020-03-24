@@ -1,3 +1,4 @@
 g++ -c -g asm.cpp
 g++ -c -g main.cpp
-g++ main.o asm.o
+g++ -g main.o asm.o
+del *.o

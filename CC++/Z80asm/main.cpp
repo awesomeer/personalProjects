@@ -1,29 +1,57 @@
-#include "asm.h"
+#include <iostream>
+#include <fstream>
 #include <vector>
 #include <string>
+#include <cstdint>
+#include <map>
 
 using namespace std;
 
-extern vector<string> lines;
+string file;
+vector<string> lines;
+uint16_t pc, sPc;
 
-int main(int argc, char ** argv){
-    if(argc < 2){
-        cout << "No files to compile" << endl;
+
+int readFile(string fileName);
+int firstPass();
+int assemble();
+
+int readFile(string fileName){
+    ifstream in(fileName, ios::in);
+    if(in.fail()){
+        cout << "File: " << fileName << " failed to open" << endl;
         exit(-1);
     }
 
-    readFile(argv[1]);
-    for(int i = 0; i < lines.size(); i++){
-        cout << lines[i] << endl;
+    lines.clear();
+    while(!in.eof()){
+        string line;
+        getline(in, line);
+        lines.push_back(line);
     }
 
     return 0;
 }
 
+int firstPass(){
+    
+}
+
+int main(int argc, char ** argv){
+
+    readFile("main.cpp");
+    for(int i = 0; i < lines.size(); i++){
+        cout << lines[i] << endl;
+    }
+
+    firstPass();
+    assemble();
+    return 0;
+}
+
 /*
-.ORG
-.BYTE
-.DB
-.DW
-LABELS
+BYTE
+STRING
+WORD
+REVERSE
 */
