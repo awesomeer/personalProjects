@@ -1,5 +1,6 @@
 #include "LED.h"
 #include <avr/pgmspace.h> 
+#include <avr/interrupt.h>
 #include <stdlib.h>
 
 #define SIZE 30
@@ -8,60 +9,51 @@
 
 const uint8_t start[] = {0x00, 0x00, 0x00, 0x00};
 const uint8_t end[] = {0xFF, 0xFF, 0xFF, 0xFF};
-led_t solidColor = {0xFF, 0x00, 0x00, 0xFF};
+led_t solidColor = {0x00, 0x00, 0xFF};
 led_t leds[SIZE];
 
-uint8_t fade;
+uint8_t unit, bright;
 
-static void refresh(){
+static void ledStart(){
     SPIoutArray((uint8_t *) start, 4);
-    for(int i = 0; i < SIZE; i++){
-        SPIoutArray((uint8_t *) &leds[i], 4);
-    }
-    SPIoutArray((uint8_t *) end, 4);
 }
-
-static void refreshSolid(){
-    SPIoutArray((uint8_t *) start, 4);
-    for(int i = 0; i < SIZE; i++){
-        SPIoutArray((uint8_t *) &solidColor, 4);
-    }
+static void refreshLed(){
+    SPIout(bright);
+    SPIoutArray((uint8_t *) &solidColor, 3);
+}
+static void ledEnd(){
     SPIoutArray((uint8_t *) end, 4);
 }
 
 void LEDInit(){
     DDRB |= _BV(PB4);
-    SPIInit();
-    for(int i = 0; i < SIZE; i++){
-        memcpy((void *) &leds[i], (void *) &solidColor, 4);
-    }
-    refresh();
+    bright = 0xFF;
     
-    fade = 0;
+    SPIInit();
+    ledStart();
+    for(int i = 0; i < SIZE; i++)
+        refreshLed();
+    ledEnd();
+    
     TCNT0 = 0;
     TCCR0B |= 0b100;
-    TIMSK |= _BV(TOIE0);
+    TIMSK &= ~_BV(TOIE0);
 }
     
 void changeLed(uint16_t code){
-    PORTB ^= _BV(LED);
+    //PORTB |= _BV(LED);
     
-        
-    if(code == 0xB748){
-        fade ^= 0xFF;
-        return;
-    }
-    
+    cli();
     switch(code){
         case 0xA35C:{ //Increase Brightness
-            solidColor.bright = (solidColor.bright & 0x1F) + 1;
-            solidColor.bright |= 0xE0;
-            break;
+            bright = (bright & 0x1F) + 1;
+            bright |= 0xE0;
+            goto bri;
         }
         case 0xA25D:{ //Decrease Brightness
-            solidColor.bright = (solidColor.bright & 0x1F) - 1;
-            solidColor.bright |= 0xE0;
-            break;
+            bright = (bright & 0x1F) - 1;
+            bright |= 0xE0;
+            goto bri;
         }
         case 0xAB54:{ //Salmon  1,0
             solidColor.red = 250;
@@ -149,12 +141,35 @@ void changeLed(uint16_t code){
             solidColor.blue -= 16 - (solidColor.blue % 16);
             break;
         }
-        case 0xF30C:{
-
+        case 0xE817:{ //Quick/Slow
+            TCCR0B ^= 0b01;
+            goto ret;
+        }
+        case 0xF906:{ //Solid Shift
+            TIMSK |= _BV(TOIE0);
+            unit = 1;
+            goto ret;
+        }
+        case 0xF807:{ //Rotate Shift
+            TIMSK |= _BV(TOIE0);
+            unit = 0;
+            goto ret;
+        }
+        case 0xBE41:{ //Play/Pause
+            TIMSK ^= _BV(TOIE0);
+            goto ret;
         }
     }
-    refreshSolid();
-
+    TIMSK &= ~_BV(TOIE0);
+bri:
+    ledStart();
+    for(int i = 0; i < SIZE; i++){
+        refreshLed();
+    }
+    ledEnd();
+ret: 
+    PORTB &= ~_BV(LED);
+    sei();
 }
 
 const uint8_t red[] PROGMEM  = {255, 254, 254, 254, 254, 254, 253, 253, 252, 251, 251, 250, 249, 248, 247, 246, 245, 244, 242, 241, 239, 238, 236, 235, 233, 231, 229, 228, 226, 224, 221, 219, 217, 215, 213, 210, 208, 205, 203, 200, 198, 195, 193, 190, 187, 184, 182, 179, 176, 173, 170, 167, 164, 161, 158, 155, 152, 149, 146, 143, 139, 136, 133, 130, 127, 124, 121, 118, 115, 111, 108, 105, 102, 99, 96, 93, 90, 87, 84, 81, 78, 75, 72, 70, 67, 64, 61, 59, 56, 54, 51, 49, 46, 44, 41, 39, 37, 35, 33, 30, 28, 26, 25, 23,
@@ -166,17 +181,17 @@ const uint8_t green[] PROGMEM = {63, 61, 58, 55, 53, 50, 48, 45, 43, 41, 38, 36,
                             242, 240, 239, 237, 236, 234, 232, 231, 229, 227, 225, 223, 221, 219, 216, 214, 212, 209, 207, 205, 202, 200, 197, 194, 192, 189, 186, 183, 181, 178, 175, 172, 169, 166, 163, 160, 157, 154, 151, 148, 145, 142, 138, 135, 132, 129, 126, 123, 120, 117, 113, 110, 107, 104, 101, 98, 95, 92, 89, 86, 83, 80, 77, 74, 72, 69, 66};
 
 const uint8_t blue[] PROGMEM = {63, 66, 69, 72, 74, 77, 80, 83, 86, 89, 92, 95, 98, 101, 104, 107, 110, 113, 117, 120, 123, 126, 129, 132, 135, 138, 142, 145, 148, 151, 154, 157, 160, 163, 166, 169, 172, 175, 178, 181, 183, 186, 189, 192, 194, 197, 200, 202, 205, 207, 209, 212, 214, 216, 219, 221, 223, 225, 227, 229, 231, 232, 234, 236, 237, 239, 240, 242, 243, 244, 246, 247, 248, 249, 250, 250, 251, 252, 252, 253, 253, 254, 254, 254, 254, 254, 254, 254, 254, 254, 254, 253, 253, 252, 252, 251, 250, 249, 248, 247, 246, 245, 244, 243, 241, 240, 238, 237, 235, 234, 232, 230, 228, 226, 224, 222, 220, 218, 216, 213, 211, 209, 206, 204, 201, 199, 196, 193, 191, 188, 185, 182, 180,
-177, 174, 171, 168, 165, 162, 159, 156, 153, 150, 147, 144, 141, 137, 134, 131, 128, 125, 122, 119, 116, 112, 109, 106, 103, 100, 97, 94, 91, 88, 85, 82, 79, 76, 73, 71, 68, 65, 62, 60, 57, 54, 52, 49, 47, 45, 42, 40, 38, 35, 33, 31, 29, 27, 25, 23, 22, 20, 18, 17, 15, 14, 12, 11, 10, 8, 7, 6, 5, 4, 4, 3, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 16, 17, 19, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 41, 43, 45, 48, 50, 53, 55, 58, 61};
+                            177, 174, 171, 168, 165, 162, 159, 156, 153, 150, 147, 144, 141, 137, 134, 131, 128, 125, 122, 119, 116, 112, 109, 106, 103, 100, 97, 94, 91, 88, 85, 82, 79, 76, 73, 71, 68, 65, 62, 60, 57, 54, 52, 49, 47, 45, 42, 40, 38, 35, 33, 31, 29, 27, 25, 23, 22, 20, 18, 17, 15, 14, 12, 11, 10, 8, 7, 6, 5, 4, 4, 3, 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 16, 17, 19, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 41, 43, 45, 48, 50, 53, 55, 58, 61};
 
 ISR(TIMER0_OVF_vect, ISR_NOBLOCK){
-    if(fade){
-        static uint8_t fadeCount = 0;
-        for(int i = 0; i < SIZE; i++){
-            leds[i].red = pgm_read_byte_near(&red[fadeCount]) >> 1;
-            leds[i].green = pgm_read_byte_near(&green[fadeCount]) >> 1;
-            leds[i].blue = pgm_read_byte_near(&blue[fadeCount]) >> 1;
-        }
-        refresh();
-        fadeCount++;
+    static uint8_t fadeCount = 0;
+    ledStart();
+    for(int i = 0; i < SIZE; i++){
+        solidColor.red = pgm_read_byte_near(&red[unit ? fadeCount : ((i*8)+fadeCount)%256]) >> 1;
+        solidColor.green = pgm_read_byte_near(&green[unit ? fadeCount : ((i*8)+fadeCount)%256]) >> 1;
+        solidColor.blue = pgm_read_byte_near(&blue[unit ? fadeCount : ((i*8)+fadeCount)%256]) >> 1;
+        refreshLed();
     }
+    ledEnd();
+    fadeCount++;
 }

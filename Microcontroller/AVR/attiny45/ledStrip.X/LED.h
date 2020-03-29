@@ -18,7 +18,7 @@ extern "C" {
 #endif
 
     typedef struct led{
-        uint8_t bright, blue, green, red;
+        uint8_t blue, green, red;
     } led_t;
     
     void LEDInit();

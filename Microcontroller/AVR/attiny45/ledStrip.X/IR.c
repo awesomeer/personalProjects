@@ -41,7 +41,7 @@ void IRInit(){
     //Configure timer for 1us/tick
     TIMSK |= _BV(TOIE1); //Enable Timer Overflow Interrupt
     TCNT1 = 0; //Set Timer count to 0
-    TCCR1 |= 0b0001; //Set prescaler to divide by 8
+    TCCR1 |= 0b100; //Set prescaler to divide by 8
     
     SREG |= _BV(7); //Enable Interrupts
 }
@@ -60,7 +60,7 @@ uint8_t getData(uint16_t * data){
 ISR(PCINT0_vect){   
     time = (count*256) + TCNT1;
     diff = time - prev;
-    
+    PORTB ^= _BV(PB4);
     if(state >= IDLE && state <= MS45){
         switch(state){
             case IDLE:{
