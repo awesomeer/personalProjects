@@ -16,3 +16,8 @@ CC++/flipNote/.vscode/settings.json
 CC++/flipNote/a.exe
 CC++/flipNote/make.bat
 CC++/flipNote/.vscode/launch.json
+/java/test/nbproject/private/
+/java/test/build/
+/java/test/dist/
+/java/adw/nbproject/private/
+/java/adw/build/
