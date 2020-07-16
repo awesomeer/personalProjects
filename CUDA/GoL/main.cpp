@@ -5,8 +5,8 @@
 using namespace std;
 using namespace cimg_library;
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 1600
+#define HEIGHT 900
 
 extern void initCUDA(int size, unsigned char * data);
 extern void iteration(unsigned char * data, int width, int height);
