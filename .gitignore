@@ -531,3 +531,4 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/keil,mplabx,eclipse,netbeans,atmelstudio,visualstudio,visualstudiocode
+*.db
