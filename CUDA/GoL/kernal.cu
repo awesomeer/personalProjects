@@ -4,13 +4,14 @@
 #include <cuda.h>
 #include <cuda_runtime_api.h>
 #include <cuda_runtime.h>
+#include <device_launch_parameters.h>
 
-static unsigned char * cudaPtA;
-static unsigned char * cudaPtB;
+bool * cudaPtA;
+bool * cudaPtB;
 
 
 __global__
-void kernal(unsigned char * current, unsigned char * next, int width, int height){
+void kernal(bool * current, bool * next, int width, int height){
     int row = threadIdx.y + blockIdx.y * blockDim.y;
     int col = threadIdx.x + blockIdx.x * blockDim.x;
 
@@ -48,39 +49,39 @@ void kernal(unsigned char * current, unsigned char * next, int width, int height
             }
 
             if(!(i == 0 && j == 0)){
-                if(current[tempRow*width + tempCol] == 255){
+                if(current[tempRow*width + tempCol]){
                     neighbors++;
                 }
             }
         }
     }
 
-    int cell = current[row*width+col];
+    bool cell = current[row*width+col];
 
-    if(cell == 0 && neighbors == 3){
-        next[row*width+col] = 255;
+    if(!cell && neighbors == 3){
+        next[row*width+col] = true;
     }
-    else if(cell == 255 && (neighbors < 2 || neighbors > 3)){
-        next[row*width+col] = 0;
+    else if(cell && (neighbors < 2 || neighbors > 3)){
+        next[row*width+col] = false;
     }
-    else if(cell == 255 && (neighbors == 2 || neighbors == 3)){
-        next[row*width+col] = 255;
+    else if(cell && (neighbors == 2 || neighbors == 3)){
+        next[row*width+col] = true;
     }       
 }
 
-extern void initCUDA(int size, unsigned char * data){
-    cudaMalloc(&cudaPtA, size * sizeof(unsigned char));
-    cudaMalloc(&cudaPtB, size * sizeof(unsigned char));
+extern void initCUDA(int size, bool * data){
+    cudaMalloc(&cudaPtA, size * sizeof(bool));
+    cudaMalloc(&cudaPtB, size * sizeof(bool));
 }
 
-extern void iteration(unsigned char * data, int width, int height){
+extern void iteration(bool * data, int width, int height){
     int size = width*height;
     dim3 block(32,32);
     dim3 grid((width/32)+1, (height/32)+1);
 
-    cudaMemcpy(cudaPtA, data, size * sizeof(unsigned char), cudaMemcpyHostToDevice);
+    cudaMemcpy(cudaPtA, data, size * sizeof(bool), cudaMemcpyHostToDevice);
     kernal<<<grid, block>>>(cudaPtA, cudaPtB, width, height);
-    cudaMemcpy(data, cudaPtB, size * sizeof(unsigned char), cudaMemcpyDeviceToHost);
+    cudaMemcpy(data, cudaPtB, size * sizeof(bool), cudaMemcpyDeviceToHost);
 }
 
 extern void exitCUDA(){

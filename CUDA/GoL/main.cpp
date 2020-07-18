@@ -8,13 +8,13 @@ using namespace cimg_library;
 #define WIDTH 1600
 #define HEIGHT 900
 
-extern void initCUDA(int size, unsigned char * data);
-extern void iteration(unsigned char * data, int width, int height);
+extern void initCUDA(int size, bool * data);
+extern void iteration(bool * data, int width, int height);
 extern void exitCUDA();
 
 
-void initGoL(CImg<unsigned char>& image){
-	unsigned char * data = image.data();
+void initGoL(CImg<bool>& image){
+	bool * data = image.data();
 	
 	for(int i = 0; i < image.size(); i++){
 		if(rand() < (RAND_MAX/2)){
@@ -28,7 +28,7 @@ void initGoL(CImg<unsigned char>& image){
 
 int main(){
 	srand(time(NULL));
-	CImg<unsigned char> image = CImg<unsigned char>(WIDTH, HEIGHT,1,1,0);
+	CImg<bool> image = CImg<bool>(WIDTH, HEIGHT,1,1,0);
 	CImgDisplay display(image, "Game of Life");
 	chrono::system_clock::time_point start,end;
 	chrono::duration<double> time;
