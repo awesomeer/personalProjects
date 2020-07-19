@@ -18,10 +18,10 @@ void initGoL(CImg<bool>& image){
 	
 	for(int i = 0; i < image.size(); i++){
 		if(rand() < (RAND_MAX/2)){
-			data[i] = 255;
+			data[i] = true;
 		}
 		else{
-			data[i] = 0;
+			data[i] = false;
 		}
 	}
 }
