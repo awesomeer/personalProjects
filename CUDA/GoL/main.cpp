@@ -5,40 +5,27 @@
 using namespace std;
 using namespace cimg_library;
 
-#define WIDTH 1600
-#define HEIGHT 900
+#define WIDTH 1600/2
+#define HEIGHT 900/2
+#define SIZE WIDTH*HEIGHT
 
-extern void initCUDA(int size, bool * data);
-extern void iteration(bool * data, int width, int height);
+extern void randomize(int size);
+extern void initCUDA(int size);
+extern void iteration(unsigned char * data, int width, int height);
 extern void exitCUDA();
-
-
-void initGoL(CImg<bool>& image){
-	bool * data = image.data();
-	
-	for(int i = 0; i < image.size(); i++){
-		if(rand() < (RAND_MAX/2)){
-			data[i] = true;
-		}
-		else{
-			data[i] = false;
-		}
-	}
-}
 
 int main(){
 	srand(time(NULL));
-	CImg<bool> image = CImg<bool>(WIDTH, HEIGHT,1,1,0);
+	CImg<unsigned char> image = CImg<unsigned char>(WIDTH, HEIGHT,1,3,0);
 	CImgDisplay display(image, "Game of Life");
 	chrono::system_clock::time_point start,end;
 	chrono::duration<double> time;
 
-	initGoL(image);
-	initCUDA(image.size(), image.data());
+	initCUDA(SIZE);
 
 	display.display(image);
 	iteration(image.data(), WIDTH, HEIGHT);
-	display.set_fullscreen(true, true);
+	//display.set_fullscreen(true, true);
 
 	
 	while(!display.is_closed()){
@@ -48,7 +35,7 @@ int main(){
 			break;
 
 		if(display.is_keyR())
-			initGoL(image);
+			randomize(SIZE);
 		
 		if(display.is_keyT())
 			display.toggle_fullscreen();
