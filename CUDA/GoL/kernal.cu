@@ -86,8 +86,8 @@ void render(bool* state, unsigned char* image, int width, int height) {
     int index = row * width + col;
 
     if (state[index]){
-        image[index] = row * 256/height;
-        image[index + step] = col*256/width;
+        image[index] = row * 256 / height;
+        image[index + step] = col * 256 / width;
         image[index + (2 * step)] = 255;
     }
     else{
