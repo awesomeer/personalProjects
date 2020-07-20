@@ -5,8 +5,8 @@
 using namespace std;
 using namespace cimg_library;
 
-#define WIDTH 1600/2
-#define HEIGHT 900/2
+#define WIDTH 1600
+#define HEIGHT 900
 #define SIZE WIDTH*HEIGHT
 
 extern void randomize(int size);
@@ -15,7 +15,7 @@ extern void iteration(unsigned char * data, int width, int height);
 extern void exitCUDA();
 
 int main(){
-	srand(time(NULL));
+	srand((unsigned int) time(NULL));
 	CImg<unsigned char> image = CImg<unsigned char>(WIDTH, HEIGHT,1,3,0);
 	CImgDisplay display(image, "Game of Life");
 	chrono::system_clock::time_point start,end;
@@ -24,7 +24,7 @@ int main(){
 	initCUDA(SIZE);
 
 	display.display(image);
-	iteration(image.data(), WIDTH, HEIGHT);
+	//iteration(image.data(), WIDTH, HEIGHT);
 	//display.set_fullscreen(true, true);
 
 	

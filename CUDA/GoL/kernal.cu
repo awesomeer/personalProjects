@@ -3,7 +3,6 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
 #include <device_launch_parameters.h>
-#include <curand.h>
 
 static bool * cudaPtA;
 static bool * cudaPtB;
@@ -74,15 +73,21 @@ void kernal(bool * current, bool * next, int width, int height){
 __global__
 void render(bool* state, unsigned char* image, int width, int height) {
 
-    int index = threadIdx.x + blockIdx.x * blockDim.x;
-    if (index >= width * height)
+    int row = threadIdx.y + blockIdx.y * blockDim.y;
+    int col = threadIdx.x + blockIdx.x * blockDim.x;
+
+    if (row < 0 || row >= height)
+        return;
+    if (col < 0 || col >= width)
         return;
 
+
     int step = width * height;
+    int index = row * width + col;
 
     if (state[index]){
-        image[index] = 255;
-        image[index + step] = 255;
+        image[index] = row * 256/height;
+        image[index + step] = col*256/width;
         image[index + (2 * step)] = 255;
     }
     else{
@@ -126,7 +131,7 @@ extern void iteration(unsigned char * image, int width, int height){
     cudaMemcpy(cudaPtA, cudaPtB, size * sizeof(bool), cudaMemcpyDeviceToDevice);
 
     //Render image
-    render<<<(width*height/1024)+1, 1024>>>(cudaPtB, renderImage, width, height);
+    render<<<grid, block>>>(cudaPtB, renderImage, width, height);
     cudaMemcpy(image, renderImage, 3 * size * sizeof(unsigned char), cudaMemcpyDeviceToHost);
 
 }
