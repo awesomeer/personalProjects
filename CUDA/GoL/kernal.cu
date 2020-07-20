@@ -3,12 +3,11 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
 #include <device_launch_parameters.h>
+#include <curand.h>
 
 static bool * cudaPtA;
 static bool * cudaPtB;
 static unsigned char * renderImage;
-
-static bool * life;
 
 
 __global__
@@ -67,21 +66,19 @@ void kernal(bool * current, bool * next, int width, int height){
     }
     else if(cell && (neighbors == 2 || neighbors == 3)){
         next[row*width+col] = true;
-    }       
+    }
+
 }
 
 
 __global__
 void render(bool* state, unsigned char* image, int width, int height) {
-    //int row = threadIdx.y + blockIdx.y * blockDim.y;
-    //int col = threadIdx.x + blockIdx.x * blockDim.x;
-
-    int step = width * height;
-    //int index = row * width + col;
 
     int index = threadIdx.x + blockIdx.x * blockDim.x;
     if (index >= width * height)
         return;
+
+    int step = width * height;
 
     if (state[index]){
         image[index] = 255;
@@ -96,20 +93,25 @@ void render(bool* state, unsigned char* image, int width, int height) {
 }
 
 
+
 extern void randomize(int size) {
+    bool* life = (bool*)malloc(sizeof(bool) * size);
     for (int i = 0; i < size; i++) {
-        life[i] = rand() > (RAND_MAX / 2);
+        life[i] = rand() / (RAND_MAX / 2);
     }
+
+    cudaMemcpy(cudaPtA, life, sizeof(bool) * size, cudaMemcpyHostToDevice);
+
+    free(life);
 }
 
 extern void initCUDA(int size){
 
-    life = (bool *) malloc(sizeof(bool) * size);
-    randomize(size);
-
     cudaMalloc(&cudaPtA, size * sizeof(bool));
     cudaMalloc(&cudaPtB, size * sizeof(bool));
     cudaMalloc(&renderImage, 3 * size * sizeof(unsigned char));
+
+    randomize(size);
 }
 
 
@@ -120,17 +122,16 @@ extern void iteration(unsigned char * image, int width, int height){
     dim3 grid((width/32)+1, (height/32)+1);
         
     //Iterate one step in simulation
-    cudaMemcpy(cudaPtA, life, size * sizeof(bool), cudaMemcpyHostToDevice);
     kernal<<<grid, block>>>(cudaPtA, cudaPtB, width, height);
-    cudaMemcpy(life, cudaPtB, size * sizeof(bool), cudaMemcpyDeviceToHost);
+    cudaMemcpy(cudaPtA, cudaPtB, size * sizeof(bool), cudaMemcpyDeviceToDevice);
 
     //Render image
     render<<<(width*height/1024)+1, 1024>>>(cudaPtB, renderImage, width, height);
     cudaMemcpy(image, renderImage, 3 * size * sizeof(unsigned char), cudaMemcpyDeviceToHost);
+
 }
 
 extern void exitCUDA(){
-    free(life);
     cudaFree(cudaPtA);
     cudaFree(cudaPtB);
     cudaFree(renderImage);
