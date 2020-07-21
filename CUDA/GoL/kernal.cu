@@ -3,6 +3,7 @@
 #include <cuda.h>
 #include <cuda_runtime.h>
 #include <device_launch_parameters.h>
+#include <math.h>
 
 static bool * cudaPtA;
 static bool * cudaPtB;
@@ -83,17 +84,30 @@ void render(bool* state, unsigned char* image, int width, int height) {
 
 
     int step = width * height;
+    unsigned char* red = image;
+    unsigned char* green = &image[step];
+    unsigned char* blue = &image[2 * step];
+
     int index = row * width + col;
 
     if (state[index]){
-        image[index] = row * 256 / height;
-        image[index + step] = col * 256 / width;
-        image[index + (2 * step)] = 255;
+
+        /* Weird Circular render
+        red[index] = 256 * sin(3.1415 * row / height);//row * 256 / height;
+        green[index] = 256 * sin(3.1415 * col / width);//col * 256 / width;
+        blue[index] = 256 * sin(3.1415 * (row * width) / (height*width));
+        */
+
+         //Straight rectangular render
+        red[index] = row * 256 / height;
+        green[index] = col * 256 / width;
+        blue[index] = 255;
+        
     }
     else{
-        image[index] = 0;
-        image[index + step] = 0;
-        image[index + (2 * step)] = 0;
+        red[index] = 0;
+        green[index] = 0;
+        blue[index] = 0;
     }
 }
 
