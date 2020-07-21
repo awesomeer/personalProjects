@@ -38,10 +38,10 @@ void kernal(bool * current, bool * next, int width, int height){
 
         for(int j = -1; j < 2; j++){
             int tempCol = 0;
-            if(col+i < 0){
+            if(col+j < 0){
                 tempCol = width-1;
             }
-            else if(col+i >= width){
+            else if(col+j >= width){
                 tempCol = 0;
             }
             else{

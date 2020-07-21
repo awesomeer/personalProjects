@@ -6,8 +6,8 @@
 using namespace std;
 using namespace cimg_library;
 
-#define DEFAULT_WIDTH 1600
-#define DEFAULT_HEIGHT 900
+#define DEFAULT_WIDTH 1600/2
+#define DEFAULT_HEIGHT 900/2
 
 extern void randomize(int size);
 extern void initCUDA(int size);
