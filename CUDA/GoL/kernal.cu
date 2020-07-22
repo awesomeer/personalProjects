@@ -11,7 +11,7 @@ static unsigned char * renderImage;
 
 
 __global__
-void kernal(bool * current, bool * next, int width, int height){
+void kernal(bool * current, bool * next, int width, int height, unsigned char * image){
     int row = threadIdx.y + blockIdx.y * blockDim.y;
     int col = threadIdx.x + blockIdx.x * blockDim.x;
 
@@ -56,18 +56,29 @@ void kernal(bool * current, bool * next, int width, int height){
         }
     }
 
-    bool cell = current[row*width+col];
+    int index = row * width + col;
+    bool cell = current[index];
 
     if(!cell && neighbors == 3){
-        next[row*width+col] = true;
+        next[index] = true;
     }
     else if(cell && (neighbors < 2 || neighbors > 3)){
-        next[row*width+col] = false;
+        next[index] = false;
     }
     else if(cell && (neighbors == 2 || neighbors == 3)){
-        next[row*width+col] = true;
+        next[index] = true;
     }
+        
+    int step = width * height;
+    unsigned char* red = image;
+    unsigned char* green = &image[step];
+    unsigned char* blue = &image[2 * step];
 
+    if (next[index]) {
+        red[index] = 255;
+        green[index] = 255;
+        blue[index] = 255;
+    }
 }
 
 
@@ -91,23 +102,10 @@ void render(bool* state, unsigned char* image, int width, int height) {
     int index = row * width + col;
 
     if (state[index]){
-
-        /* Weird Circular render
-        red[index] = 256 * sin(3.1415 * row / height);//row * 256 / height;
-        green[index] = 256 * sin(3.1415 * col / width);//col * 256 / width;
-        blue[index] = 256 * sin(3.1415 * (row * width) / (height*width));
-        */
-
          //Straight rectangular render
         red[index] = row * 256 / height;
         green[index] = col * 256 / width;
-        blue[index] = 255;
-        
-    }
-    else{
-        red[index] = 0;
-        green[index] = 0;
-        blue[index] = 0;
+        //blue[index] = 255;
     }
 }
 
@@ -141,7 +139,8 @@ extern void iteration(unsigned char * image, int width, int height){
     dim3 grid((width/32)+1, (height/32)+1);
         
     //Iterate one step in simulation
-    kernal<<<grid, block>>>(cudaPtA, cudaPtB, width, height);
+    cudaMemset(renderImage, 0, 3 * size * sizeof(unsigned char));
+    kernal<<<grid, block>>>(cudaPtA, cudaPtB, width, height, renderImage);
     cudaMemcpy(cudaPtA, cudaPtB, size * sizeof(bool), cudaMemcpyDeviceToDevice);
 
     //Render image
