@@ -10,8 +10,8 @@ using namespace cimg_library;
 #define DEFAULT_HEIGHT 900/2
 
 extern void randomize(int size);
-extern void initCUDA(int size);
-extern void iteration(unsigned char * data, int width, int height);
+extern void initCUDA(int width, int height);
+extern void iteration(unsigned char * data);
 extern void exitCUDA();
 
 int main(int argc, char ** argv){
@@ -34,7 +34,7 @@ int main(int argc, char ** argv){
 	chrono::system_clock::time_point start,end;
 	chrono::duration<double> time;
 
-	initCUDA(size);
+	initCUDA(width, height);
 
 	display.display(image);
 	
@@ -47,7 +47,7 @@ int main(int argc, char ** argv){
 		if(display.is_keyT())
 			display.toggle_fullscreen();
 
-		iteration(image.data(), width, height);
+		iteration(image.data());
 		display.render(image);
 		display.paint();
 

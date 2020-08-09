@@ -5,19 +5,21 @@
 #include <device_launch_parameters.h>
 #include <math.h>
 
+
+__managed__ int cuWidth, cuHeight;
 static bool * cudaPtA;
 static bool * cudaPtB;
 static unsigned char * renderImage;
 
 
 __global__
-void kernal(bool * current, bool * next, int width, int height, unsigned char * image){
+void kernal(bool * current, bool * next, unsigned char * image){
     int row = threadIdx.y + blockIdx.y * blockDim.y;
     int col = threadIdx.x + blockIdx.x * blockDim.x;
 
-    if(row < 0 || row >= height)
+    if(row < 0 || row >= cuHeight)
         return;
-    if(col < 0 || col >= width)
+    if(col < 0 || col >= cuWidth)
         return;
     
 
@@ -27,9 +29,9 @@ void kernal(bool * current, bool * next, int width, int height, unsigned char * 
     for(int i = -1; i < 2; i++){
         int tempRow = 0;
         if(row+i < 0){
-            tempRow = height-1;
+            tempRow = cuHeight-1;
         }
-        else if(row+i >= height){
+        else if(row+i >= cuHeight){
             tempRow = 0;
         }
         else{
@@ -39,9 +41,9 @@ void kernal(bool * current, bool * next, int width, int height, unsigned char * 
         for(int j = -1; j < 2; j++){
             int tempCol = 0;
             if(col+j < 0){
-                tempCol = width-1;
+                tempCol = cuWidth-1;
             }
-            else if(col+j >= width){
+            else if(col+j >= cuWidth){
                 tempCol = 0;
             }
             else{
@@ -49,14 +51,14 @@ void kernal(bool * current, bool * next, int width, int height, unsigned char * 
             }
 
             if(!(i == 0 && j == 0)){
-                if(current[tempRow*width + tempCol]){
+                if(current[tempRow* cuWidth + tempCol]){
                     neighbors++;
                 }
             }
         }
     }
 
-    int index = row * width + col;
+    int index = row * cuWidth + col;
     bool cell = current[index];
 
     if(!cell && neighbors == 3){
@@ -69,7 +71,7 @@ void kernal(bool * current, bool * next, int width, int height, unsigned char * 
         next[index] = true;
     }
         
-    int step = width * height;
+    int step = cuWidth * cuHeight;
     unsigned char* red = image;
     unsigned char* green = &image[step];
     unsigned char* blue = &image[2 * step];
@@ -83,29 +85,28 @@ void kernal(bool * current, bool * next, int width, int height, unsigned char * 
 
 
 __global__
-void render(bool* state, unsigned char* image, int width, int height) {
+void render(bool* state, unsigned char* image) {
 
     int row = threadIdx.y + blockIdx.y * blockDim.y;
     int col = threadIdx.x + blockIdx.x * blockDim.x;
 
-    if (row < 0 || row >= height)
+    if (row < 0 || row >= cuHeight)
         return;
-    if (col < 0 || col >= width)
+    if (col < 0 || col >= cuWidth)
         return;
 
 
-    int step = width * height;
+    int step = cuWidth * cuHeight;
     unsigned char* red = image;
     unsigned char* green = &image[step];
     unsigned char* blue = &image[2 * step];
 
-    int index = row * width + col;
+    int index = row * cuWidth + col;
 
-    if (state[index]){
-         //Straight rectangular render
-        red[index] = row * 256 / height;
-        green[index] = col * 256 / width;
-        //blue[index] = 255;
+    if (state[index]) {
+        red[index] = 256 * row / cuHeight;
+        green[index] = 256 * col / cuWidth;
+        blue[index] = 255;
     }
 }
 
@@ -122,7 +123,10 @@ extern void randomize(int size) {
     free(life);
 }
 
-extern void initCUDA(int size){
+extern void initCUDA(int width, int height){
+    int size = width * height;
+    cuWidth = width;
+    cuHeight = height;
 
     cudaMalloc(&cudaPtA, size * sizeof(bool));
     cudaMalloc(&cudaPtB, size * sizeof(bool));
@@ -133,18 +137,18 @@ extern void initCUDA(int size){
 
 
 
-extern void iteration(unsigned char * image, int width, int height){
-    int size = width*height;
+extern void iteration(unsigned char * image){
+    int size = cuWidth * cuHeight;
     dim3 block(32,32);
-    dim3 grid((width/32)+1, (height/32)+1);
+    dim3 grid((cuWidth/32)+1, (cuHeight/32)+1);
         
     //Iterate one step in simulation
     cudaMemset(renderImage, 0, 3 * size * sizeof(unsigned char));
-    kernal<<<grid, block>>>(cudaPtA, cudaPtB, width, height, renderImage);
+    kernal<<<grid, block>>>(cudaPtA, cudaPtB, renderImage);
     cudaMemcpy(cudaPtA, cudaPtB, size * sizeof(bool), cudaMemcpyDeviceToDevice);
 
     //Render image
-    render<<<grid, block>>>(cudaPtB, renderImage, width, height);
+    render<<<grid, block>>>(cudaPtB, renderImage);
     cudaMemcpy(image, renderImage, 3 * size * sizeof(unsigned char), cudaMemcpyDeviceToHost);
 
 }
