@@ -13,7 +13,7 @@ static unsigned char * renderImage;
 
 
 __global__
-void kernal(bool * current, bool * next, unsigned char * image){
+void kernal(bool * current, bool * next){
     int row = threadIdx.y + blockIdx.y * blockDim.y;
     int col = threadIdx.x + blockIdx.x * blockDim.x;
 
@@ -71,16 +71,6 @@ void kernal(bool * current, bool * next, unsigned char * image){
         next[index] = true;
     }
         
-    int step = cuWidth * cuHeight;
-    unsigned char* red = image;
-    unsigned char* green = &image[step];
-    unsigned char* blue = &image[2 * step];
-
-    if (next[index]) {
-        red[index] = 255;
-        green[index] = 255;
-        blue[index] = 255;
-    }
 }
 
 
@@ -107,6 +97,11 @@ void render(bool* state, unsigned char* image) {
         red[index] = 256 * row / cuHeight;
         green[index] = 256 * col / cuWidth;
         blue[index] = 255;
+    }
+    else {
+        red[index] = 0;
+        green[index] = 0;
+        blue[index] = 0;
     }
 }
 
@@ -143,8 +138,7 @@ extern void iteration(unsigned char * image){
     dim3 grid((cuWidth/32)+1, (cuHeight/32)+1);
         
     //Iterate one step in simulation
-    cudaMemset(renderImage, 0, 3 * size * sizeof(unsigned char));
-    kernal<<<grid, block>>>(cudaPtA, cudaPtB, renderImage);
+    kernal<<<grid, block>>>(cudaPtA, cudaPtB);
     cudaMemcpy(cudaPtA, cudaPtB, size * sizeof(bool), cudaMemcpyDeviceToDevice);
 
     //Render image
