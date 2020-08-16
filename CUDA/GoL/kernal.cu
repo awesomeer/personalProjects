@@ -7,8 +7,8 @@
 
 
 __managed__ int cuWidth, cuHeight;
-static bool * cudaPtA;
-static bool * cudaPtB;
+static bool * cuCurr;
+static bool * cuNext;
 static unsigned char * renderImage;
 
 
@@ -105,6 +105,14 @@ void render(bool* state, unsigned char* image) {
     }
 }
 
+__device__
+int wrap(int index, int size) {
+
+    while (index < 0)
+        index += size;
+
+    return index % size;
+}
 
 
 extern void randomize(int size) {
@@ -113,7 +121,7 @@ extern void randomize(int size) {
         life[i] = rand() / (RAND_MAX / 2);
     }
 
-    cudaMemcpy(cudaPtA, life, sizeof(bool) * size, cudaMemcpyHostToDevice);
+    cudaMemcpy(cuCurr, life, sizeof(bool) * size, cudaMemcpyHostToDevice);
 
     free(life);
 }
@@ -123,13 +131,12 @@ extern void initCUDA(int width, int height){
     cuWidth = width;
     cuHeight = height;
 
-    cudaMalloc(&cudaPtA, size * sizeof(bool));
-    cudaMalloc(&cudaPtB, size * sizeof(bool));
+    cudaMalloc(&cuCurr, size * sizeof(bool));
+    cudaMalloc(&cuNext, size * sizeof(bool));
     cudaMalloc(&renderImage, 3 * size * sizeof(unsigned char));
 
     randomize(size);
 }
-
 
 
 extern void iteration(unsigned char * image){
@@ -138,17 +145,17 @@ extern void iteration(unsigned char * image){
     dim3 grid((cuWidth/32)+1, (cuHeight/32)+1);
         
     //Iterate one step in simulation
-    kernal<<<grid, block>>>(cudaPtA, cudaPtB);
-    cudaMemcpy(cudaPtA, cudaPtB, size * sizeof(bool), cudaMemcpyDeviceToDevice);
+    kernal<<<grid, block>>>(cuCurr, cuNext);
+    cudaMemcpy(cuCurr, cuNext, size * sizeof(bool), cudaMemcpyDeviceToDevice);
 
     //Render image
-    render<<<grid, block>>>(cudaPtB, renderImage);
+    render<<<grid, block>>>(cuNext, renderImage);
     cudaMemcpy(image, renderImage, 3 * size * sizeof(unsigned char), cudaMemcpyDeviceToHost);
 
 }
 
 extern void exitCUDA(){
-    cudaFree(cudaPtA);
-    cudaFree(cudaPtB);
+    cudaFree(cuCurr);
+    cudaFree(cuNext);
     cudaFree(renderImage);
 }

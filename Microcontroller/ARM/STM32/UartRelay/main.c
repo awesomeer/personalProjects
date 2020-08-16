@@ -4,10 +4,12 @@
 //PA2 Transmit to Host
 //PA15 Recieve from Host
 #define HUart USART2
+#define HSpeed 115200
 
 //PA9 Transmit to Device
 //PA10 Recieve from Device
 #define DUart USART1
+#define DSpeed 115200
 
 static FIFO HFifo, DFifo;
 
@@ -83,7 +85,7 @@ void DUartInit(void){
 	RCC->APB2ENR |= (1 << RCC_APB2ENR_USART1EN_Pos); //Enable USART1 Clock
 	
 	DUart->CR1 |= (1 << USART_CR1_TE_Pos) | (1 << USART_CR1_RE_Pos);//Enable Transmit and Receieve Function
-	DUart->BRR = (unsigned int) SystemCoreClock/115200;
+	DUart->BRR = (unsigned int) SystemCoreClock/DSpeed;
 	DUart->CR1 |= (1 << USART_CR1_UE_Pos);
 	
 	DUart->CR1 |= USART_CR1_RXNEIE;
