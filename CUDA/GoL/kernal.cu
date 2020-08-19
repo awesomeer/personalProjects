@@ -11,9 +11,15 @@ static bool * cuCurr;
 static bool * cuNext;
 static unsigned char * renderImage;
 
+__device__
+int wrap(int index, int size);
+
+__device__
+int hashSubImage(int row, int col, int xLen, int yLen);
+
 
 __global__
-void kernal(bool * current, bool * next){
+void kernal(bool * current, bool * next, unsigned char * image){
     int row = threadIdx.y + blockIdx.y * blockDim.y;
     int col = threadIdx.x + blockIdx.x * blockDim.x;
 
@@ -27,28 +33,10 @@ void kernal(bool * current, bool * next){
     int neighbors = 0;
 
     for(int i = -1; i < 2; i++){
-        int tempRow = 0;
-        if(row+i < 0){
-            tempRow = cuHeight-1;
-        }
-        else if(row+i >= cuHeight){
-            tempRow = 0;
-        }
-        else{
-            tempRow = row + i;
-        }
+        int tempRow = wrap(row + i, cuHeight);
 
         for(int j = -1; j < 2; j++){
-            int tempCol = 0;
-            if(col+j < 0){
-                tempCol = cuWidth-1;
-            }
-            else if(col+j >= cuWidth){
-                tempCol = 0;
-            }
-            else{
-                tempCol = col + j;
-            }
+            int tempCol = wrap(col + j, cuWidth);
 
             if(!(i == 0 && j == 0)){
                 if(current[tempRow* cuWidth + tempCol]){
@@ -61,16 +49,29 @@ void kernal(bool * current, bool * next){
     int index = row * cuWidth + col;
     bool cell = current[index];
 
-    if(!cell && neighbors == 3){
+    unsigned char* red = image;
+    unsigned char* green = &image[cuWidth * cuHeight];
+    unsigned char* blue = &image[2 * cuWidth * cuHeight];
+
+    //if(!cell && neighbors == 3){
+    //    next[index] = true;
+    //}
+    //else if(cell && (neighbors < 2 || neighbors > 3)){
+    //    next[index] = false;
+    //}
+    //else if(cell && (neighbors == 2 || neighbors == 3)){
+    //    next[index] = true;
+    //}
+
+    if ((!cell && neighbors == 3) || (cell && (neighbors == 2 || neighbors == 3))) {
         next[index] = true;
+        red[index] = green[index] = blue[index] = 255;
     }
-    else if(cell && (neighbors < 2 || neighbors > 3)){
+    else if (cell && (neighbors < 2 || neighbors > 3)) {
         next[index] = false;
+        red[index] = green[index] = blue[index] = 0;
     }
-    else if(cell && (neighbors == 2 || neighbors == 3)){
-        next[index] = true;
-    }
-        
+
 }
 
 
@@ -98,12 +99,33 @@ void render(bool* state, unsigned char* image) {
         green[index] = 256 * col / cuWidth;
         blue[index] = 255;
     }
-    else {
-        red[index] = 0;
-        green[index] = 0;
-        blue[index] = 0;
+
+}
+
+
+__device__
+int hashSubImage(unsigned char * image, int row, int col, int xLen, int yLen) {
+    int hashSum = 0;
+
+    for (int y = 0; y < yLen; y++) {
+        int yHash = 0;
+        if (y < ceil(yLen / 2.0))
+            yHash = y;
+        else
+            yHash = yLen - y - 1;
+
+        for (int x = 0; x < xLen; x++) {
+            int xHash = 0;
+            if (x < ceil(xLen / 2.0))
+                xHash = x;
+            else
+                xHash = xLen - x - 1;
+
+            int hash = yHash > xHash ? xHash : yHash;
+        }
     }
 }
+
 
 __device__
 int wrap(int index, int size) {
@@ -145,7 +167,7 @@ extern void iteration(unsigned char * image){
     dim3 grid((cuWidth/32)+1, (cuHeight/32)+1);
         
     //Iterate one step in simulation
-    kernal<<<grid, block>>>(cuCurr, cuNext);
+    kernal<<<grid, block>>>(cuCurr, cuNext, renderImage);
     cudaMemcpy(cuCurr, cuNext, size * sizeof(bool), cudaMemcpyDeviceToDevice);
 
     //Render image
