@@ -10,6 +10,7 @@
 #include <avr/interrupt.h>
 
 unsigned int count;
+unsigned int adc;
 
 void gpioInit(void);
 void timerInit(void);
@@ -17,6 +18,7 @@ void adcInit(void);
 
 int main(void) {
     count = 0;
+    adc = 0;
     
     gpioInit();
     adcInit();
@@ -50,18 +52,9 @@ void adcInit(void){
 ISR(ADC_vect){
     TIFR = _BV(TOV0);
     
-    unsigned int adc = ADCH;
-    adc <<= 8;
-    adc |= ADCL;
-    adc >>= 2;
+    adc = ADCW >> 2;
     if(adc == 0)
         adc = 1;
-    
-    if(adc != OCR1C){
-        TCCR1 &= ~(0b1111);
-        OCR1C = adc;
-        TCCR1 |= 0b1101;
-    }
 }
 
 void timerInit(void){
@@ -69,9 +62,12 @@ void timerInit(void){
     OCR1A = 0xFF;
     OCR1C = 0xFF; 
     TIMSK |= _BV(TOIE1);
-    TCCR1 |= _BV(PWM1A) | 0b1101;
+    TCCR1 |= _BV(PWM1A) | 0b0100;
 }
 
 ISR(TIM1_OVF_vect){
-    PORTB = ((PORTB & 0xF) + 1) % 16;
+    if(count == 0)
+        PORTB = ((PORTB & 0xF) + 1) % 16;
+    
+    count = (count + 1) % adc;
 }
