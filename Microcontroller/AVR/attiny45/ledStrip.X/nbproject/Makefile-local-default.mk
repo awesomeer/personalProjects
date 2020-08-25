@@ -15,24 +15,24 @@
 # $ makeMP_CC="/opt/microchip/mplabc30/v3.30c/bin/pic30-gcc" ...  
 #
 SHELL=cmd.exe
-PATH_TO_IDE_BIN=C:/Program Files (x86)/Microchip/MPLABX/v5.25/mplab_platform/platform/../mplab_ide/modules/../../bin/
+PATH_TO_IDE_BIN=D:/Microchip/MPLABX/v5.40/mplab_platform/platform/../mplab_ide/modules/../../bin/
 # Adding MPLAB X bin directory to path.
-PATH:=C:/Program Files (x86)/Microchip/MPLABX/v5.25/mplab_platform/platform/../mplab_ide/modules/../../bin/:$(PATH)
+PATH:=D:/Microchip/MPLABX/v5.40/mplab_platform/platform/../mplab_ide/modules/../../bin/:$(PATH)
 # Path to java used to run MPLAB X when this makefile was created
-MP_JAVA_PATH="C:\Program Files (x86)\Microchip\MPLABX\v5.25\sys\java\jre1.8.0_181/bin/"
+MP_JAVA_PATH="D:\Microchip\MPLABX\v5.40\sys\java\zulu8.36.0.1-ca-fx-jdk8.0.202-win_x64\jre/bin/"
 OS_CURRENT="$(shell uname -s)"
-MP_CC="C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe"
-MP_CPPC="C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-g++.exe"
+MP_CC="D:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe"
+MP_CPPC="D:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-g++.exe"
 # MP_BC is not defined
-MP_AS="C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-as.exe"
-MP_LD="C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-ld.exe"
-MP_AR="C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-ar.exe"
-DEP_GEN=${MP_JAVA_PATH}java -jar "C:/Program Files (x86)/Microchip/MPLABX/v5.25/mplab_platform/platform/../mplab_ide/modules/../../bin/extractobjectdependencies.jar"
-MP_CC_DIR="C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin"
-MP_CPPC_DIR="C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin"
+MP_AS="D:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-as.exe"
+MP_LD="D:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-ld.exe"
+MP_AR="D:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-ar.exe"
+DEP_GEN=${MP_JAVA_PATH}java -jar "D:/Microchip/MPLABX/v5.40/mplab_platform/platform/../mplab_ide/modules/../../bin/extractobjectdependencies.jar"
+MP_CC_DIR="D:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin"
+MP_CPPC_DIR="D:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin"
 # MP_BC_DIR is not defined
-MP_AS_DIR="C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin"
-MP_LD_DIR="C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin"
-MP_AR_DIR="C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin"
+MP_AS_DIR="D:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin"
+MP_LD_DIR="D:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin"
+MP_AR_DIR="D:\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin"
 # MP_BC_DIR is not defined
-DFP_DIR="C:/Program Files (x86)/Microchip/MPLABX/v5.25/packs/Microchip/ATtiny_DFP/2.0.10"
+DFP_DIR=C:/Users/mithi/.mchp_packs/Microchip/ATtiny_DFP/2.0.10

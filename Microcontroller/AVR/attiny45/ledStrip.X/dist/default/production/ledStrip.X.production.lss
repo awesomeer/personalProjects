@@ -7,7 +7,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   1 .data         0000000c  00800060  00000ac0  00000b54  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000073  0080006c  0080006c  00000b60  2**0
+  2 .bss          00000070  0080006c  0080006c  00000b60  2**0
                   ALLOC
   3 .comment      00000030  00000000  00000000  00000b60  2**0
                   CONTENTS, READONLY
@@ -235,7 +235,7 @@ Disassembly of section .text:
  348:	1d 92       	st	X+, r1
 
 0000034a <.do_clear_bss_start>:
- 34a:	af 3d       	cpi	r26, 0xDF	; 223
+ 34a:	ac 3d       	cpi	r26, 0xDC	; 220
  34c:	b2 07       	cpc	r27, r18
  34e:	e1 f7       	brne	.-8      	; 0x348 <.do_clear_bss_loop>
  350:	02 d0       	rcall	.+4      	; 0x356 <main>
@@ -610,7 +610,7 @@ Disassembly of section .text:
  6e8:	08 95       	ret
 
 000006ea <refreshLed>:
- 6ea:	80 91 de 00 	lds	r24, 0x00DE	; 0x8000de <bright>
+ 6ea:	80 91 db 00 	lds	r24, 0x00DB	; 0x8000db <bright>
  6ee:	f2 df       	rcall	.-28     	; 0x6d4 <SPIout>
  6f0:	63 e0       	ldi	r22, 0x03	; 3
  6f2:	80 e6       	ldi	r24, 0x60	; 96
@@ -623,13 +623,13 @@ Disassembly of section .text:
  6fc:	df 93       	push	r29
  6fe:	bc 9a       	sbi	0x17, 4	; 23
  700:	8f ef       	ldi	r24, 0xFF	; 255
- 702:	80 93 de 00 	sts	0x00DE, r24	; 0x8000de <bright>
+ 702:	80 93 db 00 	sts	0x00DB, r24	; 0x8000db <bright>
  706:	cc df       	rcall	.-104    	; 0x6a0 <SPIInit>
  708:	64 e0       	ldi	r22, 0x04	; 4
  70a:	87 e6       	ldi	r24, 0x67	; 103
  70c:	90 e0       	ldi	r25, 0x00	; 0
  70e:	cd df       	rcall	.-102    	; 0x6aa <SPIoutArray>
- 710:	ce e1       	ldi	r28, 0x1E	; 30
+ 710:	cd e1       	ldi	r28, 0x1D	; 29
  712:	d0 e0       	ldi	r29, 0x00	; 0
  714:	ea df       	rcall	.-44     	; 0x6ea <refreshLed>
  716:	21 97       	sbiw	r28, 0x01	; 1
@@ -780,17 +780,17 @@ Disassembly of section .text:
  834:	09 f0       	breq	.+2      	; 0x838 <changeLed+0x102>
  836:	a2 c0       	rjmp	.+324    	; 0x97c <changeLed+0x246>
  838:	61 c0       	rjmp	.+194    	; 0x8fc <changeLed+0x1c6>
- 83a:	80 91 de 00 	lds	r24, 0x00DE	; 0x8000de <bright>
+ 83a:	80 91 db 00 	lds	r24, 0x00DB	; 0x8000db <bright>
  83e:	8f 71       	andi	r24, 0x1F	; 31
  840:	8f 5f       	subi	r24, 0xFF	; 255
  842:	80 6e       	ori	r24, 0xE0	; 224
- 844:	80 93 de 00 	sts	0x00DE, r24	; 0x8000de <bright>
+ 844:	80 93 db 00 	sts	0x00DB, r24	; 0x8000db <bright>
  848:	9c c0       	rjmp	.+312    	; 0x982 <changeLed+0x24c>
- 84a:	80 91 de 00 	lds	r24, 0x00DE	; 0x8000de <bright>
+ 84a:	80 91 db 00 	lds	r24, 0x00DB	; 0x8000db <bright>
  84e:	8f 71       	andi	r24, 0x1F	; 31
  850:	81 50       	subi	r24, 0x01	; 1
  852:	80 6e       	ori	r24, 0xE0	; 224
- 854:	80 93 de 00 	sts	0x00DE, r24	; 0x8000de <bright>
+ 854:	80 93 db 00 	sts	0x00DB, r24	; 0x8000db <bright>
  858:	94 c0       	rjmp	.+296    	; 0x982 <changeLed+0x24c>
  85a:	e0 e6       	ldi	r30, 0x60	; 96
  85c:	f0 e0       	ldi	r31, 0x00	; 0
@@ -923,12 +923,12 @@ Disassembly of section .text:
  95a:	82 60       	ori	r24, 0x02	; 2
  95c:	89 bf       	out	0x39, r24	; 57
  95e:	81 e0       	ldi	r24, 0x01	; 1
- 960:	80 93 dd 00 	sts	0x00DD, r24	; 0x8000dd <unit>
+ 960:	80 93 da 00 	sts	0x00DA, r24	; 0x8000da <unit>
  964:	1b c0       	rjmp	.+54     	; 0x99c <changeLed+0x266>
  966:	89 b7       	in	r24, 0x39	; 57
  968:	82 60       	ori	r24, 0x02	; 2
  96a:	89 bf       	out	0x39, r24	; 57
- 96c:	10 92 dd 00 	sts	0x00DD, r1	; 0x8000dd <unit>
+ 96c:	10 92 da 00 	sts	0x00DA, r1	; 0x8000da <unit>
  970:	15 c0       	rjmp	.+42     	; 0x99c <changeLed+0x266>
  972:	99 b7       	in	r25, 0x39	; 57
  974:	82 e0       	ldi	r24, 0x02	; 2
@@ -942,7 +942,7 @@ Disassembly of section .text:
  984:	87 e6       	ldi	r24, 0x67	; 103
  986:	90 e0       	ldi	r25, 0x00	; 0
  988:	90 de       	rcall	.-736    	; 0x6aa <SPIoutArray>
- 98a:	ce e1       	ldi	r28, 0x1E	; 30
+ 98a:	cd e1       	ldi	r28, 0x1D	; 29
  98c:	d0 e0       	ldi	r29, 0x00	; 0
  98e:	ad de       	rcall	.-678    	; 0x6ea <refreshLed>
  990:	21 97       	sbiw	r28, 0x01	; 1
@@ -988,7 +988,7 @@ Disassembly of section .text:
  9dc:	d0 e0       	ldi	r29, 0x00	; 0
  9de:	00 e6       	ldi	r16, 0x60	; 96
  9e0:	10 e0       	ldi	r17, 0x00	; 0
- 9e2:	80 91 dd 00 	lds	r24, 0x00DD	; 0x8000dd <unit>
+ 9e2:	80 91 da 00 	lds	r24, 0x00DA	; 0x8000da <unit>
  9e6:	88 23       	and	r24, r24
  9e8:	21 f0       	breq	.+8      	; 0x9f2 <__vector_5+0x4c>
  9ea:	e0 91 78 00 	lds	r30, 0x0078	; 0x800078 <fadeCount.2124>
@@ -1056,7 +1056,7 @@ Disassembly of section .text:
  a72:	ec 93       	st	X, r30
  a74:	3a de       	rcall	.-908    	; 0x6ea <refreshLed>
  a76:	28 96       	adiw	r28, 0x08	; 8
- a78:	c0 3f       	cpi	r28, 0xF0	; 240
+ a78:	c8 3e       	cpi	r28, 0xE8	; 232
  a7a:	d1 05       	cpc	r29, r1
  a7c:	09 f0       	breq	.+2      	; 0xa80 <__vector_5+0xda>
  a7e:	b1 cf       	rjmp	.-158    	; 0x9e2 <__vector_5+0x3c>

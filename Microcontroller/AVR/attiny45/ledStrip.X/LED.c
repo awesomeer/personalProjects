@@ -3,7 +3,7 @@
 #include <avr/interrupt.h>
 #include <stdlib.h>
 
-#define SIZE 30
+#define SIZE 29
 #define BRIGHT led[0]
 #define LED PB4
 
