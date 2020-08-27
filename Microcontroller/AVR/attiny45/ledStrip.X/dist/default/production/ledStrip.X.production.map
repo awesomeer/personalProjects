@@ -212,7 +212,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xac0
+.text           0x00000000      0xf8e
  *(.vectors)
  .vectors       0x00000000       0x1e C:/Users/mithi/.mchp_packs/Microchip/ATtiny_DFP/2.0.10/gcc/dev/attiny45/avr25/crtattiny45.o
                 0x00000000                __vector_default
@@ -229,43 +229,43 @@ END GROUP
  *libc.a:*(.progmem.data)
  *(.progmem*)
  .progmem.data.blue
-                0x0000001e      0x100 build/default/production/LED.o
+                0x0000001e      0x200 build/default/production/LED.o
                 0x0000001e                blue
  .progmem.data.green
-                0x0000011e      0x100 build/default/production/LED.o
-                0x0000011e                green
+                0x0000021e      0x200 build/default/production/LED.o
+                0x0000021e                green
  .progmem.data.red
-                0x0000021e      0x100 build/default/production/LED.o
-                0x0000021e                red
-                0x0000031e                . = ALIGN (0x2)
+                0x0000041e      0x200 build/default/production/LED.o
+                0x0000041e                red
+                0x0000061e                . = ALIGN (0x2)
  *(.jumptables)
  *(.jumptables*)
  *(.lowtext)
  *(.lowtext*)
-                0x0000031e                __ctors_start = .
+                0x0000061e                __ctors_start = .
  *(.ctors)
-                0x0000031e                __ctors_end = .
-                0x0000031e                __dtors_start = .
+                0x0000061e                __ctors_end = .
+                0x0000061e                __dtors_start = .
  *(.dtors)
-                0x0000031e                __dtors_end = .
+                0x0000061e                __dtors_end = .
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x0000031e        0x0 C:/Users/mithi/.mchp_packs/Microchip/ATtiny_DFP/2.0.10/gcc/dev/attiny45/avr25/crtattiny45.o
-                0x0000031e                __init
+ .init0         0x0000061e        0x0 C:/Users/mithi/.mchp_packs/Microchip/ATtiny_DFP/2.0.10/gcc/dev/attiny45/avr25/crtattiny45.o
+                0x0000061e                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x0000031e        0xc C:/Users/mithi/.mchp_packs/Microchip/ATtiny_DFP/2.0.10/gcc/dev/attiny45/avr25/crtattiny45.o
+ .init2         0x0000061e        0xc C:/Users/mithi/.mchp_packs/Microchip/ATtiny_DFP/2.0.10/gcc/dev/attiny45/avr25/crtattiny45.o
  *(.init2)
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x0000032a       0x16 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
-                0x0000032a                __do_copy_data
- .init4         0x00000340       0x10 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
-                0x00000340                __do_clear_bss
+ .init4         0x0000062a       0x16 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
+                0x0000062a                __do_copy_data
+ .init4         0x00000640       0x10 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
+                0x00000640                __do_clear_bss
  *(.init4)
  *(.init5)
  *(.init5)
@@ -276,58 +276,58 @@ END GROUP
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x00000350        0x4 C:/Users/mithi/.mchp_packs/Microchip/ATtiny_DFP/2.0.10/gcc/dev/attiny45/avr25/crtattiny45.o
+ .init9         0x00000650        0x4 C:/Users/mithi/.mchp_packs/Microchip/ATtiny_DFP/2.0.10/gcc/dev/attiny45/avr25/crtattiny45.o
  *(.init9)
  *(.text)
- .text          0x00000354        0x2 C:/Users/mithi/.mchp_packs/Microchip/ATtiny_DFP/2.0.10/gcc/dev/attiny45/avr25/crtattiny45.o
-                0x00000354                __vector_1
-                0x00000354                __vector_12
-                0x00000354                __bad_interrupt
-                0x00000354                __vector_6
-                0x00000354                __vector_3
-                0x00000354                __vector_11
-                0x00000354                __vector_13
-                0x00000354                __vector_7
-                0x00000354                __vector_9
-                0x00000354                __vector_8
-                0x00000354                __vector_14
-                0x00000354                __vector_10
-                0x00000356                . = ALIGN (0x2)
+ .text          0x00000654        0x2 C:/Users/mithi/.mchp_packs/Microchip/ATtiny_DFP/2.0.10/gcc/dev/attiny45/avr25/crtattiny45.o
+                0x00000654                __vector_1
+                0x00000654                __vector_12
+                0x00000654                __bad_interrupt
+                0x00000654                __vector_6
+                0x00000654                __vector_3
+                0x00000654                __vector_11
+                0x00000654                __vector_13
+                0x00000654                __vector_7
+                0x00000654                __vector_9
+                0x00000654                __vector_8
+                0x00000654                __vector_14
+                0x00000654                __vector_10
+                0x00000656                . = ALIGN (0x2)
  *(.text.*)
- .text.main     0x00000356       0x20 build/default/production/main.o
-                0x00000356                main
- .text.IRInit   0x00000376       0x7c build/default/production/IR.o
-                0x00000376                IRInit
- .text.getData  0x000003f2       0x2a build/default/production/IR.o
-                0x000003f2                getData
+ .text.main     0x00000656       0x20 build/default/production/main.o
+                0x00000656                main
+ .text.IRInit   0x00000676       0xfc build/default/production/IR.o
+                0x00000676                IRInit
+ .text.getData  0x00000772       0x4c build/default/production/IR.o
+                0x00000772                getData
  .text.__vector_2
-                0x0000041c      0x23a build/default/production/IR.o
-                0x0000041c                __vector_2
+                0x000007be      0x35c build/default/production/IR.o
+                0x000007be                __vector_2
  .text.__vector_4
-                0x00000656       0x4a build/default/production/IR.o
-                0x00000656                __vector_4
- .text.SPIInit  0x000006a0        0xa build/default/production/SPI.o
-                0x000006a0                SPIInit
+                0x00000b1a       0x5c build/default/production/IR.o
+                0x00000b1a                __vector_4
+ .text.SPIInit  0x00000b76        0xa build/default/production/SPI.o
+                0x00000b76                SPIInit
  .text.SPIoutArray
-                0x000006aa       0x2a build/default/production/SPI.o
-                0x000006aa                SPIoutArray
- .text.SPIout   0x000006d4       0x16 build/default/production/SPI.o
-                0x000006d4                SPIout
+                0x00000b80       0x2a build/default/production/SPI.o
+                0x00000b80                SPIoutArray
+ .text.SPIout   0x00000baa       0x16 build/default/production/SPI.o
+                0x00000baa                SPIout
  .text.refreshLed
-                0x000006ea       0x10 build/default/production/LED.o
- .text.LEDInit  0x000006fa       0x3c build/default/production/LED.o
-                0x000006fa                LEDInit
+                0x00000bc0       0x10 build/default/production/LED.o
+ .text.LEDInit  0x00000bd0       0x3c build/default/production/LED.o
+                0x00000bd0                LEDInit
  .text.changeLed
-                0x00000736      0x270 build/default/production/LED.o
-                0x00000736                changeLed
+                0x00000c0c      0x270 build/default/production/LED.o
+                0x00000c0c                changeLed
  .text.__vector_5
-                0x000009a6      0x116 build/default/production/LED.o
-                0x000009a6                __vector_5
-                0x00000abc                . = ALIGN (0x2)
+                0x00000e7c      0x10e build/default/production/LED.o
+                0x00000e7c                __vector_5
+                0x00000f8a                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000abc        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
-                0x00000abc                _exit
-                0x00000abc                exit
+ .fini9         0x00000f8a        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+                0x00000f8a                _exit
+                0x00000f8a                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -346,11 +346,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000abc        0x4 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+ .fini0         0x00000f8a        0x4 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000ac0                _etext = .
+                0x00000f8e                _etext = .
 
-.data           0x00800060        0xc load address 0x00000ac0
+.data           0x00800060        0xc load address 0x00000f8e
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -370,34 +370,34 @@ END GROUP
                 0x0080006c                _edata = .
                 0x0080006c                PROVIDE (__data_end, .)
 
-.bss            0x0080006c       0x70
+.bss            0x0080006c       0x71
                 0x0080006c                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.prev      0x0080006c        0x4 build/default/production/IR.o
+ .bss.time      0x0080006c        0x4 build/default/production/IR.o
  .bss.diff      0x00800070        0x4 build/default/production/IR.o
- .bss.time      0x00800074        0x4 build/default/production/IR.o
+ .bss.prev      0x00800074        0x4 build/default/production/IR.o
  .bss.fadeCount.2124
-                0x00800078        0x1 build/default/production/LED.o
+                0x00800078        0x2 build/default/production/LED.o
  *(COMMON)
- COMMON         0x00800079        0xa build/default/production/IR.o
-                0x00800079                necCode
-                0x0080007d                state
-                0x0080007e                valid
-                0x0080007f                count
- COMMON         0x00800083       0x59 build/default/production/LED.o
-                0x00800083                leds
-                0x008000da                unit
-                0x008000db                bright
-                0x008000dc                PROVIDE (__bss_end, .)
-                0x00000ac0                __data_load_start = LOADADDR (.data)
-                0x00000acc                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x0080007a        0xa build/default/production/IR.o
+                0x0080007a                necCode
+                0x0080007e                state
+                0x0080007f                valid
+                0x00800080                count
+ COMMON         0x00800084       0x59 build/default/production/LED.o
+                0x00800084                leds
+                0x008000db                unit
+                0x008000dc                bright
+                0x008000dd                PROVIDE (__bss_end, .)
+                0x00000f8e                __data_load_start = LOADADDR (.data)
+                0x00000f9a                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008000dc        0x0
+.noinit         0x008000dd        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x008000dc                _end = .
+                0x008000dd                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
