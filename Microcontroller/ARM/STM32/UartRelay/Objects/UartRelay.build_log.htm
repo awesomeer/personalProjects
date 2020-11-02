@@ -27,31 +27,24 @@ Project File Date:  10/23/2020
 <h2>Output:</h2>
 *** Using Compiler 'V6.14', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
-FIFO.c(12): warning: implicit conversion changes signedness: 'int32_t' (aka 'int') to 'uint32_t' (aka 'unsigned int') [-Wsign-conversion]
-        *get = in->data[in->getIndex];
-             ~ ^~~~~~~~~~~~~~~~~~~~~~
-FIFO.c(21): warning: implicit conversion changes signedness: 'uint32_t' (aka 'unsigned int') to 'int32_t' (aka 'int') [-Wsign-conversion]
-        in->data[in->putIndex] = put;
-                               ~ ^~~
-2 warnings generated.
 compiling FIFO.c...
 assembling startup_stm32l432xx.s...
 compiling system_stm32l4xx.c...
-main.c(21): warning: no previous prototype for function 'USART2_IRQHandler' [-Wmissing-prototypes]
+main.c(29): warning: no previous prototype for function 'USART2_IRQHandler' [-Wmissing-prototypes]
 void USART2_IRQHandler(void){
      ^
-main.c(21): note: declare 'static' if the function is not intended to be used outside of this translation unit
+main.c(29): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void USART2_IRQHandler(void){
 ^
 static 
-main.c(26): warning: no previous prototype for function 'USART1_IRQHandler' [-Wmissing-prototypes]
+main.c(34): warning: no previous prototype for function 'USART1_IRQHandler' [-Wmissing-prototypes]
 void USART1_IRQHandler(void){
      ^
-main.c(26): note: declare 'static' if the function is not intended to be used outside of this translation unit
+main.c(34): note: declare 'static' if the function is not intended to be used outside of this translation unit
 void USART1_IRQHandler(void){
 ^
 static 
-main.c(65): warning: 'return' will never be executed [-Wunreachable-code-return]
+main.c(130): warning: 'return' will never be executed [-Wunreachable-code-return]
         return 0;
                ^
 3 warnings generated.
@@ -59,7 +52,7 @@ compiling main.c...
 linking...
 Program Size: Code=1306 RO-data=494 RW-data=4 ZI-data=9832  
 FromELF: creating hex file...
-".\Objects\UartRelay.axf" - 0 Error(s), 5 Warning(s).
+".\Objects\UartRelay.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -86,10 +79,10 @@ Package Vendor: Keil
 
    * Component: Keil::Device:Startup:1.3.1
       Source file:   MDK\Device\Source\ARM\STM32L4xx_SB_OPT.s
+      Source file:   Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\system_stm32l4xx.c
       Include file:  Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h
       Source file:   Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\arm\startup_stm32l432xx.s
-      Source file:   Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\system_stm32l4xx.c
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>

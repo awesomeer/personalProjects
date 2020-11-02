@@ -7,13 +7,10 @@
 Fifo_t HFifo;
 Fifo_t DFifo;
 
-extern void rmain(void);
+extern char rmain(void);
 
 int main(void){
-	
-	rmain();
-	
-	while(1){
-		__NOP();
-	}
+	NVIC_EnableIRQ(USART1_IRQn);
+	NVIC_EnableIRQ(USART2_IRQn);
+	return rmain();
 }

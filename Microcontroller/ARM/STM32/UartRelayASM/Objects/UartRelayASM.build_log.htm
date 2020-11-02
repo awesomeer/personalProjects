@@ -22,13 +22,20 @@ Dialog DLL:      TCM.DLL V1.46.0.0
  
 <h2>Project:</h2>
 C:\Users\mithi\Desktop\personalProjects\Microcontroller\ARM\STM32\UartRelayASM\UartRelayASM.uvprojx
-Project File Date:  10/08/2020
+Project File Date:  10/29/2020
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.14', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
 Note: source file '.\main.c' - object file renamed from '.\Objects\main.o' to '.\Objects\main_1.o'.
+assembling fifo.s...
 assembling startup_stm32l432xx.s...
+"uart.s", line 33: Warning: A1581W: Added 1 bytes of padding at address 0x7
+   33 00000008  LDR R0, =DFifo
+"uart.s", line 233: Warning: A1581W: Added 2 bytes of padding at address 0x18a
+  233 0000018c  END
+0 Errors, 2 Warnings
+assembling uart.s...
 compiling system_stm32l4xx.c...
 main.c(7): warning: no previous extern declaration for non-static variable 'HFifo' [-Wmissing-variable-declarations]
 Fifo_t HFifo;
@@ -44,10 +51,9 @@ Fifo_t DFifo;
 ^
 2 warnings generated.
 compiling main.c...
-assembling fifo.s...
-assembling uart.s...
 linking...
-Program Size: Code=994 RO-data=494 RW-data=4 ZI-data=3688  
+Program Size: Code=1250 RO-data=494 RW-data=4 ZI-data=3688  
+FromELF: creating hex file...
 ".\Objects\UartRelayASM.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>

@@ -21,7 +21,7 @@ fifoGet
 	LDRH R3, [R0, #2]
 	CMP R2, R3
 	BNE GET1
-	MOV R0, #0
+	MOV R0, #1
 	BX LR
 
 GET1
@@ -50,18 +50,20 @@ fifoPut
 	
 	CMP R2, R3
 	BNE PUT1
-	MOV R0, #0
+	MOV R0, #1
 	POP {R4-R8}
 	BX LR
 	
 	
 PUT1
-	LDR R2, [R0, #2]
+	LDRH R2, [R0, #2]
 	ADD R0, R0, #4
 	STRB R1, [R0, R2]
 	STRH R3, [R0, #-2]
 	
 	POP {R4-R8}
+	
+	MOV R0, #0
 	BX LR
 	
 	END

@@ -1,4 +1,6 @@
 #include <stm32l432xx.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "FIFO.h"
 
 //PA2 Transmit to Host
@@ -11,12 +13,18 @@
 #define DUart USART1
 #define DSpeed 115200
 
-static FIFO HFifo, DFifo;
+
+#define DMA 0
+
 
 void setClock32MHz(void);
 void GPIOAInit(void);
 void HUartInit(void);
 void DUartInit(void);
+
+#if DMA == 0
+
+static FIFO HFifo, DFifo;
 
 void USART2_IRQHandler(void){
 	FifoPut(&HFifo, HUart->RDR);
@@ -28,6 +36,26 @@ void USART1_IRQHandler(void){
 	DUart->ICR = USART_ICR_ORECF;
 }
 
+#endif
+
+//volatile static unsigned int idle = 0;
+//void SysTick_Handler(void){
+//	static unsigned int prev = 0;
+//	char buffer[32];
+//	unsigned int len = (unsigned int) sprintf(buffer, "%d\n", idle-prev);
+//	for(unsigned int i = 0; i < len; i++){
+//		#if DMA == 0
+//		FifoPut(&DFifo, buffer[i]);
+//		#else
+// 		while(!(HUart->ISR & USART_ISR_TXE) || !(HUart->ISR & USART_ISR_TC));
+//		HUart->TDR = buffer[i];
+//		#endif
+//	}
+//	
+//	prev = idle;
+//	SysTick->VAL = 0;
+//}
+
 void setClock32MHz(void){
 	PWR->CR1 |= PWR_CR1_DBP;
 	RCC->CR |= RCC_CR_MSIRGSEL;
@@ -37,11 +65,45 @@ void setClock32MHz(void){
 int main(void){
 	setClock32MHz();
 	SystemCoreClockUpdate();
-	FifoInit(&HFifo);
-	FifoInit(&DFifo);
+
 	GPIOAInit();
 	HUartInit();
 	DUartInit();
+	
+	
+	#if DMA
+	
+	RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN;
+	
+	DMA1_Channel6->CPAR = (uint32_t) &(HUart->RDR);
+	DMA1_Channel6->CMAR = (uint32_t) &(DUart->TDR);
+	DMA1_Channel6->CNDTR = 1;
+	DMA1_CSELR->CSELR |= (0x2 << DMA_CSELR_C6S_Pos);
+	DMA1_Channel6->CCR = (0x1 << DMA_CCR_PL_Pos) | (1 << DMA_CCR_CIRC_Pos) | (1 << DMA_CCR_EN_Pos);
+	
+	
+	DMA1_Channel5->CPAR = (uint32_t) &(DUart->RDR);
+	DMA1_Channel5->CMAR = (uint32_t) &(HUart->TDR);
+	DMA1_Channel5->CNDTR = 1;
+	DMA1_CSELR->CSELR |= (0x2 << DMA_CSELR_C5S_Pos);
+	DMA1_Channel5->CCR = (0x1 << DMA_CCR_PL_Pos) | (1 << DMA_CCR_CIRC_Pos) | (1 << DMA_CCR_EN_Pos);
+	
+	SysTick->LOAD = SystemCoreClock/10;
+	SysTick->VAL = 0;
+	SysTick->CTRL = 7;
+	
+	while(1){
+		idle++;
+	}
+	
+	#else
+	
+	FifoInit(&HFifo);
+	FifoInit(&DFifo);
+	
+	//SysTick->LOAD = SystemCoreClock/10;
+	//SysTick->VAL = 0;
+	//SysTick->CTRL = 7;
 	
 	unsigned int HtoD, DtoH;
 	while(1){
@@ -59,8 +121,11 @@ int main(void){
 				DUart->TDR = (unsigned char) HtoD;
 			}
 		}
+		
+		//idle++;
 	}
 	
+	#endif
 	
 	return 0;
 }
@@ -74,8 +139,12 @@ void HUartInit(void){
 	HUart->BRR |= SystemCoreClock/115200;
 	HUart->CR1 |= (1 << USART_CR1_UE_Pos);
 	
-	HUart->CR1 |= USART_CR1_RXNEIE;
-	NVIC_EnableIRQ(USART2_IRQn);
+	#if DMA
+		HUart->CR3 |= USART_CR3_DMAR;
+	#else
+		HUart->CR1 |= USART_CR1_RXNEIE;
+		NVIC_EnableIRQ(USART2_IRQn);
+	#endif
 	
 }
 
@@ -88,8 +157,12 @@ void DUartInit(void){
 	DUart->BRR = (unsigned int) SystemCoreClock/DSpeed;
 	DUart->CR1 |= (1 << USART_CR1_UE_Pos);
 	
-	DUart->CR1 |= USART_CR1_RXNEIE;
-	NVIC_EnableIRQ(USART1_IRQn);
+	#if DMA
+		DUart->CR3 |= USART_CR3_DMAR;
+	#else
+		DUart->CR1 |= USART_CR1_RXNEIE;
+		NVIC_EnableIRQ(USART1_IRQn);
+	#endif
 	
 }
 

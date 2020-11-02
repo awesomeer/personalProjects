@@ -16,12 +16,12 @@ Section Cross References
     main.o(.ARM.exidx.text.setClock32MHz) refers to main.o(.text.setClock32MHz) for [Anonymous Symbol]
     main.o(.text.main) refers to main.o(.text.setClock32MHz) for setClock32MHz
     main.o(.text.main) refers to system_stm32l4xx.o(.text.SystemCoreClockUpdate) for SystemCoreClockUpdate
-    main.o(.text.main) refers to main.o(.bss.HFifo) for HFifo
-    main.o(.text.main) refers to fifo.o(.text.FifoInit) for FifoInit
-    main.o(.text.main) refers to main.o(.bss.DFifo) for DFifo
     main.o(.text.main) refers to main.o(.text.GPIOAInit) for GPIOAInit
     main.o(.text.main) refers to main.o(.text.HUartInit) for HUartInit
     main.o(.text.main) refers to main.o(.text.DUartInit) for DUartInit
+    main.o(.text.main) refers to main.o(.bss.HFifo) for HFifo
+    main.o(.text.main) refers to fifo.o(.text.FifoInit) for FifoInit
+    main.o(.text.main) refers to main.o(.bss.DFifo) for DFifo
     main.o(.text.main) refers to fifo.o(.text.FifoGet) for FifoGet
     main.o(.ARM.exidx.text.main) refers to main.o(.text.main) for [Anonymous Symbol]
     main.o(.ARM.exidx.text.GPIOAInit) refers to main.o(.text.GPIOAInit) for [Anonymous Symbol]
@@ -639,13 +639,13 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-        96          0          0          0          0       1209   fifo.o
-       550          0          0          0       8200       5710   main.o
+        96          0          0          0          0       1179   fifo.o
+       550          0          0          0       8200       5720   main.o
         64         26        396          0       1536        908   startup_stm32l432xx.o
        272          4         64          4          0       3273   system_stm32l4xx.o
 
     ----------------------------------------------------------------------
-       996         30        494          4       9736      11100   Object Totals
+       996         30        494          4       9736      11080   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         14          0          2          0          0          0   (incl. Padding)
 
@@ -696,8 +696,8 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      1306         46        494          4       9832      11612   Grand Totals
-      1306         46        494          4       9832      11612   ELF Image Totals
+      1306         46        494          4       9832      11592   Grand Totals
+      1306         46        494          4       9832      11592   ELF Image Totals
       1306         46        494          4          0          0   ROM Totals
 
 ==============================================================================

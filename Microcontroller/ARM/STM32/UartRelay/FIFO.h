@@ -5,7 +5,7 @@
 #define MAXSIZE 1024
 
 typedef struct{
-	int32_t data[MAXSIZE];
+	uint32_t data[MAXSIZE];
 	uint16_t putIndex;
 	uint16_t getIndex;
 } FIFO;

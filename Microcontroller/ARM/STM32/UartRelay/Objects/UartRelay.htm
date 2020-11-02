@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\UartRelay.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\UartRelay.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140002: Last Updated: Wed Oct 28 04:43:04 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6140002: Last Updated: Thu Oct 29 05:17:44 2020
 <BR><P>
 <H3>Maximum Stack Usage =         16 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -549,7 +549,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[62]"></a>FifoInit</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, fifo.o(.text.FifoInit))
+<P><STRONG><a name="[63]"></a>FifoInit</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, fifo.o(.text.FifoInit))
 <BR><BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -560,7 +560,7 @@ Global Symbols
 <LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[63]"></a>GPIOAInit</STRONG> (Thumb, 86 bytes, Stack size 0 bytes, main.o(.text.GPIOAInit))
+<P><STRONG><a name="[62]"></a>GPIOAInit</STRONG> (Thumb, 86 bytes, Stack size 0 bytes, main.o(.text.GPIOAInit))
 <BR><BR>[Called By]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
@@ -599,9 +599,9 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setClock32MHz
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemCoreClockUpdate
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HUartInit
-<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOAInit
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOAInit
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DUartInit
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FifoInit
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FifoInit
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FifoGet
 </UL>
 <BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
