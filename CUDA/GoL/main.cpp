@@ -6,15 +6,15 @@
 using namespace std;
 using namespace cimg_library;
 
-#define DEFAULT_WIDTH 800
-#define DEFAULT_HEIGHT 600
+#define DEFAULT_WIDTH 1920
+#define DEFAULT_HEIGHT 1080
 
 extern void randomize(int size);
 extern void initCUDA(int width, int height);
-extern void iteration(unsigned char * data);
+extern void iteration(unsigned char* data);
 extern void exitCUDA();
 
-int main(int argc, char ** argv){
+int main(int argc, char** argv) {
 	int width = 0, height = 0, size;
 	if (argc > 2) {
 		width = atoi(argv[1]);
@@ -27,39 +27,39 @@ int main(int argc, char ** argv){
 
 	size = width * height;
 
-	srand((unsigned int) time(NULL));
-	CImg<unsigned char> image = CImg<unsigned char>(width, height,1,3,0);
+	srand((unsigned int)time(NULL));
+	CImg<unsigned char> image = CImg<unsigned char>(width, height, 1, 3, 0);
 	CImgDisplay display(image, "Game of Life");
 
-	chrono::system_clock::time_point start,end;
+	chrono::system_clock::time_point start, end;
 	chrono::duration<double> time;
 
 	initCUDA(width, height);
 
 	display.display(image);
-	
-	while(!display.is_closed() && !display.is_keyESC()){
+
+	while (!display.is_closed() && !display.is_keyESC()) {
 		start = chrono::system_clock::now();
 
-		if(display.is_keyR())
+		if (display.is_keyR())
 			randomize(size);
-		
-		if(display.is_keyT())
+
+		if (display.is_keyT())
 			display.toggle_fullscreen();
 
 		iteration(image.data());
 		display.render(image);
 		display.paint();
 
-		do{
+		do {
 			end = chrono::system_clock::now();
-			time = end-start;
-		}while(time.count() < 1.0/60.0);
+			time = end - start;
+		} while (time.count() < 1.0 / 60.0);
 
-		cout << 1/time.count() << endl;
+		cout << 1 / time.count() << endl;
 	}
 
-	if(!display.is_closed())
+	if (!display.is_closed())
 		display.close();
 	exitCUDA();
 	cout << "mem freed" << endl;

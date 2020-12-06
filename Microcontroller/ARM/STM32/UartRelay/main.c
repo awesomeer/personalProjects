@@ -38,23 +38,6 @@ void USART1_IRQHandler(void){
 
 #endif
 
-//volatile static unsigned int idle = 0;
-//void SysTick_Handler(void){
-//	static unsigned int prev = 0;
-//	char buffer[32];
-//	unsigned int len = (unsigned int) sprintf(buffer, "%d\n", idle-prev);
-//	for(unsigned int i = 0; i < len; i++){
-//		#if DMA == 0
-//		FifoPut(&DFifo, buffer[i]);
-//		#else
-// 		while(!(HUart->ISR & USART_ISR_TXE) || !(HUart->ISR & USART_ISR_TC));
-//		HUart->TDR = buffer[i];
-//		#endif
-//	}
-//	
-//	prev = idle;
-//	SysTick->VAL = 0;
-//}
 
 void setClock32MHz(void){
 	PWR->CR1 |= PWR_CR1_DBP;
@@ -93,7 +76,7 @@ int main(void){
 	SysTick->CTRL = 7;
 	
 	while(1){
-		idle++;
+		//idle++;
 	}
 	
 	#else
