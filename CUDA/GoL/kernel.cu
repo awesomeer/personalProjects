@@ -228,7 +228,7 @@ void iteration(unsigned char* world) {
 	dim3 thread = dim3(32, 32);
 
 	computeIteration<<<block, thread>>>(current, next, frame);
-	//renderFancy<<<block, thread>>>(next, frame);
+	renderFancy<<<block, thread>>>(next, frame);
 	cudaDeviceSynchronize();
 
 	cudaMemcpy(world, frame, 3 * sizeof(unsigned char) * SIZE, cudaMemcpyDeviceToHost);
