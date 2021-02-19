@@ -1,0 +1,2 @@
+sobel.exe: src\main.cpp src\kernel.cu
+	nvcc -g .\src\main.cpp .\src\kernel.cu -I C:\Users\mithi\Downloads\opencv\build\include\ -lC:\Users\mithi\Downloads\opencv\build\x64\vc15\lib\opencv_world450 -o sobel.exe

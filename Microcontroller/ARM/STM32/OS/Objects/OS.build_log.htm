@@ -1,0 +1,123 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.31.0.0
+Copyright (C) 2020 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: awdawd wdawdawd, awdadawd, LIC=2TTFV-8QIWB-9GKXS-4BLS0-YXSRG-4KU7E
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Professional  Version: 5.31.0.0
+Toolchain Path:  D:\Keil_v5\ARM\ARMCLANG\Bin
+C Compiler:      ArmClang.exe V6.14
+Assembler:       Armasm.exe V6.14
+Linker/Locator:  ArmLink.exe V6.14
+Library Manager: ArmAr.exe V6.14
+Hex Converter:   FromElf.exe V6.14
+CPU DLL:         SARMCM3.DLL V5.31.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      UL2CM3.DLL V1.163.4.0
+Dialog DLL:      TCM.DLL V1.46.0.0
+ 
+<h2>Project:</h2>
+C:\Users\mithi\Desktop\personalProjects\Microcontroller\ARM\STM32\OS\OS.uvprojx
+Project File Date:  02/18/2021
+
+<h2>Output:</h2>
+*** Using Compiler 'V6.14', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
+Rebuild target 'Target 1'
+assembling startup_stm32l432xx.s...
+OS.cpp(5): warning: zero as null pointer constant [-Wzero-as-null-pointer-constant]
+        OS::runPt = 0;
+                    ^
+                    nullptr
+OS.cpp(6): warning: 'nullptr' is incompatible with C++98 [-Wc++98-compat]
+        OS::ready = nullptr;
+                    ^
+OS.cpp(7): warning: 'nullptr' is incompatible with C++98 [-Wc++98-compat]
+        OS::sleeping = nullptr;
+                       ^
+OS.cpp(8): warning: 'nullptr' is incompatible with C++98 [-Wc++98-compat]
+        OS::blocked = nullptr;
+                      ^
+OS.cpp(1): warning: In file included from...
+./OS.h(30): warning: padding struct 'OS::tcb' with 3 bytes to align 'stack' [-Wpadded]
+                        uint32_t stack[256];
+                                 ^
+OS.cpp(13): warning: unused parameter 'id' [-Wunused-parameter]
+int8_t OS::addThread(const uint8_t * id, void (*func)(void), uint8_t priority){
+                                     ^
+OS.cpp(13): warning: unused parameter 'func' [-Wunused-parameter]
+int8_t OS::addThread(const uint8_t * id, void (*func)(void), uint8_t priority){
+                                                ^
+OS.cpp(13): warning: unused parameter 'priority' [-Wunused-parameter]
+int8_t OS::addThread(const uint8_t * id, void (*func)(void), uint8_t priority){
+                                                                     ^
+OS.cpp(19): warning: unused parameter 'ms' [-Wunused-parameter]
+void OS::sleep(uint32_t ms){
+                        ^
+9 warnings generated.
+compiling OS.cpp...
+compiling system_stm32l4xx.c...
+main.cpp(8): warning: no previous prototype for function 'task' [-Wmissing-prototypes]
+void task(void){
+     ^
+main.cpp(8): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void task(void){
+^
+static 
+main.cpp(8): warning: function 'task' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+void task(void){
+               ^
+main.cpp(22): warning: use of old-style cast [-Wold-style-cast]
+        OS::addThread((const uint8_t *) "task", task, 2);
+                      ^                 ~~~~~~
+main.cpp(28): warning: 'return' will never be executed [-Wunreachable-code-return]
+        return 0;
+               ^
+4 warnings generated.
+compiling main.cpp...
+linking...
+.\Objects\OS.axf: Error: L6218E: Undefined symbol OS::ready (referred from os.o).
+.\Objects\OS.axf: Error: L6218E: Undefined symbol OS::runPt (referred from os.o).
+.\Objects\OS.axf: Error: L6218E: Undefined symbol OS::blocked (referred from os.o).
+.\Objects\OS.axf: Error: L6218E: Undefined symbol OS::sleeping (referred from os.o).
+Not enough information to list image symbols.
+Not enough information to list load addresses in the image map.
+Finished: 2 information, 0 warning and 4 error messages.
+".\Objects\OS.axf" - 4 Error(s), 13 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.7.0.pack
+                ARM.CMSIS.5.7.0
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.4.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32L4xx_DFP.2.4.0.pack
+                Keil.STM32L4xx_DFP.2.4.0
+                STMicroelectronics STM32L4 Series Device Support, Drivers and Examples
+   * Component: Startup Version: 1.3.1
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_Target_1
+  D:\Keil_v5\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include
+  D:\Keil_v5\Packs\Keil\STM32L4xx_DFP\2.4.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.4.0
+
+   * Component: Keil::Device:Startup:1.3.1
+      Source file:   MDK\Device\Source\ARM\STM32L4xx_SB_OPT.s
+      Source file:   Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\system_stm32l4xx.c
+      Include file:  Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h
+      Source file:   Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\arm\startup_stm32l432xx.s
+Target not created.
+Build Time Elapsed:  00:00:01
+</pre>
+</body>
+</html>
