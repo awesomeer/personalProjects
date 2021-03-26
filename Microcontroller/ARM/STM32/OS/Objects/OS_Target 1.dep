@@ -1,6 +1,6 @@
 Dependencies for Project 'OS', Target 'Target 1': (DO NOT MODIFY !)
 CompilerVersion: 6140000::V6.14::ARMCLANG
-F (.\main.cpp)(0x602E90DF)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-3 -O1 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/_Target_1-ID:/Keil_v5/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-ID:/Keil_v5/Packs/Keil/STM32L4xx_DFP/2.4.0/Drivers/CMSIS/Device/ST/STM32L4xx/Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32L432xx -D_RTE_-o ./objects/main.o -MD)
+F (.\main.cpp)(0x602E90DF)(-xc++ -std=gnu++11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-3 -O1 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/_Target_1-ID:/Keil_v5/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-ID:/Keil_v5/Packs/Keil/STM32L4xx_DFP/2.4.0/Drivers/CMSIS/Device/ST/STM32L4xx/Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32L432xx -D_RTE_-o ./objects/main.o -MD)
 I (D:\Keil_v5\Packs\Keil\STM32L4xx_DFP\2.4.0\Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l432xx.h)(0x5E68D6F4)
 I (D:\Keil_v5\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm4.h)(0x5E8F87F2)
 I (D:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h)(0x5E0C6988)
@@ -28,7 +28,7 @@ I (D:\Keil_v5\ARM\ARMCLANG\include\libcxx\__undef_macros)(0x5E0C6988)
 I (D:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdio.h)(0x5E0C6988)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5ED6C2B4)
 F (.\OS.h)(0x602E78C7)()
-F (.\OS.cpp)(0x602F45F1)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-3 -O1 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/_Target_1-ID:/Keil_v5/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-ID:/Keil_v5/Packs/Keil/STM32L4xx_DFP/2.4.0/Drivers/CMSIS/Device/ST/STM32L4xx/Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32L432xx -D_RTE_-o ./objects/os.o -MD)
+F (.\OS.cpp)(0x602F45F1)(-xc++ -std=gnu++11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-3 -O1 -ffunction-sections -Weverything -Wno-packed -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I./RTE/_Target_1-ID:/Keil_v5/Packs/ARM/CMSIS/5.7.0/CMSIS/Core/Include-ID:/Keil_v5/Packs/Keil/STM32L4xx_DFP/2.4.0/Drivers/CMSIS/Device/ST/STM32L4xx/Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32L432xx -D_RTE_-o ./objects/os.o -MD)
 I (OS.h)(0x602E78C7)
 I (D:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h)(0x5E0C6988)
 I (D:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config)(0x5E33EDA2)
