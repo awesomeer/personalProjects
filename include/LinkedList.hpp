@@ -169,7 +169,7 @@ class LinkedList{
             
             while(curr != nullptr){
                 prev = curr;
-                curr = curr->next;
+                curr = curr->next;  
                 delete prev;
             }
 
