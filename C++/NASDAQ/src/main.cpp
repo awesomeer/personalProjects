@@ -32,10 +32,12 @@ int main(int argc, char** argv){
     }
     cout << stocks.size() << " stocks read in" << endl;
 
-    std::sort(stocks.begin(), stocks.end(), Stock::sortPerChange);
+    std::sort(stocks.begin(), stocks.end());
     for(Stock s : stocks){
-        if(s.perChange > 4 && s.perChange < 6)
-            cout << s.symbol << " " << s.sale << " " << s.perChange << endl;
+        //if(s.perChange > 4 && s.perChange < 6)
+            //cout << s.symbol << " " << s.sale << " " << s.perChange << endl;
+		if(s.symbol.size() < 5 && s.sale < 20.00)
+			cout << s.symbol  << endl;	
     }
 
     return 0;
