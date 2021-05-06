@@ -26,7 +26,7 @@ class Complex{
         }
 
         T magnitude() const{
-            return std::sqrt((real * real) - (imag * imag));
+            return std::sqrt((real * real) + (imag * imag));
         }
 
         double phase() const{
