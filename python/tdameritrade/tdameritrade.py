@@ -36,17 +36,28 @@ while True:
     quote = TDSession.get_quotes(instruments=stocks)
     for stock in stocks:
         curr = quote[stock]['bidPrice']
+        print(stock, curr, ' ',  end='')
         for index, second in [(0,59), (1,299), (2,-1)]:
             prev = stockPrices[stock][second]
+            print(stock, prev, ' ', end='')
             priceChanges[index][stock] = (100 * (curr - prev)) / prev
         stockPrices[stock] = [curr] + stockPrices[stock][:-1]
+        print()
     
-    print(priceChanges)
+    #print(priceChanges)
 
     sortedChanges = 3*[None]
     for i in [0,1,2]:
         sortedChanges[i] = sorted(priceChanges[i].items(), key=lambda x: x[1], reverse=True)
         #print(sortedChanges[i])
+
+    print('1 minute'.center(20) + '5 minutes'.center(20) + '15 minutes'.center(20))
+    for s in range(5 if len(stocks) >= 5 else len(stocks)):
+        for t in range(3):
+            outStr = sortedChanges[t][s][0] + ': {:.2f}'.format(sortedChanges[t][s][1])
+            print(outStr.center(20), end='')
+        print()
+
     
 
     print()
