@@ -232,6 +232,18 @@ class LinkedList{
             return out;
         }
         
+	/*
+	 * Copy operator
+	 */
+
+	LinkedList<T>& operator=(const LinkedList<T>& other){
+
+
+
+		return *this;	
+	}
+
+
         /*
             Comparison operators
         */

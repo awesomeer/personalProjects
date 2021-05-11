@@ -34,17 +34,32 @@ for i in range(len(stocks)-1, -1, -1):
 priceChanges = [dict() for i in range(3)]
 while True:
     quote = TDSession.get_quotes(instruments=stocks)
+    print('Now'.center(15) + '1 minute'.center(15) + '5 minutes'.center(15) + '15 minutes'.center(15))
+
     for stock in stocks:
-        curr = quote[stock]['bidPrice']
-        print(stock, curr, ' ',  end='')
+
+        curr = 0
+        try:
+            curr = quote[stock]['bidPrice']
+        except KeyError:
+            curr = stockPrices[stock][0]
+            print('KeyError:', stock)
+
+        outString = stock + ': {:.2f}'.format(curr)
+        print(outString.center(15), end='')
+        #print(stock, curr, ' ',  end='')
+
         for index, second in [(0,59), (1,299), (2,-1)]:
             prev = stockPrices[stock][second]
-            print(stock, prev, ' ', end='')
             priceChanges[index][stock] = (100 * (curr - prev)) / prev
+
+            outString = stock + ': {:.2f}'.format(prev)
+            print(outString.center(15), end='')
+            #print(stock, prev, ' ', end='')
+
         stockPrices[stock] = [curr] + stockPrices[stock][:-1]
         print()
-    
-    #print(priceChanges)
+
 
     sortedChanges = 3*[None]
     for i in [0,1,2]:
