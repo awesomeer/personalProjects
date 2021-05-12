@@ -28,13 +28,13 @@ Project File Date:  10/29/2020
 *** Using Compiler 'V6.14', folder: 'D:\Keil_v5\ARM\ARMCLANG\Bin'
 Rebuild target 'Target 1'
 Note: source file '.\main.c' - object file renamed from '.\Objects\main.o' to '.\Objects\main_1.o'.
-assembling fifo.s...
 "uart.s", line 33: Warning: A1581W: Added 1 bytes of padding at address 0x7
    33 00000008  LDR R0, =DFifo
 "uart.s", line 233: Warning: A1581W: Added 2 bytes of padding at address 0x18a
   233 0000018c  END
 0 Errors, 2 Warnings
 assembling uart.s...
+assembling fifo.s...
 assembling startup_stm32l432xx.s...
 compiling system_stm32l4xx.c...
 main.c(7): warning: no previous extern declaration for non-static variable 'HFifo' [-Wmissing-variable-declarations]
@@ -80,11 +80,11 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.4.0
 
    * Component: Keil::Device:Startup:1.3.1
-      Source file:   Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\arm\startup_stm32l432xx.s
       Include file:  Drivers\CMSIS\Device\ST\STM32L4xx\Include\stm32l4xx.h
       Source file:   MDK\Device\Source\ARM\STM32L4xx_SB_OPT.s
       Source file:   Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\system_stm32l4xx.c
-Build Time Elapsed:  00:00:03
+      Source file:   Drivers\CMSIS\Device\ST\STM32L4xx\Source\Templates\arm\startup_stm32l432xx.s
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
