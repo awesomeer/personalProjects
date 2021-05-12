@@ -18,12 +18,13 @@ stocks = ''
 with open('stocks.list', 'r') as f:
     stocks = f.read()
     stocks = stocks.split()
-
+print(stocks)
 stockPrices = dict()
 
 quote = TDSession.get_quotes(instruments=stocks)
 for i in range(len(stocks)-1, -1, -1):
     stock = stocks[i]
+    print(stock)
     try:
         stockPrices[stock] = 12 * [quote[stock]['bidPrice']]
         print(stock, quote[stock]['bidPrice'])
