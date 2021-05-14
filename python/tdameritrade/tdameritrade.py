@@ -5,6 +5,7 @@ CLIENT_ID = 'BUEB2RIHCXF2WSJOYSGSVTRAERIAJESR'
 REDIRECT_URL = 'https://www.google.com/'
 CREDENTIALS_PATH = 'token.json'
 SIZE = 400
+WIDTH = 15
 
 TDSession = None
 stocks = ''
@@ -98,9 +99,11 @@ while True:
 	for i in range(3):
 		priceChanges[i] = sorted(priceChanges[i], key = lambda x: x[1], reverse=True)
 
-	print('Now'.center(15) + '1 minute'.center(15) + '5 minutes'.center(15) + '15 minutes'.center(15))
+	print('Now'.center(WIDTH) + '1 minute'.center(WIDTH) + '5 minutes'.center(WIDTH) + '15 minutes'.center(WIDTH))
 	for rank in range(5):
-		print(' '.center(15), end='')
+		stock = priceChanges[0][rank][0]
+		outStr = stock + ': {:.2f}'.format(stockPrices[stock][0])
+		print(outStr.center(WIDTH), end ='')
 		for time in range(3):
 			outStr = priceChanges[time][rank][0] + ': {:.2f}'.format(priceChanges[time][rank][1])
 			print(outStr.center(15), end='')
