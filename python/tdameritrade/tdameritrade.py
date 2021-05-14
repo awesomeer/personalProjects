@@ -5,7 +5,7 @@ CLIENT_ID = 'BUEB2RIHCXF2WSJOYSGSVTRAERIAJESR'
 REDIRECT_URL = 'https://www.google.com/'
 CREDENTIALS_PATH = 'token.json'
 SIZE = 400
-WIDTH = 15
+WIDTH = 20
 
 TDSession = None
 stocks = ''
@@ -42,9 +42,9 @@ def updatePrices():
 		if quotes[stock]['description'] == 'Symbol not found':
 			continue
 		if (stock in stockPrices):
-			stockPrices[stock] = [quotes[stock]['bidPrice']] + stockPrices[stock][:-1]
+			stockPrices[stock] = [quotes[stock]['lastPrice']] + stockPrices[stock][:-1]
 		else:
-			stockPrices[stock] = 901 * [quotes[stock]['bidPrice']]
+			stockPrices[stock] = 901 * [quotes[stock]['lastPrice']]
     
     # Update 'stockPrices' dict with stocks not found in 'quotes' dict
 	for stock in quotes.keys() ^ stockPrices.keys():
@@ -92,13 +92,11 @@ while True:
 			except ZeroDivisionError:
 				print(stock)
 			priceChanges[index].append( (stock, perChange) )
-		#print(stock, stockPrices[stock][0])
     
 	print('priceLock released')
 	priceLock.release()
 
     # Sort 'priceChanges' lists
-	#print(priceChanges)
 	for i in range(3):
 		priceChanges[i] = sorted(priceChanges[i], key = lambda x: x[1], reverse=True)
 
@@ -109,6 +107,6 @@ while True:
 		print(outStr.center(WIDTH), end ='')
 		for time in range(3):
 			outStr = priceChanges[time][rank][0] + ': {:.2f}'.format(priceChanges[time][rank][1])
-			print(outStr.center(15), end='')
+			print(outStr.center(WIDTH), end='')
 		print()
     
