@@ -32,7 +32,7 @@ def updatePrices():
 		quote = TDSession.get_quotes(instruments=stocks[-1*remain:])
 		quotes.update(quote)
 
-
+	print('Acquiring Price Lock')
 	priceLock.acquire()
 	print('Price Lock acquired')
 
@@ -78,7 +78,9 @@ updatePrices()
 while True:
 	priceChanges = [list() for i in range(3)]
 
+	print('Acquiring outLock')
 	outLock.acquire()
+	print('outLock acquired')
 
 	# Calculate Price changes
 	for stock in stockPrices:
@@ -92,6 +94,7 @@ while True:
 			priceChanges[index].append( (stock, perChange) )
 		#print(stock, stockPrices[stock][0])
     
+	print('priceLock released')
 	priceLock.release()
 
     # Sort 'priceChanges' lists
