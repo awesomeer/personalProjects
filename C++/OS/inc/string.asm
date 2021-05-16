@@ -59,3 +59,32 @@ print_hex_byte:
     pop ax
 
     ret
+
+
+
+[bits 32]
+
+VIDEO_ADDRESS equ 0xB8000
+WHITE_ON_BLACK equ 0x0f
+
+puts_32:
+
+    pusha
+    mov edx, VIDEO_ADDRESS
+    mov ah, WHITE_ON_BLACK
+
+puts_32loop:
+    mov al, [ebx]
+
+    cmp al, 0
+    je done
+
+    mov [edx], ax
+    add ebx, 1
+    add edx, 2
+
+    jmp puts_32loop
+
+done:
+    popa
+    ret

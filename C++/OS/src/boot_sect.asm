@@ -1,33 +1,27 @@
 [org 0x7c00]
 
-    jmp main
 
-    %include "inc/string.asm"
+    mov bp, 0x9000
+    mov sp, bp
 
+    call pm_switch
+    jmp $
 
-main:
-    mov bx, HELLO
-    call puts
+%include "inc/gdt.asm"
+%include "inc/string.asm"
 
-    mov bx, 0x7c00
-    mov cx, bx
-    add cx, 512
-main_loop:
-    cmp bx, cx
-    jge infinite_loop
+[bits 32]
 
-    mov al, [bx]
-    inc bx
-    call print_hex_byte
+BEGIN_PM:
+    xor eax, eax
+    mov ebx, HELLO
+    call puts_32
 
-    jmp main_loop     
-
-infinite_loop:
     jmp $
 
 
 HELLO:
-    db 'Hello Stupid, Bye', 10, 13, 0
+    db 'Hello World',0
 
-    times 510-($-$$) db 0
-    dw 0xaa55
+times 510-($-$$) db 0
+dw 0xaa55
