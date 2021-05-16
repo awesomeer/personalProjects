@@ -8,6 +8,8 @@
 
 
 main:
+    mov bx, HELLO
+    call puts
 
     mov bx, 0x7c00
     mov cx, bx
@@ -27,7 +29,7 @@ infinite_loop:
 
 
 HELLO:
-    db 'Hello Stupid',0x0A, 0x0D, 'Bye', 0
+    db 'Hello Stupid, Bye', 10, 13, 0
 
     times 510-($-$$) db 0
     dw 0xaa55
