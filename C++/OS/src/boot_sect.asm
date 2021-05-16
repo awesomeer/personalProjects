@@ -4,8 +4,6 @@
 
     %include "inc/string.asm"
 
-    
-
 
 main:
     mov bx, HELLO
