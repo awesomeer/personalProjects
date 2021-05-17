@@ -1,4 +1,6 @@
-puts:
+[bits 16] 
+
+print_string:
     mov ah, 0x0e
 puts_loop:
     mov al, [bx]
@@ -67,7 +69,7 @@ print_hex_byte:
 VIDEO_ADDRESS equ 0xB8000
 WHITE_ON_BLACK equ 0x0f
 
-puts_32:
+puts:
 
     pusha
     mov edx, VIDEO_ADDRESS
