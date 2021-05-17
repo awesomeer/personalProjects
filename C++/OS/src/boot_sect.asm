@@ -1,4 +1,4 @@
-
+[org 0x7c00]
 
 KERNEL_OFFSET equ 0x1000
 
@@ -48,7 +48,7 @@ BOOT_DRIVE:
     db 0
 
 HELLO16:
-    db 'Hello World 16',0
+    db 'Hello World 16',10,13,0
 
 HELLO32:
     db 'Hello World 32',0
