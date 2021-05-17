@@ -11,4 +11,4 @@ main.o: src/main.c
 
 clean:
 	rm *.o
-	rm kernel.bin
+	rm kernel.*
