@@ -36,10 +36,15 @@ load_kernel:
 
 BEGIN_PM:
     xor eax, eax
+
     mov ebx, HELLO32
     call puts
 
     call KERNEL_OFFSET
+
+    mov ebx, HELLOEXIT
+    call puts
+
     hlt
     jmp $
 
@@ -52,6 +57,9 @@ HELLO16:
 
 HELLO32:
     db 'Hello World 32',0
+
+HELLOEXIT:
+    db 'Exit main for some reason',0
 
 times 510-($-$$) db 0
 dw 0xaa55

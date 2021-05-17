@@ -1,7 +1,16 @@
 
-
 void main(){
 
-    char * videomem = (char *) 0xb8000;
-    *videomem = 'X';
+    char * video = (char *) 0xb8000;
+    char len = 0;
+    for(int i = 0; i < 80; i++){
+        video[2 * (i * 80)] = 0x30 + len;
+        len = (len + 1) % 10;
+    }
+
+    len = 0;
+    for(int i = 0; i < 100; i++){
+        video[2 * i] = 0x30 + len;
+        len = (len + 1) % 10;
+    }
 }
