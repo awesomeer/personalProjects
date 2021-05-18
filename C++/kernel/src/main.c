@@ -13,4 +13,6 @@ void main(){
         video[2 * i] = 0x30 + len;
         len = (len + 1) % 10;
     }
+
+    while(1);
 }
