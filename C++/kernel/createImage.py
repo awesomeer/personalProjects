@@ -1,6 +1,6 @@
 import os
 
-
+#80x25
 infile = open('kernel.bin', 'rb')
 outfile = open('kernel-short.bin', 'wb')
 

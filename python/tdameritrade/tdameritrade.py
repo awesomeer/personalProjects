@@ -1,4 +1,6 @@
 from td.client import TDClient
+from td.exceptions import ExdLmtError
+
 import threading
 
 CLIENT_ID = 'BUEB2RIHCXF2WSJOYSGSVTRAERIAJESR'
@@ -22,15 +24,19 @@ def updatePrices():
 	
 	print('Price Thread')
 	quotes = dict()
-	for i in range(len(stocks)//SIZE):
-		batch = stocks[ i*SIZE : (i*SIZE)+SIZE ]
-		quote = TDSession.get_quotes(instruments=batch)
-		quotes.update(quote)
 
-	remain = len(stocks) % SIZE
-	if remain != 0:
-		quote = TDSession.get_quotes(instruments=stocks[-1*remain:])
-		quotes.update(quote)
+	try:
+		for i in range(len(stocks)//SIZE):
+			batch = stocks[ i*SIZE : (i*SIZE)+SIZE ]
+			quote = TDSession.get_quotes(instruments=batch)
+			quotes.update(quote)
+
+		remain = len(stocks) % SIZE
+		if remain != 0:
+			quote = TDSession.get_quotes(instruments=stocks[-1*remain:])
+			quotes.update(quote)
+	except ExdLmtError:
+		pass
 
 	print('Acquiring Price Lock')
 	priceLock.acquire()
