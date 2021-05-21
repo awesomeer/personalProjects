@@ -1,18 +1,18 @@
 
+#include "../inc/stdio.h"
+
 void main(){
 
-    char * video = (char *) 0xb8000;
-    char len = 0;
-    for(int i = 0; i < 80; i++){
-        video[2 * (i * 80)] = 0x30 + len;
-        len = (len + 1) % 10;
+    clearScreen();
+    // unsigned short * const video = (unsigned short * const) 0xb8000;
+    // for(int i = 0; i < 80*25; i++){
+    //     video[i] = 0x0000;
+    // }
+    //puts("Dirt Ba");
+
+    unsigned char byte = 0;
+    while(1){
+        *((unsigned short *) 0xb8000) = (0x0F << 8) + byte++;
     }
 
-    len = 0;
-    for(int i = 0; i < 100; i++){
-        video[2 * i] = 0x30 + len;
-        len = (len + 1) % 10;
-    }
-
-    while(1);
 }
