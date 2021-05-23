@@ -7,10 +7,10 @@ kernel.bin: main.o stdio.o
 	python3 createImage.py
 
 main.o: src/main.c
-	gcc -g -m32 -fno-pie -ffreestanding -c src/main.c -o main.o
+	gcc -g -std=c99 -m32 -fno-pie -ffreestanding -c src/main.c -o main.o
 
 stdio.o: src/stdio.c
-	gcc -g -m32 -fno-pie -ffreestanding -c src/stdio.c -o stdio.o
+	gcc -g -std=c99 -m32 -fno-pie -ffreestanding -c src/stdio.c -o stdio.o
 
 clean:
 	rm *.o
