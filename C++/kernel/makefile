@@ -1,19 +1,25 @@
-all: kernel.bin clean
+SRC := $(wildcard src/*.c)
+OBJ := $(patsubst src/%.c, %.o, $(SRC))
+
+CFLAGS = -g -std=c99 -m32 -fno-pie -ffreestanding
+
+
+all: code clean
 
 code: kernel.bin
 
-kernel.bin: main.o stdio.o
-	ld -m elf_i386 -o kernel.bin -e 0x1000 main.o stdio.o --oformat binary
+kernel.bin: $(OBJ)
+	ld -m elf_i386 -o kernel.bin -e 0x1000 $(OBJ) --oformat binary
 	python3 createImage.py
 
-main.o: src/main.c
-	gcc -g -std=c99 -m32 -fno-pie -ffreestanding -c src/main.c -o main.o
+$(OBJ): $(SRC)
+	gcc $(CFLAGS) -c $< -o $@
 
-stdio.o: src/stdio.c
-	gcc -g -std=c99 -m32 -fno-pie -ffreestanding -c src/stdio.c -o stdio.o
 
 clean:
-	rm *.o
+	rm -f *.o \
+	   	  *.dis
 
-clean_git:
-	rm *.o | rm os-image | rm kernel.*
+clean_git: clean
+	rm  -f os-image* \
+		   kernel.*

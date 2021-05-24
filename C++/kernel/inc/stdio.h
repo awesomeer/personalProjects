@@ -2,18 +2,22 @@
 #ifndef _STDIO_H_
 #define _STDIO_H_
 
-void setCursor(char x, char y);
-unsigned char getCursorX();
-unsigned char getCursorY();
+#define COLUMNS 80
+#define ROWS 25
+#define SIZE (ROWS*COLUMNS)
+
+#define VIDEOMEM ((unsigned short * const) 0xb8000)
 
 
-void setForegroundColor(unsigned char byte);
-void setBackgroundColor(unsigned char byte);
 
-void putc(unsigned char data);
 void puts(char * str);
 
 
+
+/*
+    House Keeping functions
+*/
+void setAttribute(unsigned char byte);
 void clearScreen();
 
 
