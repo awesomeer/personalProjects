@@ -6,7 +6,7 @@
 #define ROWS 25
 #define SIZE (ROWS*COLUMNS)
 
-#define VIDEOMEM ((unsigned short * const) 0xb8000)
+
 
 
 

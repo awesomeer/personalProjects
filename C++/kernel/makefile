@@ -23,7 +23,7 @@ $(OBJ): $(SRC)
 	gcc $(CFLAGS) -c $(patsubst %.o, src/%.c, $@) -o $@
 
 entry.o: src/entry.asm
-	nasm -Ov -f elf32 -o $@ $<
+	nasm -g -f elf32 -o $@ $<
 
 
 
