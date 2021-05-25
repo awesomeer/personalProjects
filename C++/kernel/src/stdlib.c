@@ -7,7 +7,6 @@ void memcpy(void * dest, void * src, unsigned int size){
     unsigned char * from = (unsigned char *) src;
 
     for(unsigned int i = 0; i < size; i++){
-        to[i] = from[i];
+        *(to++) = *(from++);
     }
 }
-
