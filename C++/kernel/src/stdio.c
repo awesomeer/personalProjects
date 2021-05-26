@@ -15,12 +15,17 @@ static void scrollUp(){
 
 void puts(char * str){
 
+    unsigned char byte = 0;
+
+    VIDEOMEM[byte] = 0x0F00 | (byte++ + 0x30);
 
     if(str == NULL){
         return;
     }
 
+    VIDEOMEM[byte] = 0x0F00 | (byte++);
     while(*str){
+        VIDEOMEM[byte] = 0x0F00 | (byte++);
         if(cursor >= SIZE){
             scrollUp();
             cursor = 0;

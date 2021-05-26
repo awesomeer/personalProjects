@@ -11,4 +11,4 @@ infile.close()
 outfile.close()
 
 os.system('cat ../OS/boot_sect.bin kernel-short.bin > os-image')
-os.system('ndisasm -u os-image > os-image.dis')
+os.system('ndisasm -u os-image > os-image.asm')
