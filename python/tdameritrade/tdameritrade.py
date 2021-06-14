@@ -37,6 +37,14 @@ def updatePrices():
 			quotes.update(quote)
 	except ExdLmtError:
 		pass
+	
+	relst = []
+	for quote in quotes:
+		if quotes[quote]['totalVolume'] < 1000000:
+			relst.append(quote)
+	
+	for stock in relst:
+		del quotes[stock]
 
 	print('Acquiring Price Lock')
 	priceLock.acquire()
