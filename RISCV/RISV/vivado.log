@@ -1,0 +1,761 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Tue Jul 13 17:41:04 2021
+# Process ID: 700
+# Current directory: C:/Users/mithi/RISV
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent13788 C:\Users\mithi\RISV\RISV.xpr
+# Log file: C:/Users/mithi/RISV/vivado.log
+# Journal file: C:/Users/mithi/RISV\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/mithi/RISV/RISV.xpr
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Xilinx/Vivado/2020.2/data/ip'.
+open_project: Time (s): cpu = 00:00:19 ; elapsed = 00:00:07 . Memory (MB): peak = 1006.395 ; gain = 0.000
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/mithi/RISV/RISV.srcs/sources_1/ip/signed_mul/signed_mul.xci' is already up-to-date
+[Tue Jul 13 18:09:35 2021] Launched synth_1...
+Run output will be captured here: C:/Users/mithi/RISV/RISV.runs/synth_1/runme.log
+[Tue Jul 13 18:09:35 2021] Launched impl_1...
+Run output will be captured here: C:/Users/mithi/RISV/RISV.runs/impl_1/runme.log
+open_run impl_1
+INFO: [Device 21-403] Loading part xc7a35tftg256-1
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.045 . Memory (MB): peak = 1120.434 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 339 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2020.2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.475 . Memory (MB): peak = 1803.242 ; gain = 0.000
+Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.477 . Memory (MB): peak = 1803.242 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1803.242 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+open_run: Time (s): cpu = 00:00:31 ; elapsed = 00:00:24 . Memory (MB): peak = 1920.688 ; gain = 914.293
+report_timing_summary [-from top.cpu.alu.mul.rs1] [-to top.cpu.alu.mul.result]
+invalid command name "-from"
+report_timing_summary -from top.cpu.alu.mul.rs1 -to top.cpu.alu.mul.result
+ERROR: [Common 17-170] Unknown option '-from', please type 'report_timing_summary -help' for usage info.
+report_timing_summary -help
+report_timing_summary
+
+Description: 
+Report timing summary
+
+Syntax: 
+report_timing_summary  [-check_timing_verbose] [-delay_type <arg>]
+                       [-no_detailed_paths] [-setup] [-hold] [-max_paths <arg>]
+                       [-nworst <arg>] [-unique_pins] [-path_type <arg>]
+                       [-no_reused_label] [-input_pins] [-no_pr_attribute]
+                       [-routable_nets] [-slack_lesser_than <arg>]
+                       [-report_unconstrained] [-significant_digits <arg>]
+                       [-no_header] [-file <arg>] [-append] [-name <arg>]
+                       [-return_string] [-warn_on_violation] [-datasheet]
+                       [-cells <args>] [-rpx <arg>] [-quiet] [-verbose]
+
+Usage: 
+  Name                     Description
+  ------------------------------------
+  [-check_timing_verbose]  produce a verbose report when checking the design 
+                           for potential timing problems
+  [-delay_type]            Type of path delay: Values: max, min, min_max
+                           Default: min_max
+  [-no_detailed_paths]     do not report timing paths for each clock and path
+                           group analyzed
+  [-setup]                 Report max delay timing paths (equivalent to 
+                           -delay_type max)
+  [-hold]                  Report min delay timing paths (equivalent to 
+                           -delay_type min)
+  [-max_paths]             Maximum number of paths to report per clock or 
+                           path group: Value >=1
+                           Default: 1
+  [-nworst]                List up to N worst paths to endpoint: Value >=1
+                           Default: 1
+  [-unique_pins]           for each unique set of pins, show at most 1 path 
+                           per path group
+  [-path_type]             Format for path report: Values: end summary short 
+                           full full_clock full_clock_expanded
+                           Default: full_clock_expanded
+  [-no_reused_label]       Do not label reuse status on pins in the report
+  [-input_pins]            Show input pins in path
+  [-no_pr_attribute]       for Dynamic Function eXchange designs, do not 
+                           report whether netlist resources are in the static
+                           or reconfigurable regions
+  [-routable_nets]         store the number of routable nets traversed as a 
+                           property on timing paths.
+  [-slack_lesser_than]     Display paths with slack less than this
+                           Default: 1e+30
+  [-report_unconstrained]  report unconstrained and user ignored paths
+  [-significant_digits]    Number of digits to display: Range: 0 to 3
+                           Default: 3
+  [-no_header]             do not generate a report header
+  [-file]                  Filename to output results to. (send output to 
+                           console if -file is not used)
+  [-append]                Append the results to file, don't overwrite the 
+                           results file
+  [-name]                  Output the results to GUI panel with this name
+  [-return_string]         return report as string
+  [-warn_on_violation]     issue a critical warning when the report contains 
+                           a timing violation
+  [-datasheet]             Include data sheet report
+  [-cells]                 run report_timing_summary on the specified cell(s)
+  [-rpx]                   Filename to output interactive results to.
+  [-quiet]                 Ignore command errors
+  [-verbose]               Suspend message limits during command execution
+
+Categories: 
+Report, Timing
+
+Description:
+
+  Note: The report_timing_summary can be multi-threaded to speed the process.
+  Refer to the set_param command for more information on setting the
+  general.maxThreads parameter.
+
+  Generate a timing summary to help understand if the design has met timing
+  requirements. The timing summary can be run on an open Synthesized or
+  Implemented Design.
+
+  The timing summary report includes the following information:
+
+   *  Timer Settings - Details the timing engine settings used to generate
+      the timing information in the report.
+
+   *  Check Timing - Contains the same information that is produced by the
+      check_timing command, which summarizes potential timing issues.
+
+   *  Design Timing Summary - Provides a summary of the timing of the design,
+      including values for worst and total negative slack (WNS/TNS), worst
+      and total hold slack (WHS/THS), and component switching limits (CSL).
+
+   *  Clock Definitions - Contains the same information that is produced by
+      the report_clocks command, showing all the clocks that were created for
+      the design, either by create_clock, create_generated_clock, or
+      automatically by the tool.
+
+   *  Intra-Clock Table - Summarizes timing paths with the same source and
+      destination clocks.
+
+   *  Inter-Clock Table - Summarizes timing paths with different source and
+      destination clocks.
+
+   *  Path Group Table - Shows default path groups and user-defined path
+      groups created by the group_path command.
+
+   *  Timing Details - Contains detailed timing paths, both max delay and min
+      delay, as well as component switching limits for each clock defined,
+      similar to the report_timing command.
+
+   *  Data sheet - Contains the same information that is produced by the
+      report_datasheet command. It contains the timing characteristics of a
+      design at the I/O ports. The data sheet information is added to the
+      summary report only when the -datasheet option is specified.
+
+  This command is automatically run during implementation as part of the
+  launch_runs command.
+
+  Note: By default the report is written to the Tcl console or STD output.
+  However, the results can also be written to a file or returned as a string
+  if desired.
+
+Arguments:
+
+  -check_timing_verbose - (Optional) Output a verbose timing summary report.
+
+  -delay_type <arg> - (Optional) Specifies the type of delay to analyze when
+  running the timing report. The valid values are min, max, min_max. The
+  default setting for -delay_type is min_max.
+
+  -no_detailed_paths - (Optional) Do not report the full timing path for each
+  clock or path group analyzed.
+
+  -setup - (Optional) Check for setup violations. This is the same as
+  specifying -delay_type max.
+
+  -hold - (Optional) Check for hold violations. This is the same as
+  specifying -delay_type min.
+
+  Note: -setup and -hold can be specified together, which is the same as
+  specifying -delay_type min_max.
+
+  -max_paths <arg> - (Optional) The maximum number of paths to report per
+  clock or per path group. This is specified as a value greater than or equal
+  to 1. By default the report_timing_summary command will report the single
+  worst timing path, or the worst path per path group.
+
+  -nworst <arg> - (Optional) The number of timing paths to output in the
+  timing report. The timing report will return the <N> worst paths to
+  endpoints based on the specified value, greater than or equal to 1. The
+  default setting is 1.
+
+  -unique_pins - (Optional) Only report timing paths through each unique set
+  of pins, reporting one path per path group.
+
+  -path_type <arg> - (Optional) Specify the path data to output in the timing
+  summary report. The default format is full_clock_expanded. The valid path
+  types are:
+
+   *  end - Shows the endpoint of the path only, with calculated timing values.
+
+   *  summary - Displays the startpoints and endpoints with slack calculation.
+
+   *  short - Displays the startpoints and endpoints with calculated timing
+      values.
+
+   *  full - Displays the full timing path, including startpoints, through
+      points, and endpoints.
+
+   *  full_clock - Displays full clock paths in addition to the full timing
+      path.
+
+   *  full_clock_expanded - Displays full clock paths between a master clock
+      and generated clocks in addition to the full_clock timing path. This is
+      the default setting.
+
+  -no_reused_label - (Optional) Disable the reporting of reuse information in
+  designs that use incremental place and route based on an existing design
+  checkpoint (DCP) file. Both placement and routing can be completed
+  incrementally, based on prior results stored in a Design Checkpoint file
+  (DCP), using the incremental implementation flow. Refer to the
+  read_checkpoint command, or to Vivado Design Suite User Guide:
+  Implementation (UG904) for more information on incremental place and route.
+  By default, designs using incremental place and route have pins labeled
+  with information related to the physical data reused from the specified
+  incremental checkpoint. This option removes the reuse labels including the
+  following:
+
+   *  Routing: Placement and routing to this pin are reused.
+
+   *  Placement: Cell placement is reused but routing to this pin is not
+      reused.
+
+   *  Moved: Neither cell placement nor routing to this pin is reused.
+
+   *  New: The cell, net, or pin is new. It does not exist in the incremental
+      checkpoint.
+
+  -input_pins - (Optional) Show input pins in the timing path report. For use
+  with -path_type full, full_clock, and full_clock_expanded.
+
+  -no_pr_attribute <arg> - (Optional) For Dynamic Function eXchange (DFX)
+  designs, this option disables the standard reporting of data that indicates
+  whether netlist resources are in the static or reconfigurable regions.
+
+  -routable_nets - (Optional) Report the number of routable nets traversed as
+  a property of the timing paths returned.
+
+  -slack_lesser_than <arg> - (Optional) Report timing on paths with a
+  calculated slack value less than the specified value.
+
+  -report_unconstrained - (Optional) Report timing on unconstrained paths in
+  the current design. As a default, the report_timing_summary command will
+  not include unconstrained timing paths.
+
+  Note: In the Vivado IDE, this option must be enabled to report the User
+  Ignored Paths in the Timing report.
+
+  -significant_digits <arg> - (Optional) The number of significant digits in
+  the output results. The valid range is 0 to 3. The default setting is 3
+  significant digits.
+
+  -no_header - (Optional) Do not add header information to the report. This
+  can be useful when returning the timing summary report to a string for
+  further processing.
+
+  -file <arg> - (Optional) Write the report into the specified file. The
+  specified file will be overwritten if one already exists, unless -append is
+  also specified.
+
+  Note: If the path is not specified as part of the file name, the file will
+  be written into the current working directory, or the directory from which
+  the tool was launched.
+
+  -append - (Optional) Append the output of the command to the specified file
+  rather than overwriting it.
+
+  Note: The -append option can only be used with the -file option.
+
+  -name <arg> - (Optional) Specifies the name of the results set for the GUI.
+  Timing summary reports in the GUI can be deleted by the
+  delete_timing_results command.
+
+  -return_string - (Optional) Directs the output to a Tcl string rather than
+  to the standard output. The Tcl string can be captured by a variable
+  definition and parsed or otherwise processed.
+
+  Note: This argument cannot be used with the -file option.
+
+  -warn_on_violation - (Optional) Specify that a Critical Warning will be
+  generated by the Vivado Design Suite when the timing report contains a
+  timing violation.
+
+  -datasheet - (Optional) Generate data sheet information to add to the
+  summary report.
+
+  -cells <arg> - (Option) Generate the timing summary report on the specified
+  hierarchical cells. The details of the report will be based on the
+  specified cells rather than the whole design.
+
+  -rpx <arg> - (Optional) Specify the file name and path of an Xilinx report
+  file (RPX) to write. This is different from writing the report results to a
+  file using the -file argument. The RPX file is an interactive report that
+  contains all the report information and can be reloaded into memory in the
+  Vivado Design Suite using the open_report command. You should add a .rpx
+  file extension to the specified file name, as the Vivado tool will not
+  automatically assign a file extension.
+
+  Note: If the path is not specified as part of the file name, the file will
+  be written into the current working directory, or the directory from which
+  the tool was launched.
+
+  -quiet - (Optional) Execute the command quietly, returning no messages from
+  the command. The command also returns TCL_OK regardless of any errors
+  encountered during execution.
+
+  Note: Any errors encountered on the command-line, while launching the
+  command, will be returned. Only errors occurring inside the command will be
+  trapped.
+
+  -verbose - (Optional) Temporarily override any message limits and return
+  all messages from this command.
+
+  Note: Message limits can be defined with the set_msg_config command.
+
+Examples:
+
+  The following example reports the timing summary of the current design:
+
+    report_timing_summary  
+    
+
+  The following example reports the hold timing summary of the current
+  design, including unconstrained paths, with the specified options:
+
+    report_timing_summary -delay_type min -path_type full_clock_expanded \  
+       -report_unconstrained -max_paths 2 -nworst 1 -significant_digits 2 \  
+       -input_pins -name {timing_6} 
+    
+
+See Also:
+
+   *  check_timing
+   *  create_clock
+   *  create_generated_clock
+   *  delete_timing_results
+   *  get_path_groups
+   *  get_timing_paths
+   *  group_path
+   *  open_report
+   *  report_clocks
+   *  report_timing
+   *  set_msg_limit
+   *  report_datasheet
+report_timing [-from top.cpu.alu.mul.rs1] [-to top.cpu.alu.mul.result]
+invalid command name "-from"
+report_timing -from top.cpu.alu.mul.rs1 -to top.cpu.alu.mul.result
+WARNING: [Vivado 12-1580] clock, cell, port or pin 'top.cpu.alu.mul.rs1' not found.
+WARNING: [Vivado 12-1580] clock, cell, port or pin 'top.cpu.alu.mul.result' not found.
+ERROR: [Vivado 12-4739] report_timing:No valid object(s) found for '-to top.cpu.alu.mul.result'.
+Resolution: Check if the specified object(s) exists in the current design. If it does, ensure that the correct design hierarchy was specified for the object. If you are working with clocks, make sure create_clock was used to create the clock object before it is referenced.
+reset_run synth_1
+launch_runs impl_1 -jobs 8
+INFO: [Vivado 12-4149] The synthesis checkpoint for IP 'C:/Users/mithi/RISV/RISV.srcs/sources_1/ip/signed_mul/signed_mul.xci' is already up-to-date
+[Tue Jul 13 18:49:28 2021] Launched synth_1...
+Run output will be captured here: C:/Users/mithi/RISV/RISV.runs/synth_1/runme.log
+[Tue Jul 13 18:49:29 2021] Launched impl_1...
+Run output will be captured here: C:/Users/mithi/RISV/RISV.runs/impl_1/runme.log
+refresh_design
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.123 . Memory (MB): peak = 2077.746 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 1524 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2020.2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2077.746 ; gain = 0.000
+Restored from archive | CPU: 2.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 2077.746 ; gain = 0.000
+refresh_design: Time (s): cpu = 00:00:24 ; elapsed = 00:00:13 . Memory (MB): peak = 2081.840 ; gain = 15.707
+CRITICAL WARNING: [Timing 38-282] The design failed to meet the timing requirements. Please see the timing summary report for details on the timing violations.
+report_timing -from top.cpu.alu.mul.rs1 -to top.cpu.alu.mul.result
+WARNING: [Vivado 12-1580] clock, cell, port or pin 'top.cpu.alu.mul.rs1' not found.
+WARNING: [Vivado 12-1580] clock, cell, port or pin 'top.cpu.alu.mul.result' not found.
+ERROR: [Vivado 12-4739] report_timing:No valid object(s) found for '-to top.cpu.alu.mul.result'.
+Resolution: Check if the specified object(s) exists in the current design. If it does, ensure that the correct design hierarchy was specified for the object. If you are working with clocks, make sure create_clock was used to create the clock object before it is referenced.
+report_timing -from top.cpu.alu.mul.rs1[31:0] -to top.cpu.alu.mul.result[31:0]
+WARNING: [Vivado 12-1580] clock, cell, port or pin 'top.cpu.alu.mul.rs1[31:0]' not found.
+WARNING: [Vivado 12-1580] clock, cell, port or pin 'top.cpu.alu.mul.result[31:0]' not found.
+ERROR: [Vivado 12-4739] report_timing:No valid object(s) found for '-to top.cpu.alu.mul.result[31:0]'.
+Resolution: Check if the specified object(s) exists in the current design. If it does, ensure that the correct design hierarchy was specified for the object. If you are working with clocks, make sure create_clock was used to create the clock object before it is referenced.
+close_design
+launch_simulation
+Command: launch_simulation 
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'D:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'top' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj top_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.gen/sources_1/ip/DRAM/sim/DRAM.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DRAM
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.gen/sources_1/ip/signed_unsigned_mulh/signed_unsigned_mulh_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module signed_unsigned_mulh
+INFO: [VRFC 10-311] analyzing module signed_unsigned_mulh_mult_gen_v12_0_16
+INFO: [VRFC 10-311] analyzing module signed_unsigned_mulh_dsp
+INFO: [VRFC 10-311] analyzing module signed_unsigned_mulh_mult_gen_v12_0_16_viv
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.gen/sources_1/ip/unsigned_mulh/unsigned_mulh_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module unsigned_mulh
+INFO: [VRFC 10-311] analyzing module unsigned_mulh_mult_gen_v12_0_16
+INFO: [VRFC 10-311] analyzing module unsigned_mulh_dsp
+INFO: [VRFC 10-311] analyzing module unsigned_mulh_mult_gen_v12_0_16_viv
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.gen/sources_1/ip/signed_mul/signed_mul_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module signed_mul
+INFO: [VRFC 10-311] analyzing module signed_mul_mult_gen_v12_0_16
+INFO: [VRFC 10-311] analyzing module signed_mul_dsp
+INFO: [VRFC 10-311] analyzing module signed_mul_mult_gen_v12_0_16_viv
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sources_1/new/IO.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module seg_7
+INFO: [VRFC 10-311] analyzing module led_24
+INFO: [VRFC 10-311] analyzing module Input_sw
+INFO: [VRFC 10-311] analyzing module BPCC
+INFO: [VRFC 10-311] analyzing module BPC
+INFO: [VRFC 10-311] analyzing module IPC
+INFO: [VRFC 10-311] analyzing module Tick_counter
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sources_1/new/RISCV.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RISCV
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sources_1/new/mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module IMEM
+INFO: [VRFC 10-311] analyzing module DMEM
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sources_1/new/util.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module REG_FILE
+INFO: [VRFC 10-311] analyzing module SRA_SHF
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-311] analyzing module MUL
+INFO: [VRFC 10-311] analyzing module CMP
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sim_1/new/tb_mul.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+WARNING: [VRFC 10-3609] overwriting previous definition of module 'glbl' [C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim/glbl.v:6]
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+"xelab -wto 6dab08c82698490ebc5458a817e49974 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L blk_mem_gen_v8_4_4 -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot top_behav xil_defaultlib.top xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: D:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto 6dab08c82698490ebc5458a817e49974 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L blk_mem_gen_v8_4_4 -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot top_behav xil_defaultlib.top xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REG_FILE
+Compiling module xil_defaultlib.SRA_SHF
+Compiling module unisims_ver.GND
+Compiling module unisims_ver.DSP48E1(ACASCREG=0,ALUMODEREG=0,...
+Compiling module unisims_ver.DSP48E1(ACASCREG=0,ALUMODEREG=0,...
+Compiling module xil_defaultlib.signed_mul
+Compiling module xil_defaultlib.unsigned_mulh
+Compiling module xil_defaultlib.signed_unsigned_mulh
+Compiling module xil_defaultlib.MUL
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.CMP
+Compiling module xil_defaultlib.RISCV
+Compiling module xil_defaultlib.IMEM
+Compiling module blk_mem_gen_v8_4_4.blk_mem_gen_v8_4_4_output_stage(...
+Compiling module blk_mem_gen_v8_4_4.blk_mem_gen_v8_4_4_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_4.blk_mem_gen_v8_4_4_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_4.blk_mem_gen_v8_4_4(C_FAMILY="art...
+Compiling module xil_defaultlib.DRAM
+Compiling module xil_defaultlib.DMEM
+Compiling module xil_defaultlib.led_24
+Compiling module xil_defaultlib.Input_sw
+Compiling module xil_defaultlib.BPCC
+Compiling module xil_defaultlib.BPC
+Compiling module xil_defaultlib.IPC
+Compiling module xil_defaultlib.Tick_counter
+Compiling module xil_defaultlib.top
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot top_behav
+run_program: Time (s): cpu = 00:00:01 ; elapsed = 00:00:21 . Memory (MB): peak = 2216.594 ; gain = 0.000
+INFO: [USF-XSim-69] 'elaborate' step finished in '21' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "top_behav -key {Behavioral:sim_1:Functional:top} -tclbatch {top.tcl} -view {C:/Users/mithi/RISV/full_pipeline.wcfg} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+open_wave_config C:/Users/mithi/RISV/full_pipeline.wcfg
+source top.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+Block Memory Generator module top.dmem.ram.inst.\native_mem_module.blk_mem_gen_v8_4_4_inst  is using a behavioral model for simulation which will not precisely model memory collision behavior.
+xsim: Time (s): cpu = 00:00:12 ; elapsed = 00:00:11 . Memory (MB): peak = 2216.594 ; gain = 0.000
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'top_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:17 ; elapsed = 00:00:41 . Memory (MB): peak = 2216.594 ; gain = 0.000
+run 10000
+relaunch_sim
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'D:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'top' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj top_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.gen/sources_1/ip/DRAM/sim/DRAM.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DRAM
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.gen/sources_1/ip/signed_unsigned_mulh/signed_unsigned_mulh_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module signed_unsigned_mulh
+INFO: [VRFC 10-311] analyzing module signed_unsigned_mulh_mult_gen_v12_0_16
+INFO: [VRFC 10-311] analyzing module signed_unsigned_mulh_dsp
+INFO: [VRFC 10-311] analyzing module signed_unsigned_mulh_mult_gen_v12_0_16_viv
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.gen/sources_1/ip/unsigned_mulh/unsigned_mulh_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module unsigned_mulh
+INFO: [VRFC 10-311] analyzing module unsigned_mulh_mult_gen_v12_0_16
+INFO: [VRFC 10-311] analyzing module unsigned_mulh_dsp
+INFO: [VRFC 10-311] analyzing module unsigned_mulh_mult_gen_v12_0_16_viv
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.gen/sources_1/ip/signed_mul/signed_mul_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module signed_mul
+INFO: [VRFC 10-311] analyzing module signed_mul_mult_gen_v12_0_16
+INFO: [VRFC 10-311] analyzing module signed_mul_dsp
+INFO: [VRFC 10-311] analyzing module signed_mul_mult_gen_v12_0_16_viv
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sources_1/new/IO.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module seg_7
+INFO: [VRFC 10-311] analyzing module led_24
+INFO: [VRFC 10-311] analyzing module Input_sw
+INFO: [VRFC 10-311] analyzing module BPCC
+INFO: [VRFC 10-311] analyzing module BPC
+INFO: [VRFC 10-311] analyzing module IPC
+INFO: [VRFC 10-311] analyzing module Tick_counter
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sources_1/new/RISCV.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RISCV
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sources_1/new/mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module IMEM
+INFO: [VRFC 10-311] analyzing module DMEM
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sources_1/new/util.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module REG_FILE
+INFO: [VRFC 10-311] analyzing module SRA_SHF
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-311] analyzing module MUL
+INFO: [VRFC 10-311] analyzing module CMP
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sim_1/new/tb_mul.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+"xelab -wto 6dab08c82698490ebc5458a817e49974 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L blk_mem_gen_v8_4_4 -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot top_behav xil_defaultlib.top xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: D:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto 6dab08c82698490ebc5458a817e49974 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L blk_mem_gen_v8_4_4 -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot top_behav xil_defaultlib.top xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REG_FILE
+Compiling module xil_defaultlib.SRA_SHF
+Compiling module unisims_ver.GND
+Compiling module unisims_ver.DSP48E1(ACASCREG=0,ALUMODEREG=0,...
+Compiling module unisims_ver.DSP48E1(ACASCREG=0,ALUMODEREG=0,...
+Compiling module xil_defaultlib.signed_mul
+Compiling module xil_defaultlib.unsigned_mulh
+Compiling module xil_defaultlib.signed_unsigned_mulh
+Compiling module xil_defaultlib.MUL
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.CMP
+Compiling module xil_defaultlib.RISCV
+Compiling module xil_defaultlib.IMEM
+Compiling module blk_mem_gen_v8_4_4.blk_mem_gen_v8_4_4_output_stage(...
+Compiling module blk_mem_gen_v8_4_4.blk_mem_gen_v8_4_4_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_4.blk_mem_gen_v8_4_4_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_4.blk_mem_gen_v8_4_4(C_FAMILY="art...
+Compiling module xil_defaultlib.DRAM
+Compiling module xil_defaultlib.DMEM
+Compiling module xil_defaultlib.led_24
+Compiling module xil_defaultlib.Input_sw
+Compiling module xil_defaultlib.BPCC
+Compiling module xil_defaultlib.BPC
+Compiling module xil_defaultlib.IPC
+Compiling module xil_defaultlib.Tick_counter
+Compiling module xil_defaultlib.top
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot top_behav
+run_program: Time (s): cpu = 00:00:01 ; elapsed = 00:00:15 . Memory (MB): peak = 2216.594 ; gain = 0.000
+INFO: [USF-XSim-69] 'elaborate' step finished in '15' seconds
+launch_simulation: Time (s): cpu = 00:00:01 ; elapsed = 00:00:15 . Memory (MB): peak = 2216.594 ; gain = 0.000
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+WARNING: Too many words specified in data file C:\Users\mithi\Desktop\share\rom.txt
+Block Memory Generator module top.dmem.ram.inst.\native_mem_module.blk_mem_gen_v8_4_4_inst  is using a behavioral model for simulation which will not precisely model memory collision behavior.
+relaunch_sim: Time (s): cpu = 00:00:05 ; elapsed = 00:00:24 . Memory (MB): peak = 2216.594 ; gain = 0.000
+relaunch_sim
+suspend_sim: Time (s): cpu = 00:00:01 ; elapsed = 00:00:08 . Memory (MB): peak = 2216.594 ; gain = 0.000
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [USF-XSim-7] Finding pre-compiled libraries...
+INFO: [USF-XSim-11] File 'D:/Xilinx/Vivado/2020.2/data/xsim/xsim.ini' copied to run dir:'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-54] Inspecting design source files for 'top' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj top_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.gen/sources_1/ip/DRAM/sim/DRAM.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module DRAM
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.gen/sources_1/ip/signed_unsigned_mulh/signed_unsigned_mulh_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module signed_unsigned_mulh
+INFO: [VRFC 10-311] analyzing module signed_unsigned_mulh_mult_gen_v12_0_16
+INFO: [VRFC 10-311] analyzing module signed_unsigned_mulh_dsp
+INFO: [VRFC 10-311] analyzing module signed_unsigned_mulh_mult_gen_v12_0_16_viv
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.gen/sources_1/ip/unsigned_mulh/unsigned_mulh_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module unsigned_mulh
+INFO: [VRFC 10-311] analyzing module unsigned_mulh_mult_gen_v12_0_16
+INFO: [VRFC 10-311] analyzing module unsigned_mulh_dsp
+INFO: [VRFC 10-311] analyzing module unsigned_mulh_mult_gen_v12_0_16_viv
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.gen/sources_1/ip/signed_mul/signed_mul_sim_netlist.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module signed_mul
+INFO: [VRFC 10-311] analyzing module signed_mul_mult_gen_v12_0_16
+INFO: [VRFC 10-311] analyzing module signed_mul_dsp
+INFO: [VRFC 10-311] analyzing module signed_mul_mult_gen_v12_0_16_viv
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sources_1/new/IO.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module seg_7
+INFO: [VRFC 10-311] analyzing module led_24
+INFO: [VRFC 10-311] analyzing module Input_sw
+INFO: [VRFC 10-311] analyzing module BPCC
+INFO: [VRFC 10-311] analyzing module BPC
+INFO: [VRFC 10-311] analyzing module IPC
+INFO: [VRFC 10-311] analyzing module Tick_counter
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sources_1/new/RISCV.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module RISCV
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sources_1/new/mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module IMEM
+INFO: [VRFC 10-311] analyzing module DMEM
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sources_1/new/util.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module REG_FILE
+INFO: [VRFC 10-311] analyzing module SRA_SHF
+INFO: [VRFC 10-311] analyzing module ALU
+INFO: [VRFC 10-311] analyzing module MUL
+INFO: [VRFC 10-311] analyzing module CMP
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.srcs/sim_1/new/tb_mul.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+WARNING: [VRFC 10-3609] overwriting previous definition of module 'glbl' [C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim/glbl.v:6]
+INFO: [USF-XSim-69] 'compile' step finished in '4' seconds
+Command: launch_simulation -simset sim_1 -mode behavioral
+INFO: [Vivado 12-5698] Checking validity of IPs in the design for the 'XSim' simulator...
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-4795] Using compiled simulation libraries for IPs
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim'
+"xelab -wto 6dab08c82698490ebc5458a817e49974 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L blk_mem_gen_v8_4_4 -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot top_behav xil_defaultlib.top xil_defaultlib.glbl -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: D:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto 6dab08c82698490ebc5458a817e49974 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L blk_mem_gen_v8_4_4 -L unisims_ver -L unimacro_ver -L secureip -L xpm --snapshot top_behav xil_defaultlib.top xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.REG_FILE
+Compiling module xil_defaultlib.SRA_SHF
+Compiling module unisims_ver.GND
+Compiling module unisims_ver.DSP48E1(ACASCREG=0,ALUMODEREG=0,...
+Compiling module unisims_ver.DSP48E1(ACASCREG=0,ALUMODEREG=0,...
+Compiling module xil_defaultlib.signed_mul
+Compiling module xil_defaultlib.unsigned_mulh
+Compiling module xil_defaultlib.signed_unsigned_mulh
+Compiling module xil_defaultlib.MUL
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.CMP
+Compiling module xil_defaultlib.RISCV
+Compiling module xil_defaultlib.IMEM
+Compiling module blk_mem_gen_v8_4_4.blk_mem_gen_v8_4_4_output_stage(...
+Compiling module blk_mem_gen_v8_4_4.blk_mem_gen_v8_4_4_softecc_outpu...
+Compiling module blk_mem_gen_v8_4_4.blk_mem_gen_v8_4_4_mem_module(C_...
+Compiling module blk_mem_gen_v8_4_4.blk_mem_gen_v8_4_4(C_FAMILY="art...
+Compiling module xil_defaultlib.DRAM
+Compiling module xil_defaultlib.DMEM
+Compiling module xil_defaultlib.led_24
+Compiling module xil_defaultlib.Input_sw
+Compiling module xil_defaultlib.BPCC
+Compiling module xil_defaultlib.BPC
+Compiling module xil_defaultlib.IPC
+Compiling module xil_defaultlib.Tick_counter
+Compiling module xil_defaultlib.top
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot top_behav
+
+****** Webtalk v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source C:/Users/mithi/RISV/RISV.sim/sim_1/behav/xsim/xsim.dir/top_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-206] Exiting Webtalk at Tue Jul 13 22:32:47 2021...
+run_program: Time (s): cpu = 00:00:00 ; elapsed = 00:00:16 . Memory (MB): peak = 2216.594 ; gain = 0.000
+INFO: [USF-XSim-69] 'elaborate' step finished in '15' seconds
+launch_simulation: Time (s): cpu = 00:00:00 ; elapsed = 00:00:16 . Memory (MB): peak = 2216.594 ; gain = 0.000
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+WARNING: Too many words specified in data file C:\Users\mithi\Desktop\share\rom.txt
+Block Memory Generator module top.dmem.ram.inst.\native_mem_module.blk_mem_gen_v8_4_4_inst  is using a behavioral model for simulation which will not precisely model memory collision behavior.
+relaunch_sim: Time (s): cpu = 00:00:05 ; elapsed = 00:00:32 . Memory (MB): peak = 2216.594 ; gain = 0.000

@@ -1,0 +1,2 @@
+signed_mulh_sim_netlist.v,verilog,xil_defaultlib,../../../../RISV.gen/sources_1/ip/signed_mulh/signed_mulh_sim_netlist.v,
+glbl.v,Verilog,xil_defaultlib,glbl.v

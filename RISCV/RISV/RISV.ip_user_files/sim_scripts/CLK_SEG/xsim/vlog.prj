@@ -1,0 +1,6 @@
+verilog xil_defaultlib --include "../../../../RISV.gen/sources_1/ip/CLK_SEG" \
+"../../../../RISV.gen/sources_1/ip/CLK_SEG/CLK_SEG_sim_netlist.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+nosort

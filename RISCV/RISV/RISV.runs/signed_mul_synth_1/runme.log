@@ -1,0 +1,14 @@
+
+*** Running vivado
+    with args -log signed_mul.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source signed_mul.tcl
+
+
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source signed_mul.tcl -notrace
+INFO: [IP_Flow 19-4838] Using cached IP synthesis design for IP signed_mul, cache-ID = aad2f11691754350.
+INFO: [Common 17-206] Exiting Vivado at Sat Jul 17 07:06:30 2021...

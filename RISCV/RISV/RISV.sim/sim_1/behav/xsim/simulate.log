@@ -1,0 +1,8 @@
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+ERROR: Illegal hex digit 'H' found in data of file "C:\Users\mithi\Desktop\share\datarom.txt"
+ Block Memory Generator module loading initial data...
+ Block Memory Generator data initialization complete.
+Block Memory Generator module top.dmem.ram.inst.\native_mem_module.blk_mem_gen_v8_4_4_inst  is using a behavioral model for simulation which will not precisely model memory collision behavior.
+Stopped at time : 1000100 ps : File "C:/Users/mithi/RISV/RISV.srcs/sources_1/new/util.v" Line 302
+Stopped at time : 117170 ns : File "C:/Users/mithi/RISV/RISV.srcs/sources_1/new/IO.v" Line 324
