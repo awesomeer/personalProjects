@@ -1,0 +1,179 @@
+
+main:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00000000 <_start>:
+
+extern void main(void);
+void _start(void){
+   0:	ff010113          	addi	sp,sp,-16
+   4:	00112623          	sw	ra,12(sp)
+    main();
+   8:	120000ef          	jal	ra,128 <main>
+    while(1);
+   c:	0000006f          	j	c <_start+0xc>
+
+00000010 <uart_send_char>:
+#include "../inc/uart.h"
+
+
+#include <math.h>
+void uart_send_char(uint8_t num){
+    UART0->DATA = num;
+  10:	02a02a23          	sw	a0,52(zero) # 34 <uart_send_string+0x4>
+    UART0->CTRL |= 1;
+  14:	03002783          	lw	a5,48(zero) # 30 <uart_send_string>
+  18:	0017e793          	ori	a5,a5,1
+  1c:	02f02823          	sw	a5,48(zero) # 30 <uart_send_string>
+    while(UART0->CTRL & 2);
+  20:	03002783          	lw	a5,48(zero) # 30 <uart_send_string>
+  24:	0027f793          	andi	a5,a5,2
+  28:	fe079ce3          	bnez	a5,20 <uart_send_char+0x10>
+}
+  2c:	00008067          	ret
+
+00000030 <uart_send_string>:
+
+void uart_send_string(uint8_t * str, uint32_t len){
+    for(uint32_t i = 0; i < len; i++)
+  30:	02058863          	beqz	a1,60 <uart_send_string+0x30>
+  34:	00b50733          	add	a4,a0,a1
+    UART0->DATA = num;
+  38:	00054783          	lbu	a5,0(a0)
+  3c:	02f02a23          	sw	a5,52(zero) # 34 <uart_send_string+0x4>
+    UART0->CTRL |= 1;
+  40:	03002783          	lw	a5,48(zero) # 30 <uart_send_string>
+  44:	0017e793          	ori	a5,a5,1
+  48:	02f02823          	sw	a5,48(zero) # 30 <uart_send_string>
+    while(UART0->CTRL & 2);
+  4c:	03002783          	lw	a5,48(zero) # 30 <uart_send_string>
+  50:	0027f793          	andi	a5,a5,2
+  54:	fe079ce3          	bnez	a5,4c <uart_send_string+0x1c>
+    for(uint32_t i = 0; i < len; i++)
+  58:	00150513          	addi	a0,a0,1
+  5c:	fce51ee3          	bne	a0,a4,38 <uart_send_string+0x8>
+        uart_send_char(str[i]);
+}
+  60:	00008067          	ret
+
+00000064 <uart_send_stringn>:
+
+void uart_send_stringn(uint8_t * str){
+
+    while(*str){
+  64:	00054783          	lbu	a5,0(a0)
+  68:	02078663          	beqz	a5,94 <uart_send_stringn+0x30>
+    UART0->DATA = num;
+  6c:	02f02a23          	sw	a5,52(zero) # 34 <uart_send_string+0x4>
+    UART0->CTRL |= 1;
+  70:	03002783          	lw	a5,48(zero) # 30 <uart_send_string>
+        uart_send_char(*str++);
+  74:	00150513          	addi	a0,a0,1
+    UART0->CTRL |= 1;
+  78:	0017e793          	ori	a5,a5,1
+  7c:	02f02823          	sw	a5,48(zero) # 30 <uart_send_string>
+    while(UART0->CTRL & 2);
+  80:	03002783          	lw	a5,48(zero) # 30 <uart_send_string>
+  84:	0027f793          	andi	a5,a5,2
+  88:	fe079ce3          	bnez	a5,80 <uart_send_stringn+0x1c>
+    while(*str){
+  8c:	00054783          	lbu	a5,0(a0)
+  90:	fc079ee3          	bnez	a5,6c <uart_send_stringn+0x8>
+    }
+}
+  94:	00008067          	ret
+
+00000098 <uart_send_uint32>:
+
+void uart_send_uint32(uint32_t num){
+  98:	ff010113          	addi	sp,sp,-16
+    uint8_t buf[11];
+
+    uint32_t len = 0;
+    uint32_t temp = num;
+  9c:	00050713          	mv	a4,a0
+    uint32_t len = 0;
+  a0:	00000793          	li	a5,0
+    do{
+        len++;
+        temp /= 10;
+  a4:	00a00593          	li	a1,10
+    }while(temp);
+  a8:	00900613          	li	a2,9
+        len++;
+  ac:	00070693          	mv	a3,a4
+  b0:	00178793          	addi	a5,a5,1
+        temp /= 10;
+  b4:	02b75733          	divu	a4,a4,a1
+    }while(temp);
+  b8:	fed66ae3          	bltu	a2,a3,ac <uart_send_uint32+0x14>
+    
+    buf[len] = 0;
+  bc:	01078713          	addi	a4,a5,16
+  c0:	00270733          	add	a4,a4,sp
+  c4:	fe070a23          	sb	zero,-12(a4)
+    do{
+        len--;
+        buf[len] = (num % 10) + 0x30;
+  c8:	00a00693          	li	a3,10
+        len--;
+  cc:	fff78793          	addi	a5,a5,-1
+        buf[len] = (num % 10) + 0x30;
+  d0:	01078713          	addi	a4,a5,16
+  d4:	00270633          	add	a2,a4,sp
+  d8:	02d57733          	remu	a4,a0,a3
+  dc:	03070713          	addi	a4,a4,48
+  e0:	fee60a23          	sb	a4,-12(a2)
+        num /= 10;
+  e4:	02d55533          	divu	a0,a0,a3
+    }while(!len);
+  e8:	fe0782e3          	beqz	a5,cc <uart_send_uint32+0x34>
+    while(*str){
+  ec:	00414783          	lbu	a5,4(sp)
+  f0:	02078863          	beqz	a5,120 <uart_send_uint32+0x88>
+  f4:	00410713          	addi	a4,sp,4
+    UART0->DATA = num;
+  f8:	02f02a23          	sw	a5,52(zero) # 34 <uart_send_string+0x4>
+    UART0->CTRL |= 1;
+  fc:	03002783          	lw	a5,48(zero) # 30 <uart_send_string>
+        uart_send_char(*str++);
+ 100:	00170713          	addi	a4,a4,1
+    UART0->CTRL |= 1;
+ 104:	0017e793          	ori	a5,a5,1
+ 108:	02f02823          	sw	a5,48(zero) # 30 <uart_send_string>
+    while(UART0->CTRL & 2);
+ 10c:	03002783          	lw	a5,48(zero) # 30 <uart_send_string>
+ 110:	0027f793          	andi	a5,a5,2
+ 114:	fe079ce3          	bnez	a5,10c <uart_send_uint32+0x74>
+    while(*str){
+ 118:	00074783          	lbu	a5,0(a4)
+ 11c:	fc079ee3          	bnez	a5,f8 <uart_send_uint32+0x60>
+    
+    uart_send_stringn(buf);
+ 120:	01010113          	addi	sp,sp,16
+ 124:	00008067          	ret
+
+Disassembly of section .text.startup:
+
+00000128 <main>:
+
+#include "../inc/riscv.h"
+#include "../inc/uart.h"
+
+
+void main(void){
+ 128:	ff010113          	addi	sp,sp,-16
+
+    uart_send_uint32(1234);
+ 12c:	4d200513          	li	a0,1234
+void main(void){
+ 130:	00112623          	sw	ra,12(sp)
+    uart_send_uint32(1234);
+ 134:	f65ff0ef          	jal	ra,98 <uart_send_uint32>
+    uart_send_char('\n');
+ 138:	00a00513          	li	a0,10
+ 13c:	ed5ff0ef          	jal	ra,10 <uart_send_char>
+    while(1);
+ 140:	0000006f          	j	140 <main+0x18>
