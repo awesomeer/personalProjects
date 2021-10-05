@@ -1,10 +1,10 @@
 Archive member included to satisfy reference by file (symbol)
 
-d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
                               C:/Users/mithi/.mchp_packs/Microchip/ATtiny_DFP/2.0.10/gcc/dev/attiny45/avr25/crtattiny45.o (exit)
-d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
+d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
                               build/default/production/LED.o (__do_copy_data)
-d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
+d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
                               build/default/production/IR.o (__do_clear_bss)
 
 Allocating common symbols
@@ -12,7 +12,6 @@ Common symbol       size              file
 
 necCode             0x4               build/default/production/IR.o
 state               0x1               build/default/production/IR.o
-leds                0x57              build/default/production/LED.o
 valid               0x1               build/default/production/IR.o
 count               0x4               build/default/production/IR.o
 unit                0x1               build/default/production/LED.o
@@ -34,54 +33,54 @@ Discarded input sections
  .text          0x00000000        0x0 build/default/production/LED.o
  .data          0x00000000        0x0 build/default/production/LED.o
  .bss           0x00000000        0x0 build/default/production/LED.o
- .text          0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
- .data          0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
- .bss           0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+ .text          0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+ .data          0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+ .bss           0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
  .text.libgcc.mul
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
  .text.libgcc.div
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
- .text.libgcc   0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+ .text.libgcc   0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
  .text.libgcc.prologue
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
  .text.libgcc.builtins
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
  .text.libgcc.fmul
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
  .text.libgcc.fixed
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
- .text          0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
- .data          0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
- .bss           0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+ .text          0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
+ .data          0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
+ .bss           0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
  .text.libgcc.mul
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
  .text.libgcc.div
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
- .text.libgcc   0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
  .text.libgcc.prologue
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
  .text.libgcc.builtins
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
  .text.libgcc.fmul
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
  .text.libgcc.fixed
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
- .text          0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
- .data          0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
- .bss           0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
+ .text          0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
+ .data          0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
+ .bss           0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
  .text.libgcc.mul
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
  .text.libgcc.div
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
- .text.libgcc   0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
  .text.libgcc.prologue
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
  .text.libgcc.builtins
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
  .text.libgcc.fmul
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
-                0x00000000        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
+                0x00000000        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
 
 Memory Configuration
 
@@ -104,12 +103,12 @@ LOAD build/default/production/SPI.o
 LOAD build/default/production/LED.o
                 0x00000001                __MPLAB_BUILD = 0x1
 START GROUP
-LOAD d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr25\libm.a
+LOAD d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr25\libm.a
 END GROUP
 START GROUP
-LOAD d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a
-LOAD d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr25\libm.a
-LOAD d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr25\libc.a
+LOAD d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a
+LOAD d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr25\libm.a
+LOAD d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr25\libc.a
 LOAD C:/Users/mithi/.mchp_packs/Microchip/ATtiny_DFP/2.0.10/gcc/dev/attiny45/avr25\libattiny45.a
 END GROUP
                 0x00000000                __TEXT_REGION_ORIGIN__ = DEFINED (__TEXT_REGION_ORIGIN__)?__TEXT_REGION_ORIGIN__:0x0
@@ -212,7 +211,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xf8e
+.text           0x00000000      0xd86
  *(.vectors)
  .vectors       0x00000000       0x1e C:/Users/mithi/.mchp_packs/Microchip/ATtiny_DFP/2.0.10/gcc/dev/attiny45/avr25/crtattiny45.o
                 0x00000000                __vector_default
@@ -262,9 +261,9 @@ END GROUP
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x0000062a       0x16 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
+ .init4         0x0000062a       0x16 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_copy_data.o)
                 0x0000062a                __do_copy_data
- .init4         0x00000640       0x10 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
+ .init4         0x00000640       0x10 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_clear_bss.o)
                 0x00000640                __do_clear_bss
  *(.init4)
  *(.init5)
@@ -294,40 +293,41 @@ END GROUP
                 0x00000654                __vector_10
                 0x00000656                . = ALIGN (0x2)
  *(.text.*)
- .text.main     0x00000656       0x20 build/default/production/main.o
+ .text.startup.main
+                0x00000656       0x20 build/default/production/main.o
                 0x00000656                main
- .text.IRInit   0x00000676       0xfc build/default/production/IR.o
+ .text.IRInit   0x00000676       0x7c build/default/production/IR.o
                 0x00000676                IRInit
- .text.getData  0x00000772       0x4c build/default/production/IR.o
-                0x00000772                getData
+ .text.getData  0x000006f2       0x2a build/default/production/IR.o
+                0x000006f2                getData
  .text.__vector_2
-                0x000007be      0x35c build/default/production/IR.o
-                0x000007be                __vector_2
+                0x0000071c      0x22a build/default/production/IR.o
+                0x0000071c                __vector_2
  .text.__vector_4
-                0x00000b1a       0x5c build/default/production/IR.o
-                0x00000b1a                __vector_4
- .text.SPIInit  0x00000b76        0xa build/default/production/SPI.o
-                0x00000b76                SPIInit
+                0x00000946       0x4a build/default/production/IR.o
+                0x00000946                __vector_4
+ .text.SPIInit  0x00000990        0xa build/default/production/SPI.o
+                0x00000990                SPIInit
  .text.SPIoutArray
-                0x00000b80       0x2a build/default/production/SPI.o
-                0x00000b80                SPIoutArray
- .text.SPIout   0x00000baa       0x16 build/default/production/SPI.o
-                0x00000baa                SPIout
+                0x0000099a       0x2a build/default/production/SPI.o
+                0x0000099a                SPIoutArray
+ .text.SPIout   0x000009c4       0x16 build/default/production/SPI.o
+                0x000009c4                SPIout
  .text.refreshLed
-                0x00000bc0       0x10 build/default/production/LED.o
- .text.LEDInit  0x00000bd0       0x3c build/default/production/LED.o
-                0x00000bd0                LEDInit
+                0x000009da        0xe build/default/production/LED.o
+ .text.LEDInit  0x000009e8       0x3c build/default/production/LED.o
+                0x000009e8                LEDInit
  .text.changeLed
-                0x00000c0c      0x270 build/default/production/LED.o
-                0x00000c0c                changeLed
+                0x00000a24      0x278 build/default/production/LED.o
+                0x00000a24                changeLed
  .text.__vector_5
-                0x00000e7c      0x10e build/default/production/LED.o
-                0x00000e7c                __vector_5
-                0x00000f8a                . = ALIGN (0x2)
+                0x00000c9c       0xe6 build/default/production/LED.o
+                0x00000c9c                __vector_5
+                0x00000d82                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000f8a        0x0 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
-                0x00000f8a                _exit
-                0x00000f8a                exit
+ .fini9         0x00000d82        0x0 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+                0x00000d82                _exit
+                0x00000d82                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -346,11 +346,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000f8a        0x4 d:/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
+ .fini0         0x00000d82        0x4 d:/microchip/avr8-gnu-toolchain-win32_x86/bin/../lib/gcc/avr/5.4.0/avr25\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000f8e                _etext = .
+                0x00000d86                _etext = .
 
-.data           0x00800060        0xc load address 0x00000f8e
+.data           0x00800060        0xc load address 0x00000d86
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -370,14 +370,14 @@ END GROUP
                 0x0080006c                _edata = .
                 0x0080006c                PROVIDE (__data_end, .)
 
-.bss            0x0080006c       0x71
+.bss            0x0080006c       0x1a
                 0x0080006c                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.time      0x0080006c        0x4 build/default/production/IR.o
+ .bss.prev      0x0080006c        0x4 build/default/production/IR.o
  .bss.diff      0x00800070        0x4 build/default/production/IR.o
- .bss.prev      0x00800074        0x4 build/default/production/IR.o
- .bss.fadeCount.2124
+ .bss.time      0x00800074        0x4 build/default/production/IR.o
+ .bss.fadeCount.2123
                 0x00800078        0x2 build/default/production/LED.o
  *(COMMON)
  COMMON         0x0080007a        0xa build/default/production/IR.o
@@ -385,19 +385,18 @@ END GROUP
                 0x0080007e                state
                 0x0080007f                valid
                 0x00800080                count
- COMMON         0x00800084       0x59 build/default/production/LED.o
-                0x00800084                leds
-                0x008000db                unit
-                0x008000dc                bright
-                0x008000dd                PROVIDE (__bss_end, .)
-                0x00000f8e                __data_load_start = LOADADDR (.data)
-                0x00000f9a                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800084        0x2 build/default/production/LED.o
+                0x00800084                unit
+                0x00800085                bright
+                0x00800086                PROVIDE (__bss_end, .)
+                0x00000d86                __data_load_start = LOADADDR (.data)
+                0x00000d92                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008000dd        0x0
+.noinit         0x00800086        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x008000dd                _end = .
+                0x00800086                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0

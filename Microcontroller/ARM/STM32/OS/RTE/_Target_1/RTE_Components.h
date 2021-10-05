@@ -16,7 +16,7 @@
  */
 #define CMSIS_device_header "stm32l4xx.h"
 
-/*  Keil::Device:Startup:1.3.1 */
+/* Keil::Device:Startup:1.3.1 */
 #define RTE_DEVICE_STARTUP_STM32L4XX    /* Device Startup for STM32L4 */
 
 

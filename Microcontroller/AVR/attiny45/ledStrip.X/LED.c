@@ -10,7 +10,7 @@
 const uint8_t start[] = {0x00, 0x00, 0x00, 0x00};
 const uint8_t end[] = {0xFF, 0xFF, 0xFF, 0xFF};
 led_t solidColor = {0x00, 0x00, 0xFF};
-led_t leds[SIZE];
+//led_t leds[SIZE];
 
 uint8_t unit, bright;
 
