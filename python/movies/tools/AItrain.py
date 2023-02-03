@@ -8,22 +8,26 @@ import cv2
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.preprocessing import image
 import matplotlib.pyplot as plt
+
 import sys
+import os
 
 import threading
 import queue
 
-import subprocess
-import timeit
+import random
 
 def predictImage(img1):
     #img1 = image.load_img(filename,target_size=(WIDTH,HEIGHT))
     
     #plt.imshow(img1)
  
-    Y = image.img_to_array(img1)
-    X = np.expand_dims(Y,axis=0)
-    val = model.predict(X, verbose=0)
+    #Y = image.img_to_array(img1)
+    #X = np.expand_dims(Y,axis=0)
+    #val = model.predict(X, verbose=0)
+
+    val = model.predict(img1, verbose=0)
+
     try:
         return int(val[0][0] + 0.1)
     except ValueError:
@@ -52,7 +56,12 @@ def list_append(filename : str, fifo : queue.Queue, count : int):
     while True:
         ret, frame = cap.read()
         if ret:
-            fifo.put(frame)
+            #frame = frame[up:down, left:right]
+            #fifo.put(frame)
+            frame = frame[up:down, left:right]
+            Y = image.img_to_array(frame)
+            X = np.expand_dims(Y,axis=0)
+            fifo.put(X)
         else:
             fifo.put(None)
             break
@@ -61,20 +70,20 @@ def list_append(filename : str, fifo : queue.Queue, count : int):
 
 
 if __name__ == "__main__":
-    WIDTH = 270 #HEIGHT
-    HEIGHT = 480 #WIDTH
+    HEIGHT = 270 #HEIGHT
+    WIDTH = 480 #WIDTH
 
     train = ImageDataGenerator(rescale=1/255)
 
     train_dataset = train.flow_from_directory(sys.argv[1],
-                                            target_size=(WIDTH,HEIGHT),
+                                            target_size=(HEIGHT,WIDTH),
                                             batch_size = 1,
                                             class_mode = 'binary')
                                             
     model = keras.Sequential()
 
     # Convolutional layer and maxpool layer 1
-    model.add(keras.layers.Conv2D(32,(3,3),activation='relu',input_shape=(WIDTH,HEIGHT,3)))
+    model.add(keras.layers.Conv2D(32,(3,3),activation='relu',input_shape=(HEIGHT,WIDTH,3)))
     model.add(keras.layers.MaxPool2D(2,2))
 
     # Convolutional layer and maxpool layer 2
@@ -105,7 +114,7 @@ if __name__ == "__main__":
 
 
     model.fit_generator(train_dataset,
-            steps_per_epoch = 2416,
+            steps_per_epoch = 725,
             validation_data = train_dataset,
             epochs = 2)
 
@@ -120,7 +129,7 @@ if __name__ == "__main__":
     awdmin = 5
     awdsec = 0
     begin = 0
-    count = (awdmin*60+awdsec)*60
+    count = 0#(awdmin*60+awdsec)*60
     videonum = 0
 
     cap = cv2.VideoCapture(sys.argv[2])
@@ -137,17 +146,15 @@ if __name__ == "__main__":
     while count < numframes:
 
         frame = fifo.get()
-        print(fifo.qsize())
-        #print(fifo.empty())
-        frame = frame[up:down, left:right]
         
-        start_time = timeit.default_timer()
+        #start_time = timeit.default_timer()
         val = predictImage(frame)
-        elapsed = timeit.default_timer() - start_time
-        print(elapsed)
-        if val:
-            cv2.imwrite(".\\tmp\\"+str(count)+".jpg", frame)
-            print("count:", count, "val:", val)
+        #elapsed = timeit.default_timer() - start_time
+        #print(1/elapsed)
+
+        #
+        #  State Machine Logic to find episodes
+        #
 
         if STATE == "VIDEO":
             if val:
@@ -155,14 +162,6 @@ if __name__ == "__main__":
                 mins, secs = frametot(count)
                 print(str(bmins)+":"+str(bsecs) + " - " + str(mins)+":"+str(secs))
 
-                start = begin//120
-                start = start*2
-                delta = count - begin
-                delta //= 120
-                delta *= 2
-
-                print("C:\\Users\mithi\Downloads\\ffmpeg-5.1-essentials_build\\ffmpeg-5.1-essentials_build\\bin\\ffmpeg.exe", "-i",sys.argv[2], "-ss", str(start), "-t", str(delta), "-c", "copy", "export\\"+str(videonum)+".mp4")
-                subprocess.Popen(["C:\\Users\mithi\Downloads\\ffmpeg-5.1-essentials_build\\ffmpeg-5.1-essentials_build\\bin\\ffmpeg.exe", "-ss", str(start), "-i",sys.argv[2], "-t", str(delta), "-c", "copy", "-avoid_negative_ts", "make_zero", "-loglevel", "quiet", "export\\"+str(videonum)+".mp4"])
                 videonum += 1
                 STATE = "TRANSISTION"
                 
@@ -171,6 +170,19 @@ if __name__ == "__main__":
                 begin = count + 60
                 STATE = "VIDEO"
             
+        if val:
+
+            found = cv2.VideoCapture(sys.argv[2])
+            found.set(cv2.CAP_PROP_POS_FRAMES, count)
+            ret, frame = found.read()
+            frame = frame[up:down, left:right]
+
+            idx = random.randint(0, (2**32)-1)
+            cv2.imwrite(".\\tmp\\"+str(idx)+".jpg", frame)
+            print("count:", count, "val:", val)
+
+            del found
+
 
         count = count + 1
         if (count % 60) == 0:

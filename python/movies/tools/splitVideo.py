@@ -16,10 +16,10 @@ eframe = (emin*60+esec)*60
 if not cap.isOpened():
     print("Error opening video stream or file")
 
-numframes = eframe - bframe
 count = bframe
 cap.set(cv2.CAP_PROP_POS_FRAMES, count)
-while count < numframes:
+print(count, eframe)
+while count < eframe:
 
     ret, frame = cap.read()
     if ret == False:
@@ -34,4 +34,5 @@ while count < numframes:
     frame = frame[up:down, left:right]
 
     filename = sys.argv[6] + str(count) + ".jpg"    #ARGUMENT
-    cv2.imwrite(filename, frame)
+    print(cv2.imwrite(filename, frame))
+    count += 1
