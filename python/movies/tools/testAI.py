@@ -92,8 +92,8 @@ if __name__ == "__main__":
             validation_data = train_dataset,
             epochs = 2)
 
-    hr = 1920//8
-    vr = 1080//8
+    hr = 2560//8
+    vr = 1440//8
     left = hr*3
     right = left+2*hr
     up = vr*3
@@ -103,6 +103,7 @@ if __name__ == "__main__":
     process = threading.Thread(target=list_append, args=(sys.argv[2], fifo), daemon=True)
     process.start()
 
+    video = cv2.VideoCapture(sys.argv[2])
     count = 0
     begin = 0
     STATE = "VIDEO"
@@ -111,15 +112,16 @@ if __name__ == "__main__":
         frame = fifo.get()
 
         val = model.predict(frame, verbose=0)
-        if val[0][0] > 0.9:
+        val = int(val[0][0] + 0.1)
+        if val:
             idx = random.randint(0, (2**32)-1)
-            video = cv2.VideoCapture(sys.argv[2])
             video.set(cv2.CAP_PROP_POS_FRAMES, count)
             ret, frame = video.read()
             frame = frame[up:down, left:right]
+            frame = cv2.resize(frame, (480,270))
             cv2.imwrite(".\\tmp\\"+str(idx)+".jpg", frame)
 
-        val = int(val[0][0] + 0.1)
+        
 
         if STATE == "VIDEO":
             if val:
