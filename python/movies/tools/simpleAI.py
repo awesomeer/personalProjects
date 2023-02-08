@@ -105,8 +105,8 @@ if __name__ == "__main__":
             elif val and hwmny:
                 bmins, bsecs = frametot(begin)
                 mins, secs = frametot(ecount)
-                print(str(bmins)+":"+str(bsecs) + " - " + str(mins)+":"+str(secs))
-                print(begin/60, ecount/60)
+                #print(str(bmins)+":"+str(bsecs) + " - " + str(mins)+":"+str(secs))
+                print("-ss", begin/60, "-to", ecount/60)
 
                 STATE = "TRANSISTION"
             else:
@@ -116,7 +116,7 @@ if __name__ == "__main__":
             if val == 0:
                 begin = count+1
 
-                count += (16*60*60)
+                count += (18*60*60)
                 video.set(cv2.CAP_PROP_POS_FRAMES, count)
                 STATE = "VIDEO"
 
@@ -131,6 +131,7 @@ if __name__ == "__main__":
             #frame = cv2.resize(frame, (480,270))
             cv2.imwrite(".\\tmp\\"+str(idx)+".jpg", frame)
             #print(count)
+
         # if count%3600 == 0:
         #     mins, secs = frametot(count)
         #     print(str(mins)+":"+str(secs))

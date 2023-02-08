@@ -157,12 +157,8 @@ if __name__ == "__main__":
         #     cv2.imwrite(".\\tmp\\"+str(idx)+".jpg", frame)
         #     #print(count)
 
-        if count%3600 == 0:
-            mins, secs = frametot(count)
-            print(str(mins)+":"+str(secs))
+        # if count%3600 == 0:
+        #     mins, secs = frametot(count)
+        #     print(str(mins)+":"+str(secs))
 
         count += 1
-
-    bmins, bsecs = frametot(begin)
-    mins, secs = frametot(ecount)
-    print(str(bmins)+":"+str(bsecs) + " - " + str(mins)+":"+str(secs))
