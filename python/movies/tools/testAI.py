@@ -13,29 +13,27 @@ import random
 import sys
 import threading
 import queue
+import time
 
-def list_append(filename : str, fifo : queue.Queue):
+def read_video(filename : str, fifo : queue.Queue):
     cap = cv2.VideoCapture(filename)
     while True:
-        ret, frame = cap.read()
+        ret, frameread = cap.read()
         if ret:
-            vhr = 2560//8
-            vvr = 1440//8
-            vleft = vhr*3
-            vright = vleft+2*vhr
-            vup = vvr*3
-            vdown = vup+2*vvr
 
-            frame = frame[vup:vdown, vleft:vright]
-            frame = cv2.resize(frame, (480,270))
-            #frame = cv2.resize(frame, (1920,1080))
-            #frame = frame[up:down, left:right]
-            Y = image.img_to_array(frame)
-            X = np.expand_dims(Y,axis=0)
-            fifo.put(X)
-        else:
-            fifo.put(None)
-            break
+            fifo.put(frameread)
+
+
+def process_video(fiforead : queue.Queue, fifoX : queue.Queue):
+
+    while True:
+        
+        framep = fiforead.get()
+        framep = framep[up:down, left:right]
+        #frame = cv2.resize(frame, (480,270))
+        Yp = image.img_to_array(framep)
+        Xp = np.expand_dims(Yp,axis=0)
+        fifoX.put(Xp)
 
 
 def frametot(framenum):
@@ -92,50 +90,78 @@ if __name__ == "__main__":
             validation_data = train_dataset,
             epochs = 2)
 
-    hr = 2560//8
-    vr = 1440//8
+    hr = 1920//8
+    vr = 1080//8
     left = hr*3
     right = left+2*hr
     up = vr*3
     down = up+2*vr
 
-    fifo = queue.Queue(maxsize=256)
-    process = threading.Thread(target=list_append, args=(sys.argv[2], fifo), daemon=True)
-    process.start()
+    fifocap = queue.Queue(maxsize=256)
+    fifoprocess = queue.Queue(maxsize=256)
+
+    processcap = threading.Thread(target=read_video, args=(sys.argv[2], fifocap), daemon=True)
+    processcap.start()
+
+    processp = threading.Thread(target=process_video, args=(fifocap, fifoprocess), daemon=True)
+    processp.start()
 
     video = cv2.VideoCapture(sys.argv[2])
     count = 0
     begin = 0
+    ecount = 0
+    hwmny = 0
     STATE = "VIDEO"
     while True:
 
-        frame = fifo.get()
+        try:
+            frame = fifoprocess.get(timeout=5)
+        except:
+            ecount = count
+            print("End Video")
+            break
+
+        
 
         val = model.predict(frame, verbose=0)
         val = int(val[0][0] + 0.1)
+
+
+        if STATE == "VIDEO":
+            if val and (hwmny == 0):
+                ecount = count
+                hwmny += 1
+            elif val and hwmny:
+                bmins, bsecs = frametot(begin)
+                mins, secs = frametot(ecount)
+                print(str(bmins)+":"+str(bsecs) + " - " + str(mins)+":"+str(secs))
+
+                STATE = "TRANSISTION"
+            else:
+                hwmny = 0
+                
+        elif STATE == "TRANSISTION":
+            if val == 0:
+                begin = count+1
+            
+                STATE = "VIDEO"
+
+
         if val:
             idx = random.randint(0, (2**32)-1)
             video.set(cv2.CAP_PROP_POS_FRAMES, count)
             ret, frame = video.read()
             frame = frame[up:down, left:right]
-            frame = cv2.resize(frame, (480,270))
+            #frame = cv2.resize(frame, (480,270))
             cv2.imwrite(".\\tmp\\"+str(idx)+".jpg", frame)
+            #print(count)
 
-        
-
-        if STATE == "VIDEO":
-            if val:
-                bmins, bsecs = frametot(begin)
-                mins, secs = frametot(count)
-                print(str(bmins)+":"+str(bsecs) + " - " + str(mins)+":"+str(secs))
-
-                STATE = "TRANSISTION"
-                
-        elif STATE == "TRANSISTION":
-            if val == 0:
-                begin = count+1
-
-                STATE = "VIDEO"
-
+        # if count%3600 == 0:
+        #     mins, secs = frametot(count)
+        #     print(str(mins)+":"+str(secs))
 
         count += 1
+
+    bmins, bsecs = frametot(begin)
+    mins, secs = frametot(ecount)
+    print(str(bmins)+":"+str(bsecs) + " - " + str(mins)+":"+str(secs))

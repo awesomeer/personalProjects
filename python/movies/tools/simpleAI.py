@@ -15,27 +15,6 @@ import threading
 import queue
 import time
 
-def read_video(filename : str, fifo : queue.Queue):
-    cap = cv2.VideoCapture(filename)
-    while True:
-        ret, frameread = cap.read()
-        if ret:
-
-            fifo.put(frameread)
-
-
-def process_video(fiforead : queue.Queue, fifoX : queue.Queue):
-
-    while True:
-        
-        framep = fiforead.get()
-        time.sleep(0.0001)
-        framep = framep[up:down, left:right]
-        #frame = cv2.resize(frame, (480,270))
-        Yp = image.img_to_array(framep)
-        Xp = np.expand_dims(Yp,axis=0)
-        fifoX.put(Xp)
-
 
 def frametot(framenum):
     secs = (framenum//60) % 60
@@ -98,15 +77,6 @@ if __name__ == "__main__":
     up = vr*3
     down = up+2*vr
 
-    fifocap = queue.Queue(maxsize=256)
-    fifoprocess = queue.Queue(maxsize=256)
-
-    processcap = threading.Thread(target=read_video, args=(sys.argv[2], fifocap), daemon=True)
-    processcap.start()
-
-    processp = threading.Thread(target=process_video, args=(fifocap, fifoprocess), daemon=True)
-    processp.start()
-
     video = cv2.VideoCapture(sys.argv[2])
     count = 0
     begin = 0
@@ -115,27 +85,28 @@ if __name__ == "__main__":
     STATE = "VIDEO"
     while True:
 
-        try:
-            frame = fifoprocess.get(timeout=5)
-        except:
-            ecount = count
-            print("End Video")
+        ret, frame = video.read()
+        if not ret:
             break
-
         
+        frame = frame[up:down, left:right]
+        #frame = cv2.resize(frame, (480,270))
+        Yp = image.img_to_array(frame)
+        Xp = np.expand_dims(Yp,axis=0)
 
-        val = model.predict(frame, verbose=0)
+        val = model.predict(Xp, verbose=0)
         val = int(val[0][0] + 0.1)
 
 
         if STATE == "VIDEO":
             if val and (hwmny == 0):
-                ecount = count
+                ecount = count-1
                 hwmny += 1
             elif val and hwmny:
                 bmins, bsecs = frametot(begin)
                 mins, secs = frametot(ecount)
                 print(str(bmins)+":"+str(bsecs) + " - " + str(mins)+":"+str(secs))
+                print(begin/60, ecount/60)
 
                 STATE = "TRANSISTION"
             else:
@@ -144,25 +115,24 @@ if __name__ == "__main__":
         elif STATE == "TRANSISTION":
             if val == 0:
                 begin = count+1
-            
+
+                count += (16*60*60)
+                video.set(cv2.CAP_PROP_POS_FRAMES, count)
                 STATE = "VIDEO"
 
+                continue
 
-        # if val:
-        #     idx = random.randint(0, (2**32)-1)
-        #     video.set(cv2.CAP_PROP_POS_FRAMES, count)
-        #     ret, frame = video.read()
-        #     frame = frame[up:down, left:right]
-        #     #frame = cv2.resize(frame, (480,270))
-        #     cv2.imwrite(".\\tmp\\"+str(idx)+".jpg", frame)
-        #     #print(count)
-
-        if count%3600 == 0:
-            mins, secs = frametot(count)
-            print(str(mins)+":"+str(secs))
+        if val:
+            idx = random.randint(0, (2**32)-1)
+            gethit = cv2.VideoCapture(sys.argv[2])
+            gethit.set(cv2.CAP_PROP_POS_FRAMES, count)
+            ret, frame = gethit.read()
+            frame = frame[up:down, left:right]
+            #frame = cv2.resize(frame, (480,270))
+            cv2.imwrite(".\\tmp\\"+str(idx)+".jpg", frame)
+            #print(count)
+        # if count%3600 == 0:
+        #     mins, secs = frametot(count)
+        #     print(str(mins)+":"+str(secs))
 
         count += 1
-
-    bmins, bsecs = frametot(begin)
-    mins, secs = frametot(ecount)
-    print(str(bmins)+":"+str(bsecs) + " - " + str(mins)+":"+str(secs))
