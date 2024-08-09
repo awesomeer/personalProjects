@@ -15,21 +15,40 @@ import threading
 import queue
 import time
 
+from datetime import datetime
+
+from pytracing import TraceProfiler
+
+def convert(frame):
+    secs = (frame/60) % 60
+    mins = (frame//3600) % 60
+    hours = (frame//216000)
+
+    return str(hours)+":"+str(mins)+":"+str(secs)
+
 def read_video(filename : str, fifo : queue.Queue):
     cap = cv2.VideoCapture(filename)
+    # readvid = TraceProfiler(output=open('readvid.out', 'wb'))
+    # with readvid.traced():
     while True:
         ret, frameread = cap.read()
         if ret:
-
             fifo.put(frameread)
-
+        else:
+            print("read_video stopped")
+            break
 
 def process_video(fiforead : queue.Queue, fifoX : queue.Queue):
-
+    # provid = TraceProfiler(output=open('previd.out', 'wb'))
+    # with provid.traced():
     while True:
         
-        framep = fiforead.get()
-        time.sleep(0.0001)
+        try:
+            framep = fiforead.get(timeout=5)
+        except:
+            print("process_video stopped")
+            break
+        framep = cv2.resize(framep, (1920,1080))
         framep = framep[up:down, left:right]
         #frame = cv2.resize(frame, (480,270))
         Yp = image.img_to_array(framep)
@@ -66,11 +85,11 @@ if __name__ == "__main__":
     model.add(keras.layers.MaxPool2D(2,2))
 
     # Convolutional layer and maxpool layer 3
-    model.add(keras.layers.Conv2D(128,(3,3),activation='relu'))
+    model.add(keras.layers.Conv2D(64,(3,3),activation='relu'))
     model.add(keras.layers.MaxPool2D(2,2))
 
     # Convolutional layer and maxpool layer 4
-    model.add(keras.layers.Conv2D(128,(3,3),activation='relu'))
+    model.add(keras.layers.Conv2D(64,(3,3),activation='relu'))
     model.add(keras.layers.MaxPool2D(2,2))
 
     # This layer flattens the resulting image array to 1D array
@@ -113,6 +132,9 @@ if __name__ == "__main__":
     ecount = 0
     hwmny = 0
     STATE = "VIDEO"
+
+    # tp = TraceProfiler(output=open('main.out', 'wb'))
+    # with tp.traced():
     while True:
 
         try:
@@ -135,7 +157,14 @@ if __name__ == "__main__":
             elif val and hwmny:
                 bmins, bsecs = frametot(begin)
                 mins, secs = frametot(ecount)
-                print(str(bmins)+":"+str(bsecs) + " - " + str(mins)+":"+str(secs))
+
+                now = datetime.now()
+                current_time = now.strftime("%H:%M:%S")
+                print("Current Time =", current_time)
+
+                print(convert(begin) + " - " + convert(ecount))
+                # print(str(begin/60) + " - " + str(ecount/60))
+                print(convert(begin) + " - " + convert(ecount-begin))
 
                 STATE = "TRANSISTION"
             else:
@@ -148,17 +177,20 @@ if __name__ == "__main__":
                 STATE = "VIDEO"
 
 
-        # if val:
-        #     idx = random.randint(0, (2**32)-1)
-        #     video.set(cv2.CAP_PROP_POS_FRAMES, count)
-        #     ret, frame = video.read()
-        #     frame = frame[up:down, left:right]
-        #     #frame = cv2.resize(frame, (480,270))
-        #     cv2.imwrite(".\\tmp\\"+str(idx)+".jpg", frame)
-        #     #print(count)
+        if val:
+            idx = random.randint(0, (2**32)-1)
+            video.set(cv2.CAP_PROP_POS_FRAMES, count)
+            ret, frame = video.read()
+            frame = cv2.resize(frame, (1920,1080))
+            frame = frame[up:down, left:right]
+            #frame = cv2.resize(frame, (480,270))
+            cv2.imwrite(".\\tmp\\"+str(idx)+".jpg", frame)
+            #print(count)
 
-        # if count%3600 == 0:
-        #     mins, secs = frametot(count)
-        #     print(str(mins)+":"+str(secs))
+        if count%3600 == 0:
+            mins, secs = frametot(count)
+            print(str(mins)+":"+str(secs))
 
         count += 1
+        
+    print("End Video")

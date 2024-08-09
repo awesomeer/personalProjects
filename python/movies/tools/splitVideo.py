@@ -24,6 +24,8 @@ while count < eframe:
     ret, frame = cap.read()
     if ret == False:
         break
+    
+    frame = cv2.resize(frame, (1920,1080))
 
     hr = 1920//8
     vr = 1080//8
