@@ -8,6 +8,9 @@
 /* Standard includes. */
 #include <stdio.h>
 
+#include <stm32l432xx.h>
+#include <led.h>
+
 /*-----------------------------------------------------------*/
 
 static void exampleTask( void * parameters ) __attribute__( ( noreturn ) );
@@ -23,12 +26,15 @@ static void exampleTask( void * parameters )
     {
         /* Example Task Code */
         vTaskDelay( 100 ); /* delay 100 ticks */
+        LD3_toggle();
     }
 }
 /*-----------------------------------------------------------*/
 
 int main( void )
 {
+
+    LD3_init();
     static StaticTask_t exampleTaskTCB;
     static StackType_t exampleTaskStack[ configMINIMAL_STACK_SIZE ];
 
