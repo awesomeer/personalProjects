@@ -26,7 +26,6 @@ static void exampleTask( void * parameters )
     {
         /* Example Task Code */
         vTaskDelay( 100 ); /* delay 100 ticks */
-        LD3_toggle();
     }
 }
 /*-----------------------------------------------------------*/
@@ -58,6 +57,22 @@ int main( void )
 
     return 0;
 }
+
+
+#if ( configUSE_IDLE_HOOK > 0 )
+
+    void vApplicationIdleHook( void )
+    {
+        static TickType_t xTickCount = 0;
+        if( xTaskGetTickCount() - xTickCount >= configTICK_RATE_HZ )
+        {
+            xTickCount = xTaskGetTickCount();
+            LD3_toggle();
+        }
+    }
+
+#endif /* configUSE_IDLE_HOOK */
+
 /*-----------------------------------------------------------*/
 
 #if ( configCHECK_FOR_STACK_OVERFLOW > 0 )
