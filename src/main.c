@@ -7,9 +7,11 @@
 
 /* Standard includes. */
 #include <stdio.h>
+#include <string.h>
 
 #include <stm32l432xx.h>
 #include <led.h>
+#include <usart2.h>
 
 /*-----------------------------------------------------------*/
 
@@ -17,6 +19,8 @@ static void exampleTask( void * parameters ) __attribute__( ( noreturn ) );
 
 /*-----------------------------------------------------------*/
 
+uint8_t uart_rx[128];
+uint8_t buffer[128];
 static void exampleTask( void * parameters )
 {
     /* Unused parameters. */
@@ -25,7 +29,21 @@ static void exampleTask( void * parameters )
     for( ; ; )
     {
         /* Example Task Code */
-        vTaskDelay( 100 ); /* delay 100 ticks */
+        TickType_t tick_count = xTaskGetTickCount();
+        uint32_t len = snprintf ( ( char * ) buffer, sizeof(buffer), "Hello from FreeRTOS! Tick count: %d\n\r",  (uint32_t)tick_count);
+        usart2_write( buffer, len );
+
+        vTaskGetRunTimeStats( ( char * ) buffer );
+        usart2_write( buffer, strlen(buffer) );
+
+        len = usart2_read(uart_rx, sizeof(uart_rx)-1, 0 );
+        if (len > 0) {
+            uart_rx[len] = '\0'; // Null-terminate the received string
+            len = snprintf ( ( char * ) buffer, sizeof(buffer),"Received: %d bytes: %s\n\r", len, uart_rx );
+            usart2_write( buffer, len );
+        }
+
+        vTaskDelay( pdMS_TO_TICKS( 1000 ) ); /* delay 1 second */
     }
 }
 /*-----------------------------------------------------------*/
@@ -42,6 +60,7 @@ int main( void )
     SystemCoreClockUpdate();
 
     LD3_init();
+    usart2_init();
     static StaticTask_t exampleTaskTCB;
     static StackType_t exampleTaskStack[ configMINIMAL_STACK_SIZE ];
 
