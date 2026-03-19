@@ -33,6 +33,14 @@ static void exampleTask( void * parameters )
 int main( void )
 {
 
+    /* Turn on HSI16 clock */
+    RCC->CR |= RCC_CR_HSION;
+    while (!(RCC->CR & RCC_CR_HSIRDY));
+    /* Select HSI16 as system clock source */
+    RCC->CFGR |= RCC_CFGR_SW_HSI;
+
+    SystemCoreClockUpdate();
+
     LD3_init();
     static StaticTask_t exampleTaskTCB;
     static StackType_t exampleTaskStack[ configMINIMAL_STACK_SIZE ];
