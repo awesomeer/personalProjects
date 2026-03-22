@@ -57,6 +57,10 @@
 void portCONFIGURE_TIMER_FOR_RUN_TIME_STATS( void );
 configRUN_TIME_COUNTER_TYPE portGET_RUN_TIME_COUNTER_VALUE( void );
 
+
+/* FreeRTOS CLI Definitions */
+#define configCOMMAND_INT_MAX_OUTPUT_SIZE    128
+
 /******************************************************************************/
 /* Hardware description related definitions. **********************************/
 /******************************************************************************/

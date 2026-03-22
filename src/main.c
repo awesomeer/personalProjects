@@ -12,41 +12,7 @@
 #include <stm32l432xx.h>
 #include <led.h>
 #include <usart2.h>
-
-/*-----------------------------------------------------------*/
-
-static void exampleTask( void * parameters ) __attribute__( ( noreturn ) );
-
-/*-----------------------------------------------------------*/
-
-uint8_t uart_rx[128];
-uint8_t buffer[128];
-static void exampleTask( void * parameters )
-{
-    /* Unused parameters. */
-    ( void ) parameters;
-
-    for( ; ; )
-    {
-        /* Example Task Code */
-        TickType_t tick_count = xTaskGetTickCount();
-        uint32_t len = snprintf ( ( char * ) buffer, sizeof(buffer), "Hello from FreeRTOS! Tick count: %d\n\r",  (uint32_t)tick_count);
-        usart2_write( buffer, len );
-
-        vTaskGetRunTimeStats( ( char * ) buffer );
-        usart2_write( buffer, strlen(buffer) );
-
-        len = usart2_read(uart_rx, sizeof(uart_rx)-1, 0 );
-        if (len > 0) {
-            uart_rx[len] = '\0'; // Null-terminate the received string
-            len = snprintf ( ( char * ) buffer, sizeof(buffer),"Received: %d bytes: %s\n\r", len, uart_rx );
-            usart2_write( buffer, len );
-        }
-
-        vTaskDelay( pdMS_TO_TICKS( 1000 ) ); /* delay 1 second */
-    }
-}
-/*-----------------------------------------------------------*/
+#include <cli.h>
 
 int main( void )
 {
@@ -61,18 +27,18 @@ int main( void )
 
     LD3_init();
     usart2_init();
-    static StaticTask_t exampleTaskTCB;
-    static StackType_t exampleTaskStack[ configMINIMAL_STACK_SIZE ];
+    static StaticTask_t cliTaskTCB;
+    static StackType_t cliTaskStack[ 256 ];
 
     //( void ) printf( "Example FreeRTOS Project\n" );
 
-    ( void ) xTaskCreateStatic( &exampleTask,
-                                "example",
-                                configMINIMAL_STACK_SIZE,
+    ( void ) xTaskCreateStatic( &cliTask,
+                                "CLI_Task",
+                                256,
                                 NULL,
                                 configMAX_PRIORITIES - 1U,
-                                &( exampleTaskStack[ 0 ] ),
-                                &( exampleTaskTCB ) );
+                                &( cliTaskStack[ 0 ] ),
+                                &( cliTaskTCB ) );
 
     /* Start the scheduler. */
     vTaskStartScheduler();
@@ -111,6 +77,7 @@ int main( void )
          * or pxCurrentTCB if pcTaskName has itself been corrupted. */
         ( void ) xTask;
         ( void ) pcTaskName;
+        while(1);
     }
 
 #endif /* #if ( configCHECK_FOR_STACK_OVERFLOW > 0 ) */

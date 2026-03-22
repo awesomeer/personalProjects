@@ -3,6 +3,7 @@ OBJ_DIR := $(BUILD_DIR)/obj
 
 STM32CubeL4_CMSIS := submodules/STM32CubeL4/Drivers/CMSIS
 FreeRTOS_Kernel := submodules/FreeRTOS/FreeRTOS/Source
+FreeRTOS_CLI := submodules/FreeRTOS/FreeRTOS-Plus/Source/FreeRTOS-Plus-CLI
 
 # All Include Directories
 INC_DIR := inc
@@ -10,6 +11,7 @@ SUB_INCS := $(STM32CubeL4_CMSIS)/Device/ST/STM32L4xx/Include \
 			$(STM32CubeL4_CMSIS)/Include \
 			$(FreeRTOS_Kernel)/include \
 			$(FreeRTOS_Kernel)/portable/GCC/ARM_CM4F \
+			$(FreeRTOS_CLI)/
 
 INCS := $(addprefix -I, $(SUB_INCS) $(INC_DIR))
 
@@ -19,6 +21,7 @@ SRC_DIR := src
 SINGLE_SRCS := 	$(STM32CubeL4_CMSIS)/Device/ST/STM32L4xx/Source/Templates/system_stm32l4xx.c \
 				$(FreeRTOS_Kernel)/portable/GCC/ARM_CM4F/port.c \
 				$(FreeRTOS_Kernel)/portable/MemMang/heap_4.c \
+				$(FreeRTOS_CLI)/FreeRTOS_CLI.c \
 
 SRCS := $(SINGLE_SRCS) \
 		$(wildcard $(SRC_DIR)/*.c) \
