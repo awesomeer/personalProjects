@@ -7,6 +7,7 @@
 #include <string.h>
 
 #include <usart2.h>
+#include <analog.h>
 #include <cli.h>
 
 #define GREETING "Welcome to the FreeRTOS CLI demo!\r\nType 'help' to view a list of registered commands.\r\n\r\n"
@@ -32,13 +33,32 @@ static const CLI_Command_Definition_t xTimeStats =
     0
 };
 
+static BaseType_t runifft( char * pcWriteBuffer,
+                         size_t xWriteBufferLen,
+                         const char * pcCommandString )
+{
+    ( void ) pcCommandString;
+    ( void ) xWriteBufferLen;
+
+    *pcWriteBuffer = '\0'; // Clear the output buffer
+    analog_runifft();
+    return 0;
+}
+
+static const CLI_Command_Definition_t xRunifft =
+{
+    "runifft",
+    "\r\nrunifft:\r\n Runs the inverse FFT\r\n\r\n",
+    runifft,
+    0
+};
 
 
 static char cliInputBuffer[ configCOMMAND_INT_MAX_OUTPUT_SIZE ];
 void cliTask(void *pvParameters)
 {
     ( void ) pvParameters;
-
+    analog_init();
     // Get pointer to CLI output buffer and initialize with newline characters
     char * cliOutputBuffer = FreeRTOS_CLIGetOutputBuffer();
     cliOutputBuffer[0] = '\r';
@@ -47,6 +67,10 @@ void cliTask(void *pvParameters)
     // Add "stats" command to CLI
     static CLI_Definition_List_Item_t statsItem;
     FreeRTOS_CLIRegisterCommandStatic( &xTimeStats, &statsItem );
+
+    // Add "runifft" command to CLI
+    static CLI_Definition_List_Item_t runifftItem;
+    FreeRTOS_CLIRegisterCommandStatic( &xRunifft, &runifftItem );
 
     usart2_write( ( uint8_t * ) GREETING, strlen( GREETING ) );
 
