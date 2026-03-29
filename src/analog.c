@@ -3,11 +3,22 @@
 #include <semphr.h>
 
 #include <stm32l432xx.h>
+#include <arm_math.h>
 
 #include <analog.h>
 
 
-#define FFT_N 64
+#define FFT_N 32
+
+typedef struct {
+	q15_t real;
+	q15_t imag;
+} cq15_t;
+
+typedef union {
+	cq15_t * bins;
+	q15_t * buff;
+} pq15_t;
 
 static void initDMA(void)
 {
@@ -111,17 +122,37 @@ void analog_init(void)
     xAnalogSemaphore = xSemaphoreCreateBinaryStatic( &xAnalogSemaphoreBuffer );
 }
 
-
-static uint16_t dac_buff[FFT_N];
-static uint16_t adc_buff[FFT_N];
+static q15_t ifft_buff[FFT_N+2];
+static q15_t dac_buff[FFT_N];
+static q15_t adc_buff[FFT_N];
+static q15_t fft_buff[FFT_N*2];
 void analog_runifft(void)
 {
     RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
 
-    for(int i = 0; i < FFT_N; i++)
-    {
-        dac_buff[i] = (uint16_t) ( ( i*0xFFF / (FFT_N-1) ) );
+    static pq15_t bins;
+    static pq15_t wave;
+
+    bins.buff = ifft_buff;
+    bins.bins[1].real = 0x7FF * (FFT_N/2); // Set bin 1 to max amplitude
+    bins.bins[1].imag = 0; // Set bin 1 to 0 phase
+
+    bins.buff[FFT_N] = (bins.buff[0] - bins.buff[1]) >> 1;
+    bins.buff[FFT_N+1] = 0;
+
+    wave.buff = dac_buff; // Use DAC buffer for IFFT output
+
+    arm_rfft_instance_q15 ifft;
+    arm_status ifft_ret;
+    (void) ifft_ret;
+    ifft_ret = arm_rfft_init_q15(&ifft, FFT_N, 1, 1);
+
+    arm_rfft_q15(&ifft, bins.buff, wave.buff);
+
+    for(int i = 0; i < FFT_N; i++) {
+        wave.buff[i] = wave.buff[i] + 2048; // Scale down and shift to unsigned range
     }
+
 
     DMA1_Channel3->CNDTR = FFT_N;                   // 64 Transfers
 
@@ -141,6 +172,17 @@ void analog_runifft(void)
 
     xSemaphoreTake(xAnalogSemaphore, portMAX_DELAY);// Wait for ADC conversion to complete
     TIM6->CR1 &= ~TIM_CR1_CEN;                      // Stop TIM6
+
+    for(int i = 0; i < FFT_N; i++) {
+        adc_buff[i] = adc_buff[i] - 2048; // Shift back to signed range
+    }
+    arm_rfft_instance_q15 fft;
+    arm_status fft_ret;
+    (void) fft_ret;
+    fft_ret = arm_rfft_init_q15(&fft, FFT_N, 0, 1);
+
+    arm_rfft_q15(&fft, adc_buff, fft_buff);
+    __NOP();
 }
 
 
