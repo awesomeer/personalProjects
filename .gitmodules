@@ -1,7 +1,9 @@
-[submodule "submodules/STM32CubeL4"]
-	path = submodules/STM32CubeL4
-	url = https://github.com/STMicroelectronics/STM32CubeL4.git
-	branch = master
 [submodule "submodules/FreeRTOS"]
 	path = submodules/FreeRTOS
 	url = https://github.com/FreeRTOS/FreeRTOS.git
+[submodule "submodules/CMSIS-DSP"]
+	path = submodules/CMSIS-DSP
+	url = https://github.com/ARM-software/CMSIS-DSP.git
+[submodule "submodules/cmsis-device-l4"]
+	path = submodules/cmsis-device-l4
+	url = https://github.com/STMicroelectronics/cmsis-device-l4.git
