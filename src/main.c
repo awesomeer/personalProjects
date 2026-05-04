@@ -13,19 +13,33 @@
 #include <led.h>
 #include <usart2.h>
 #include <cli.h>
+#include <hub75.h>
 
 int main( void )
 {
 
-    /* Turn on HSI16 clock */
-    RCC->CR |= RCC_CR_HSION;
-    while (!(RCC->CR & RCC_CR_HSIRDY));
-    /* Select HSI16 as system clock source */
-    RCC->CFGR |= RCC_CFGR_SW_HSI;
+    // Change Flash latency for 80MHz
+    FLASH->ACR |= FLASH_ACR_LATENCY_4WS; // 4 wait states for 80MHz
+
+    // Use PLL to get 80MHz system clock
+    RCC->CR |= RCC_CR_HSION; // Enable HSI16
+    while (!(RCC->CR & RCC_CR_HSIRDY)); // Wait for HSI16 to be ready
+    RCC->PLLCFGR = (0 << RCC_PLLCFGR_PLLM_Pos) | // PLLM = 1
+                   (10 << RCC_PLLCFGR_PLLN_Pos) | // PLLN = 10
+                   (0 << RCC_PLLCFGR_PLLP_Pos) | // PLLP = 7 (not used)
+                   (0 << RCC_PLLCFGR_PLLQ_Pos) | // PLLQ = 2 (not used)
+                   (0 << RCC_PLLCFGR_PLLR_Pos) | // PLLR = 2
+                   RCC_PLLCFGR_PLLREN | // Enable PLLR output
+                   RCC_PLLCFGR_PLLSRC_HSI; // HSI16 as PLL source
+    RCC->CR |= RCC_CR_PLLON; // Enable PLL
+    while (!(RCC->CR & RCC_CR_PLLRDY)); // Wait for PLL to be ready
+    RCC->CFGR |= RCC_CFGR_SW_PLL; // Select PLL as system clock source
+    while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_PLL); // Wait for PLL to be used as system clock source
 
     SystemCoreClockUpdate();
 
     LD3_init();
+    hub75_draw();
     usart2_init();
     static StaticTask_t cliTaskTCB;
     static StackType_t cliTaskStack[ 256 ];
@@ -60,7 +74,7 @@ int main( void )
         if( xTaskGetTickCount() - xTickCount >= configTICK_RATE_HZ )
         {
             xTickCount = xTaskGetTickCount();
-            LD3_toggle();
+            //LD3_toggle();
         }
     }
 
